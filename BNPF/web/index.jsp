@@ -6,7 +6,7 @@
 		<title>BNPF - Base Nacional Pessoa Física</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	</head>
-	<body>
+	<body style=" position: relative;">
 	  
 		
 		<nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
@@ -24,7 +24,7 @@
 	<div class="container">
 		 <div id="" class="col-12 col-xl-12 col-lg-12 col-md-12">
 
-			<section>
+			<section style="padding-bottom: 70px;">
 				<h2><strong>Base Nacional de Pessoas Físicas</strong></h2>
 				<p>A BNPF é uma base de dados brasileira que possui a capacidade de armazenar e gerenciar uma grande quantidade de dados de forma eficiente. Nesta base de dados são armazenadas informações de pessoas físicas, de dívidas que possuem e de ações judiciais nas quais estão envolvidas. Você pode consultar informações de uma Unidade Federativa (UF) ou informações sobre uma pessoa física.
 				</p>
@@ -65,18 +65,14 @@
 	  </div>
 		
 	<br>
-		
-	  <div class="card-footer">
-			<div class="wrap d-flex flex-col-12">
-			<div class="align-content-center">
-            	<span class="text-muted">©2019 BNPF</span>
-			</div>
-        	<div class="align-content-end">
-            	<a href="#">Termos de uso</a>
-            	<a href="#">Privacidade</a>
-        	</div>
-			</div>
-		</div>
         
+	  
+        <footer style="position: absolute; bottom: 0px;  width: 100%; background-color: rgb(220,220,220);" >
+            <ul style="text-align: center;">
+                <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
+                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Termos de uso</a></li>
+                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Privacidade</a></li>
+            </ul>
+        </footer>
     </body>
 </html>
