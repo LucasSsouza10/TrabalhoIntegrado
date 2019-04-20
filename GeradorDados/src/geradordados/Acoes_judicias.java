@@ -5,6 +5,7 @@
  */
 package geradordados;
 
+import Conexao.ConexaoDB;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,7 +20,7 @@ import java.util.Random;
  * @author lucca
  */
 public class Acoes_judicias {
-    public static void main(String[] args){
+    public static void gerarAcoesJudicias(){
         try {
              BufferedReader lerArqCpf = new BufferedReader(new InputStreamReader(new FileInputStream("cpfs.txt"), "ISO-8859-1"));
              BufferedReader lerArqCnpj = new BufferedReader(new InputStreamReader(new FileInputStream("gerarcnpj.txt"), "ISO-8859-1"));
@@ -39,23 +40,29 @@ public class Acoes_judicias {
                  cnpj = lerArqCnpj.readLine();
              }
              
+             ConexaoDB con = new ConexaoDB();
+             
              while(cpf != null){
                  int j = random.nextInt(4);
                  for(int k = 0; k < j; k++){
                      
                     int i = random.nextInt(ArrayCnpj.size());
                     if(random.nextBoolean())
-                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  gerarSP() + "','" + GeradorDados.gerarData() + "'," + Float.toString(300 + random.nextInt(50000)) + ");";
+                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(18) + "'," + Float.toString(300 + random.nextInt(50000)) + ");";
                     else{
-                        while((cpfAux = GeradorDados.gerarCpf()).equals(cpf)){
+                        while((cpfAux = PessoaFisica.gerarCpf()).equals(cpf)){
                         
                         }
-                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  cpfAux + "','" +  gerarSP() + "','" + GeradorDados.gerarData() + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
+                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  cpfAux + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(18) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
                     }
-                    gravarArq.write(ins + "\n");
+                    
                     
                  }
-                 cpf = lerArqCpf.readLine();
+                 
+                 if(con.insere(ins)){
+                    gravarArq.write(ins + "\n");
+                    cpf = lerArqCpf.readLine();
+                 }
              }
              
              lerArqCnpj.close();
@@ -93,4 +100,5 @@ public class Acoes_judicias {
         }
         return null;
     }
+
 }

@@ -5,6 +5,7 @@
  */
 package geradordados;
 
+import Conexao.ConexaoDB;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,7 +21,7 @@ import java.util.Random;
  * @author lucca
  */
 public class Dividas {
-     public static void main(String[] args) {
+     public static void gerarDividas() {
          try {
              BufferedReader lerArqCpf = new BufferedReader(new InputStreamReader(new FileInputStream("cpfs.txt"), "ISO-8859-1"));
              BufferedReader lerArqCnpj = new BufferedReader(new InputStreamReader(new FileInputStream("gerarcnpj.txt"), "ISO-8859-1"));
@@ -39,17 +40,22 @@ public class Dividas {
                  cnpj = lerArqCnpj.readLine();
              }
              
+            ConexaoDB con = new ConexaoDB();
+             
              while(cpf != null){
                  int j = random.nextInt(4);
                  for(int k = 0; k < j; k++){
                      
                     int i = random.nextInt(ArrayCnpj.size());
 
-                    ins = "insert into divida values ('" + gerarContrato() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  GeradorDados.gerarData() + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
-                    gravarArq.write(ins + "\n");
+                    ins = "insert into divida values ('" + gerarContrato() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" + PessoaFisica.gerarData(18) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
+                    
                     
                  }
-                 cpf = lerArqCpf.readLine();
+                 if(con.insere(ins)){
+                    gravarArq.write(ins + "\n");
+                    cpf = lerArqCpf.readLine();
+                 }
              }
              
              lerArqCnpj.close();
