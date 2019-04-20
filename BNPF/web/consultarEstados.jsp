@@ -1,18 +1,11 @@
-<%-- 
-    Document   : consultarEstados
-    Created on : 19/04/2019, 13:31:00
-    Author     : leona
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <title>BNPF - Consultar</title>
-         <link rel="stylesheet" type="text/css" href="styleConsultarEstados.css">
+        <title>BNPF - Consultar</title>
+        <link rel="stylesheet" type="text/css" href="styleConsultarEstados.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
@@ -27,21 +20,34 @@
                         <li class="nav-item"><button type="button" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
                   </ul>
         </nav>
-        <section>
-            <article>
-                <div class="container" style="width: 400px; padding: 20px 0px;">
-                    <h2>Horizontal form</h2>
-                    <form id="signup" autocomplete="on" action="/action_page.php" style="text-align: center;">
-                        <p class="row">
-                            <label class="col-6" for="dataI" style="width: 100px;">Data inicial</label>
-                            <input type="date" class="form-control" id="dataInicial" value="aaaa-mm-dd" style="width: 47%">
-                        </p>
-                        <p class="row">
-                            <label class="col-6" for="dataF">Data final</label>
-                            <input type="date" class="form-control" id="dataFinal" value="aaaa-mm-dd" style="width: 47%">
-                        </p>
-                       <button type="submit" class="btn btn-success">Consultar</button>
-
+        
+        <section style="margin-top: 20px;">
+            <div class="col-md-6 offset-md-3">
+                <h2><strong>Consultar Estados</strong></h2>
+                <p>Esta consulta foi criada com o foco estatístico. Para realizar a consulta, deve-se fornecer um determinado intervalo de tempo e o sistema irá buscar por todas as dividas e ações judiciais que ocorreram neste período. Por fim, o resultado da consulta tráz diversos dados quantitativos para cada UF como: a soma do valor das dívidas, número de devedores, número de dívidas, soma dos valores em ações judiciais e também o número de ações judiciais
+                </p>
+            </div>
+            
+            <article style="width: 500px; margin-top: 0px;">
+                <div class="container" style="width: 400px;">
+                    <h3>Realizar a consulta</h3> 
+                    <p style="margin-bottom: 20px;">Informe o intervalo de tempo nos campos abaixo!</p>
+                    <form id="signup" autocomplete="on" action="/action_page.php" ">
+                        <div class="form-group">
+                            <div class="col-md-6 offset-md-3">
+                                <label> Data inicial</label>
+                                <input type="date" class="form-control" id="dataInicial" value="aaaa-mm-dd" style="width: 140%; margin-left: -20%;">  
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6 offset-md-3">
+                                <label style="margin-top: 10px;"> Data final</label>
+                                <input type="date" class="form-control" id="dataFinal" value="aaaa-mm-dd" style="width: 140%; margin-left: -20%;"> 
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary">Consultar</button>
+                        </div>
                     </form>
                 </div>
             </article>

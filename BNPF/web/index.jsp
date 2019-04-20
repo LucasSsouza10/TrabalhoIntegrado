@@ -1,4 +1,4 @@
-<!--<%@page contentType="text/html" pageEncoding="UTF-8"%>-->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -15,7 +15,7 @@
 			</a>
 			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 				<li class="nav-item" ><a class="nav-link p-2" href="#">Home</a></li>
-				<li class="nav-item"><button type="button" class="btn btn-outline-light" style="margin-right: 10px;">Consultar Estados</button>
+				<li class="nav-item"><a class="btn btn-outline-light" href="consultarEstados.jsp" style="margin-right: 10px;">Consultar Estados</a>
 				<li class="nav-item"><button type="button" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
 			  </ul>
 		</nav>
@@ -37,7 +37,7 @@
 							<center><img src="brasil1.png" style="height: 300px"></center>
 							<br>
 							<h3>Consultar Estados</h3>
-							<p>Para consultar informações sobre dívidas e ações judiciais de um Estado, você deve especificar um período de tempo referente à data em que elas ocorreram. </p>
+							<p>Para consultar informações sobre dívidas e ações judiciais dos Estados, você deve especificar um período de tempo referente à data em que elas ocorreram. </p>
 							<div class="d-flex justify-content-end">
 								<button type="button" class="btn btn-primary">Consultar</button>
 							</div>
@@ -51,7 +51,7 @@
 							<center><img src="pessoas.png" style="height: 300px"></center>
 							<br>
 							<h3>Consultar Pessoas</h3>
-							<p>Para consultar informações pessoais e sobre dívidas e ações judiciais de pessoas, você deve especificar um trecho de nome e ano de nascimento da pessoa. </p>
+							<p>Para consultar informações pessoais e sobre dívidas e ações judiciais de pessoas, você deve especificar um trecho de nome e intervalo de ano de nascimento da pessoa. </p>
 							<div class="d-flex justify-content-end">
 								<button type="button" class="btn btn-primary">Consultar</button>
 							</div>
