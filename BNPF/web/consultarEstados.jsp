@@ -12,42 +12,49 @@
          <title>BNPF - Consultar</title>
          <link rel="stylesheet" type="text/css" href="styleConsultarEstados.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
     <body>
+        <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
+                <a class="navbar-brand" href="#">
+                        <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
+                </a>
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                        <li class="nav-item" ><a class="nav-link p-2" href="index.jsp">Home</a></li>
+                        <li class="nav-item"><button type="button" class="btn btn-outline-light active" href="#" style="margin-right: 10px;">Consultar Estados</button>
+                        <li class="nav-item"><button type="button" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
+                  </ul>
+        </nav>
         <section>
             <article>
-              <h1>Sign Up</h1>
-              <form id="signup" autocomplete="on">
-                <p class="row"> <!-- Username field -->
-                    <label for="username">Username</label>
-                    <input class="right" type="text" id="username">
-                </p>
-              </form>
-        </article>
-      </section>
-        <section>
-            <article>
-                <h3>Informações para a consulta</h3>
-                <form id="consulta1" autocomplete="on">
-                    <p class="row"> <!-- Username field -->
-                        <label for="username">Username</label>
-                        <input class="right" type="text" id="username">
-                    </p>
-                    <p class="row"> <!-- Date of Birth field -->
-                        <label for="dob">Data inicial</label>
-                        <input class="right" type="date" value="1930-01-01" id="dataInicial">
-                    </p>
-                    <p class="row"> <!-- Date of Birth field -->
-                        <label for="dob">Data final</label>
-                        <input class="" type="date" value="2010-12-31" id="dataFinal">
-                    </p>
+                <div class="container" style="width: 400px; padding: 20px 0px;">
+                    <h2>Horizontal form</h2>
+                    <form id="signup" autocomplete="on" action="/action_page.php" style="text-align: center;">
+                        <p class="row">
+                            <label class="col-6" for="dataI" style="width: 100px;">Data inicial</label>
+                            <input type="date" class="form-control" id="dataInicial" value="aaaa-mm-dd" style="width: 47%">
+                        </p>
+                        <p class="row">
+                            <label class="col-6" for="dataF">Data final</label>
+                            <input type="date" class="form-control" id="dataFinal" value="aaaa-mm-dd" style="width: 47%">
+                        </p>
+                       <button type="submit" class="btn btn-success">Consultar</button>
 
-
-
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    </form>
+                </div>
             </article>
         </section>
+        
+        
+        <footer style="position: absolute; bottom: 0px;  width: 100%; background-color: rgb(220,220,220);" >
+            <ul style="text-align: center;">
+                <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
+                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Termos de uso</a></li>
+                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Privacidade</a></li>
+            </ul>
+        </footer>
         
         
     </body>

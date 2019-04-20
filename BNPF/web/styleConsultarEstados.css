@@ -38,10 +38,10 @@ form {
 }
 
 article {
-  width: 500px;
+  width: 600px;
   margin: 0px auto; 
   margin-top: 50px; 
-  padding: 0px 20px; 
+  padding: 20px 20px; 
   border: solid 1px #999;
   -webkit-border-radius: 12px; 
      -moz-border-radius: 12px; 
