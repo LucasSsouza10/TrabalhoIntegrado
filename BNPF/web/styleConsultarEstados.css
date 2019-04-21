@@ -2,6 +2,7 @@ html {
   height: 100%;
 }
 body {
+   
   min-width: 500px;
   margin: 0;
   padding: 0;
@@ -20,4 +21,9 @@ article {
   -webkit-border-radius: 12px; 
      -moz-border-radius: 12px; 
           border-radius: 12px;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #b0bec5;
 }

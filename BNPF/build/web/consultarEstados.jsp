@@ -1,13 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
+
+    
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>BNPF - Consultar</title>
+        <title>BNPF - Consultar Estados</title>
         <link rel="stylesheet" type="text/css" href="styleConsultarEstados.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--%>
         <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+        
         <script>
             $(document).ready(function() {
              
@@ -49,7 +50,7 @@
                             type: "GET", 
                             url: "consulta1", 
                             dataType: "html", 
-                            data: { dI: $('#dataInicial').val(), dF: $('#dataFinal').val() },
+                            data: { op: 1, dI: $('#dataInicial').val(), dF: $('#dataFinal').val() },
                             success: function(data) {
                               $("#secao").html(data);
                             }
@@ -57,7 +58,58 @@
                     }
                 });
                 
+                $(document.body).on('click', '#consultar1', function(){
+                    var dataF1 = document.getElementById('dataFinal1'),
+                    dataI1 = document.getElementById('dataInicial1');
+                    if($(dataF1).val() < $(dataI1).val()){
+                        alert('Coloque um intervalo de tempo válido!')
+                    }
+                    else{
+                        $.ajax({
+                            type: "GET", 
+                            url: "consulta1", 
+                            dataType: "html", 
+                            data: { op: 2, dI: $('#dataInicial1').val(), dF: $('#dataFinal1').val() },
+                            success: function(data) {
+                              $("#resul").html(data);
+                            }
+                        });
+                    }
+                });
+                $(document.body).on('focusout', '#dataInicial1', function(){
+                    var dataF1 = document.getElementById('dataFinal1'),
+                    dataI1 = document.getElementById('dataInicial1'),
+                    err_message1 = document.getElementById('err-message1');
+                   
+                    if($(dataF1).val() < $(dataI1).val()){
+                        $(err_message1).fadeIn('slow', function(){
+                            $(this).html('Data Inicial é maior que a data final, coloque um intervalo válido!');
+                        });
+                    }
+                    else{
+                        $(err_message1).fadeIn('slow', function(){
+                            $(this).html('');
+                        });
+                    }
+                });
                 
+                $(document.body).on('focusout', '#dataFinal1', function(){
+                    var dataF1 = document.getElementById('dataFinal1'),
+                    dataI1 = document.getElementById('dataInicial1'),
+                    err_message1 = document.getElementById('err-message1');
+                   
+                    if($(dataF1).val() < $(dataI1).val()){
+                        $(err_message1).fadeIn('slow', function(){
+                            $(this).html('Data Inicial é maior que a data final, coloque um intervalo válido!');
+                        });
+                    }
+                    else{
+                        $(err_message1).fadeIn('slow', function(){
+                            $(this).html('');
+                        });
+                    }
+                    
+                });
             });
             
             function validateForm() {
@@ -74,7 +126,7 @@
                 
             }
         </script>
-    </head>
+    
     <body>
         <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
                 <a class="navbar-brand" href="#">
@@ -87,7 +139,7 @@
                   </ul>
         </nav>
         
-        <section name="secao" style="margin-top: 10px;" id="secao" ajax="true">
+        <section name="secao" style="margin-top: 10px; padding-bottom: 70px;" id="secao" ajax="true">
            
             <div class="col-md-6 offset-md-3">
                 <h2><strong>Consultar Estados</strong></h2>
@@ -135,4 +187,4 @@
         
         
     </body>
-</html>
+
