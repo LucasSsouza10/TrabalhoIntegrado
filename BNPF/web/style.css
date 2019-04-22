@@ -1,37 +1,23 @@
-*{
-    margin: 0;
-    padding: 0;
-    border:  0;
+.form-container{
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+    margin: 10px ;
 }
 
-.card-body{
-    text-align: center;
-    width: 400px;
-    padding: 20px 20px;
-    position: relative;
-    top: 200px;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    border: solid 1px deeppink;
-    -webkit-border-radius: 12px; 
-    -moz-border-radius: 12px; 
-    border-radius: 12px;
+.form-inline{
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+    margin: 10px 0px;
 }
-
-
-.form-control{
-    position: relative;
-    left: calc(50% - 50px);
-    width: 100px;
-    text-align: center; 
-    border: solid 1px deeppink ;
-    -webkit-border-radius: 12px; 
-    -moz-border-radius: 12px; 
-    border-radius: 12px;
-}
-
 
 .table-responsive{
     display: none;
+}
+
+input{
+    width: 30%;S
 }

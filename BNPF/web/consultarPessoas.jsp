@@ -13,7 +13,11 @@
         $(document).ready(function(){
             $( "#target" ).click(function() {
                 $('#texto').hide();
-                $('#card').hide();
+                $('#card').hide();  
+                $('#form').removeClass('form-container');
+                $('#form').addClass('form-inline');
+                $('div').removeClass('form-group');
+                $('#target').css("margin-top", "10px");
                 $('#tabela').show();
             });
         });
@@ -32,7 +36,7 @@
             </ul>
         </nav>
         
-        <section>
+        <section class="container-fluid S">
             <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Pessoas</strong></h2>
                 <p>
@@ -40,18 +44,25 @@
                 </p>
             </div>
             
-            <article class="card-body" id="card">
-                <div >
-                    <h3>Realizar a consulta</h3> 
-                    <p style="margin-bottom: 20px;">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="signup" autocomplete="on" action="/action_page.php" ">
-                        <p><label> Ano inicial: </label> <input class="form-control" type="number" name="quantity" min="1920" max="2019" value="1920" ></p>
-                        <p><label style="margin-top: 10px;"> Ano final:</label> <input class="form-control" type="number" name="quantity" min="1920" max="2019" value="2019"></p>
+            <section class="row justify-content-center">
+                <article class="col-12 col-sm-6 col-md-3 ">
+                    <form id="form" class="form-container">
+                        <div class="form-group">
+                            <label for="email">Ano Inicial:</label>
+                            <input type="number" class="form-control" name="quantity" min="1920" max="2019" value="1920">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Ano Final:</label>
+                            <input type="number" class="form-control" name="quantity" min="1920" max="2019" value="2019">
+                        </div>
+
                         <button id="target" type="button" class="btn btn-primary">Consultar</button>
                     </form>
-                </div>
-            </article>
-            
+                </article>
+            </section>
+        </section>
+        
+        <section>
             <div id="tabela" class="table-responsive">
                 <table class="table">
                     <tr>
