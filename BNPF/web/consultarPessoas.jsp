@@ -14,9 +14,9 @@
             $( "#target" ).click(function() {
                 $('#texto').hide();
                 $('#card').hide();  
-                $('#form').removeClass('form-container');
                 $('#form').addClass('form-inline');
                 $('div').removeClass('form-group');
+                $('input').css('margin-right', '10px');
                 $('#target').css("margin-top", "10px");
                 $('#tabela').show();
             });
@@ -46,6 +46,8 @@
             
             <section class="row justify-content-center">
                 <article class="col-12 col-sm-6 col-md-3 ">
+                    <h3>Realizar a consulta</h3> 
+                    <p>Informe o intervalo de tempo nos campos abaixo!</p>
                     <form id="form" class="form-container">
                         <div class="form-group">
                             <label for="email">Ano Inicial:</label>

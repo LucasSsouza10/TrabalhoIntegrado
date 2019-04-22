@@ -4,8 +4,8 @@
     
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BNPF - Consultar Estados</title>
-        <link rel="stylesheet" type="text/css" href="styleConsultarEstados.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--%>
         <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
         
@@ -64,17 +64,8 @@
                     if($(dataF1).val() < $(dataI1).val()){
                         alert('Coloque um intervalo de tempo válido!')
                     }
-                    else{
-                        $.ajax({
-                            type: "GET", 
-                            url: "consulta1", 
-                            dataType: "html", 
-                            data: { op: 2, dI: $('#dataInicial1').val(), dF: $('#dataFinal1').val() },
-                            success: function(data) {
-                              $("#resul").html(data);
-                            }
-                        });
-                    }
+                    
+                    $('')
                 });
                 $(document.body).on('focusout', '#dataInicial1', function(){
                     var dataF1 = document.getElementById('dataFinal1'),
@@ -147,33 +138,28 @@
                 </p>
             </div>
             
-            <article style="width: 500px; margin-top: -10px;">
-                <div class="container" style="width: 400px; margin-top: -10px">
-                    <h3 style="margin-bottom: 0px;">Realizar a consulta</h3> 
-                    <p style="margin-bottom: 5px; margin-top: -5px;">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="consultaInicial" autocomplete="on" onsubmit="return validateForm()">
-                    
-                        <div class="form-group">
-                            <div class="col-md-6 offset-md-3">
-                                <label style="margin-left: 20%;"> Data inicial</label>
-                                <input type="date" class="form-control" id="dataInicial" value="1938-01-01" style="width: 140%; margin-left: -20%;">  
+            <section class="row justify-content-center">
+                <article class="col-12 col-sm-6 col-md-3">
+                        <h3>Realizar a consulta</h3> 
+                        <p>Informe o intervalo de tempo nos campos abaixo!</p>
+                        <form class="form-container" autocomplete="on" onsubmit="return validateForm()">
+                            <div class="form-group">
+                                    <label> Data inicial</label>
+                                    <input type="date" class="form-control" id="dataInicial" value="1938-01-01">  
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 offset-md-3">
-                                <label style="margin-top: 5px; margin-left: 20%;"> Data final</label>
-                                <input type="date" class="form-control" id="dataFinal" value="2019-01-01" style="width: 140%; margin-left: -20%;"> 
+                            <div class="form-group">
+                                    <label> Data final</label>
+                                    <input type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                             </div>
-                        </div>
-                        <p style="text-align: center;">
-                           
-                            <span class="right" id="err-message" style="color: darkred;"></span>
-                        </p>
-                        <p style="text-align: center;"><input type="button" id="consultar" class="btn btn-primary" value="Consultar"></p>
-                        
-                    </form>
-                </div>
-            </article>
+                            <p style="text-align: center;">
+
+                                <span class="right" id="err-message" style="color: darkred;"></span>
+                            </p>
+                            <p style="text-align: center;"><input type="button" id="consultar" class="btn btn-primary" value="Consultar"></p>
+
+                        </form>
+                </article>
+            </section>
         </section>
         
         
