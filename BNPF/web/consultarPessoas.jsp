@@ -16,36 +16,45 @@
             err_message = document.getElementById('err-message');
            
             
-            $(anoInicial).focusout(function() {
-                if($(anoFinal).val() < $(anoInicial).val()){
-                    $(err_message).fadeIn('slow', function(){
-                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
-                    });
-                }
-                else{
-                    $(err_message).fadeOut(1000, function(){
-                        $(this).html('');
-                    });
-                }
-            });
-            
-            $(anoFinal).focusout(function() {
-                if($(anoFinal).val() < $(anoInicial).val()){
-                    $(err_message).fadeIn('slow', function(){
-                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
-                    });
-                }
-                else{
-                    $(err_message).fadeOut(1000, function(){
-                        $(this).html('');
-                    });
-                }
-            });
-            
-        
-        //Funcao para trocar de tela quando clica no botao id=consultaE1
+            //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
                 window.location.href = "consultarEstados.jsp"
+            });
+            
+            $(document.body).on('focusout', '#anoInicial', function(){
+                
+                var anoFinal = document.getElementById('anoFinal'),
+                anoInicial = document.getElementById('anoInicial'),
+                err_message = document.getElementById('err-message');
+            
+                if($(anoFinal).val() < $(anoInicial).val()){
+                    $(err_message).fadeIn('slow', function(){
+                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                    });
+                }
+                else{
+                    $(err_message).fadeOut(1000, function(){
+                        $(this).html('');
+                    });
+                }
+            });
+            
+            $(document.body).on('focusout', '#anoFinal', function(){
+                var anoFinal = document.getElementById('anoFinal'),
+                    anoInicial = document.getElementById('anoInicial'),
+                    err_message = document.getElementById('err-message');
+                
+            
+                if($(anoFinal).val() < $(anoInicial).val()){
+                    $(err_message).fadeIn('slow', function(){
+                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                    });
+                }
+                else{
+                    $(err_message).fadeOut(1000, function(){
+                        $(this).html('');
+                    });
+                }
             });
             
             $( "#target" ).click(function() {
@@ -71,7 +80,8 @@
                         success: function(data) {
                           $("#corpoTable").html(data);
                         }
-                    }); 
+                    });
+                }
             });
         });
     </script>
