@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package geradordados;
 
 import Conexao.ConexaoDB;
@@ -15,15 +10,7 @@ import java.io.OutputStreamWriter;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
- *
- * @author lucca
- */
 public class PessoaFisica {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void gerarPessoaFisica() {
         try {
             BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("nomes.txt"), "ISO-8859-1"));
@@ -31,26 +18,26 @@ public class PessoaFisica {
             OutputStreamWriter gravarArq1 = new OutputStreamWriter(new FileOutputStream("cpfs.txt"),"UTF-8");
  
             String linha = lerArq.readLine(); // lê a primeira linha
-      // a variável "linha" recebe o valor "null" quando o processo
-      // de repetição atingir o final do arquivo texto
+            // a variável "linha" recebe o valor "null" quando o processo
+            // de repetição atingir o final do arquivo texto
             ConexaoDB con = new ConexaoDB();
         
             while (linha != null) {
-              String cpf = gerarCpf();
-              String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha + "'" + ", " + "'" + gerarData(0) + "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
-              if(con.insere(ins)){
-                gravarArq.write(ins + "\n");
-                gravarArq1.write(cpf + "\n");
-                linha = lerArq.readLine(); // lê da segunda até a última linha
-              }
+                String cpf = gerarCpf();
+                String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha + "'" + ", " + "'" + gerarData(0) + "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
+                if(con.insere(ins)){
+                  gravarArq.write(ins + "\n");
+                  gravarArq1.write(cpf + "\n");
+                  linha = lerArq.readLine(); // lê da segunda até a última linha
+                }
             }
 
             lerArq.close();
             gravarArq.close();
             gravarArq1.close();
         } catch (IOException e) {
-              System.err.printf("Erro na abertura do arquivo: %s.\n",
-                e.getMessage());
+            System.err.printf("Erro na abertura do arquivo: %s.\n",
+            e.getMessage());
         }
     }
 
@@ -60,7 +47,12 @@ public class PessoaFisica {
         int digito;
         int v1= 0, v2 = 0, id = 8;
         for (int i = 0; i < 9; i++) {
-            digito  = gerador.nextInt(10);
+            if(i == 0){
+                digito  = gerador.nextInt(9) + 1;
+            }
+            else{
+                digito  = gerador.nextInt(10);
+            }
             str = str + Integer.toString(digito);
             v1 = v1 + digito * (9 - (id % 10));
             v2 = v2 + digito * (9 - ((id + 1)%10));
