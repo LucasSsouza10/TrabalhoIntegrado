@@ -7,13 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 public class Acoes_judicias {
     public static void gerarAcoesJudicias(){
         try {
             BufferedReader lerArqCpf = new BufferedReader(new InputStreamReader(new FileInputStream("cpfs.txt"), "ISO-8859-1"));
+            BufferedReader lerArqDatas = new BufferedReader(new InputStreamReader(new FileInputStream("datas.txt"), "ISO-8859-1"));
             BufferedReader lerArqCnpj = new BufferedReader(new InputStreamReader(new FileInputStream("gerarcnpj.txt"), "ISO-8859-1"));
             OutputStreamWriter gravarArq = new OutputStreamWriter(new FileOutputStream("Acoes_judiciais.sql"),"UTF-8");
 
@@ -21,6 +27,7 @@ public class Acoes_judicias {
             Random random = new Random();
             ArrayList<String> ArrayCnpj = new ArrayList();
             String cpf = lerArqCpf.readLine();
+            String data = lerArqDatas.readLine();
             String cnpj = lerArqCnpj.readLine();
             String ins = "";
             String cpfAux;
@@ -37,15 +44,20 @@ public class Acoes_judicias {
                 int j = random.nextInt(4);
                 int k = 0;
                 while(k < j){ 
-
-                    int i = random.nextInt(ArrayCnpj.size());
+                    
+                   int i = random.nextInt(ArrayCnpj.size());
+                    
+                   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                   LocalDate localDate = LocalDate.parse(data, formatter);
+                   int minDay = (int) localDate.toEpochDay();
+                    
                     if(random.nextBoolean()){
-                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(18) + "'," + Float.toString(300 + random.nextInt(50000)) + ");";
+                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(minDay) + "'," + Float.toString(300 + random.nextInt(50000)) + ");";
 
                     }
                     else{
                         while((cpfAux = PessoaFisica.gerarCpf()).equals(cpf)){ }
-                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  cpfAux + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(18) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
+                        ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  cpfAux + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(minDay) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
 
                     }
                     if(con.insere(ins)){
@@ -55,11 +67,13 @@ public class Acoes_judicias {
 
                 }
                 cpf = lerArqCpf.readLine();
+                data = lerArqDatas.readLine();
 
             }
 
             lerArqCnpj.close();
             lerArqCpf.close();
+            lerArqDatas.close();
             gravarArq.close();
         } catch (IOException  ex) {
             System.err.printf("Erro na abertura do arquivo: %s.\n",

@@ -16,6 +16,7 @@ public class PessoaFisica {
             BufferedReader lerArq = new BufferedReader(new InputStreamReader(new FileInputStream("nomes.txt"), "ISO-8859-1"));
             OutputStreamWriter gravarArq = new OutputStreamWriter(new FileOutputStream("banco.sql"),"UTF-8");
             OutputStreamWriter gravarArq1 = new OutputStreamWriter(new FileOutputStream("cpfs.txt"),"UTF-8");
+            OutputStreamWriter gravarArq2 = new OutputStreamWriter(new FileOutputStream("datas.txt"),"UTF-8");
  
             String linha = lerArq.readLine(); // lê a primeira linha
             // a variável "linha" recebe o valor "null" quando o processo
@@ -24,10 +25,12 @@ public class PessoaFisica {
         
             while (linha != null) {
                 String cpf = gerarCpf();
-                String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha + "'" + ", " + "'" + gerarData(0) + "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
+                String data = gerarData(0);
+                String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha + "'" + ", " + "'" +  data+ "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
                 if(con.insere(ins)){
                   gravarArq.write(ins + "\n");
                   gravarArq1.write(cpf + "\n");
+                  gravarArq2.write(data + "\n");
                   linha = lerArq.readLine(); // lê da segunda até a última linha
                 }
             }
@@ -35,6 +38,7 @@ public class PessoaFisica {
             lerArq.close();
             gravarArq.close();
             gravarArq1.close();
+            gravarArq2.close();
         } catch (IOException e) {
             System.err.printf("Erro na abertura do arquivo: %s.\n",
             e.getMessage());
@@ -68,17 +72,30 @@ public class PessoaFisica {
 
     public static String gerarData(int acrescimo) {
         Random random = new Random();
-        int minDay = (int) LocalDate.of(1920, 1, 1).toEpochDay() + acrescimo;
+        int minDay;
         int maxDay;
-        if(acrescimo == 0)
+        if(acrescimo == 0){
+            minDay = (int) LocalDate.of(1920, 1, 1).toEpochDay();
             maxDay = (int) LocalDate.of(2010, 1, 1).toEpochDay();
-        else
+        }else{
+            minDay = acrescimo;
             maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
+        }
         
         long randomDay = minDay + random.nextInt(maxDay - minDay);
 
         LocalDate randomBirthDate = LocalDate.ofEpochDay(randomDay);
-        String dataFormatada = Integer.toString(randomBirthDate.getDayOfMonth()) + "/" + Integer.toString(randomBirthDate.getMonthValue()) + "/" + Integer.toString(randomBirthDate.getYear());
+        String dataFormatada;
+            if(randomBirthDate.getMonthValue() < 10 && randomBirthDate.getDayOfMonth() < 10)
+                dataFormatada = "0" + Integer.toString(randomBirthDate.getDayOfMonth()) + "/0" + Integer.toString(randomBirthDate.getMonthValue()) + "/" + Integer.toString(randomBirthDate.getYear());
+            else if(randomBirthDate.getMonthValue() < 10)
+                dataFormatada = Integer.toString(randomBirthDate.getDayOfMonth()) + "/0" + Integer.toString(randomBirthDate.getMonthValue()) + "/" + Integer.toString(randomBirthDate.getYear());
+            else if(randomBirthDate.getDayOfMonth() < 10)
+                dataFormatada = "0" + Integer.toString(randomBirthDate.getDayOfMonth()) + "/" + Integer.toString(randomBirthDate.getMonthValue()) + "/" + Integer.toString(randomBirthDate.getYear());
+            else
+                dataFormatada = Integer.toString(randomBirthDate.getDayOfMonth()) + "/" + Integer.toString(randomBirthDate.getMonthValue()) + "/" + Integer.toString(randomBirthDate.getYear());
+
+                
         return dataFormatada;
     }
 
