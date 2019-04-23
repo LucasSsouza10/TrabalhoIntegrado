@@ -11,37 +11,67 @@
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
         $(document).ready(function(){
-            //Funcao para trocar de tela quando clica no botao id=consultaE1
+        var anoFinal = document.getElementById('anoFinal'),
+            anoInicial = document.getElementById('anoInicial'),
+            err_message = document.getElementById('err-message');
+           
+            
+            $(anoInicial).focusout(function() {
+                if($(anoFinal).val() < $(anoInicial).val()){
+                    $(err_message).fadeIn('slow', function(){
+                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                    });
+                }
+                else{
+                    $(err_message).fadeOut(1000, function(){
+                        $(this).html('');
+                    });
+                }
+            });
+            
+            $(anoFinal).focusout(function() {
+                if($(anoFinal).val() < $(anoInicial).val()){
+                    $(err_message).fadeIn('slow', function(){
+                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                    });
+                }
+                else{
+                    $(err_message).fadeOut(1000, function(){
+                        $(this).html('');
+                    });
+                }
+            });
+            
+        
+        //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
                 window.location.href = "consultarEstados.jsp"
             });
             
             $( "#target" ).click(function() {
-                $('#texto').hide();
-                $('#card').hide();  
-                $('div').removeClass('form-group');
-                $('#form').removeClass('form-container');
-                $('#form').addClass('form-inline');
-                $('input').css('margin-right', '10px');
-                $('#target').css("margin-top", "10px");
-                $('#pBotao1').css("margin-top", "8%");
-                $('#titulo1').css("margin-bottom", "0");
-                $('#titulo1').css("margin-top", "5%");
-                $('#texto1').css("margin-bottom", "0");
-                $('#section1').show();
-                $('#section1').css("padding-bottom", "70px");
-                $.ajax({
-                    type: "GET", 
-                    url: "consulta1", 
-                    dataType: "html", 
-                    data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
-                    success: function(data) {
-                      $("#corpoTable").html(data);
-                    }
-                });
-                
-                
-                
+                if($(anoFinal).val() > $(anoInicial).val()){
+                    $('#texto').hide();
+                    $('#card').hide();  
+                    $('div').removeClass('form-group');
+                    $('#form').removeClass('form-container');
+                    $('#form').addClass('form-inline');
+                    $('input').css('margin-right', '10px');
+                    $('#target').css("margin-top", "10px");
+                    $('#pBotao1').css("margin-top", "8%");
+                    $('#titulo1').css("margin-bottom", "0");
+                    $('#titulo1').css("margin-top", "5%");
+                    $('#texto1').css("margin-bottom", "0");
+                    $('#section1').show();
+                    $('#section1').css("padding-bottom", "70px");
+                    $.ajax({
+                        type: "GET", 
+                        url: "consulta1", 
+                        dataType: "html", 
+                        data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
+                        success: function(data) {
+                          $("#corpoTable").html(data);
+                        }
+                    }); 
             });
         });
     </script>
@@ -82,8 +112,13 @@
                         </div>
 
                         
+                        <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
+                        
                         <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary">Consultar</button></p>
+                        
+                        
                     </form>
+                        
                 </article>
             </section>
         </section>
