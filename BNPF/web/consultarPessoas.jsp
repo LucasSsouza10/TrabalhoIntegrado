@@ -5,10 +5,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BNPF - Consultar Pessoas</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="style.css">
+        
     </head>
     
-    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+   <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+    
     <script>
         $(document).ready(function(){
         var anoFinal = document.getElementById('anoFinal'),
@@ -18,8 +31,17 @@
             
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
-                window.location.href = "consultarEstados.jsp"
+                window.location.href = "consultarEstados.jsp";
             });
+            
+            $('#tabela').DataTable({
+                "pagingType'": "numbers",
+                "ordering": false,
+                "searching": false,
+                "bLengthChange" : false
+            });
+            $('.dataTables_length').addClass('bs-select');
+            
             
             $(document.body).on('focusout', '#anoInicial', function(){
                 
@@ -138,7 +160,7 @@
                 <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
                 <div style="width:  70%;">
                     <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
-                    <table class="table table-striped" style="border: solid 1px #999;">
+                    <table id="tabela" class="table table-striped" style="border: solid 1px #999;">
                         <thead class="thead-dark table table-striped">
                         <tr>
                             <th>CPF</th>
