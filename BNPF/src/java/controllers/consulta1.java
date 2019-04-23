@@ -79,9 +79,10 @@ public class consulta1 extends HttpServlet {
                 "</article>" +
                 "<div class=\"row\" style=\"width: 85%; margin-top: 30px; \" id=\"resul\">";
         }
-        else{
+        if(op.equals("2")){
             resultado += "<div class=\"row\" style=\"width: 100%; margin-left: 0%; \" id=\"resul\">";
         }
+        if(op.equals("1") || op.equals("2")){
             resultado += 
                 "<div class=\"col-md-2 rounded\" style=\"margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;\">.col-md-3 .col-md-offset-3</div>" +
                 "<div class=\"col-md-8\" style=\"padding: 0%; margin-left: 1%;\">" +
@@ -107,6 +108,10 @@ public class consulta1 extends HttpServlet {
                     "</table>" +
                   "</div>" +
                 "</div>";
+        }
+        else if(op.equals("3")){
+            resultado += "<tr><td>40510036805</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Solteiro</td><td>2</td><td>2</td></tr>";
+        }
         response.setCharacterEncoding("UTF-8"); 
         PrintWriter writer = response.getWriter();
         writer.print(resultado);

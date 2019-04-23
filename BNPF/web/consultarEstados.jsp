@@ -51,13 +51,28 @@
                     alert('Coloque um intervalo de tempo válido!')
                 }
                 else{
+                    $('#texto').hide();
+                    $('div').removeClass('form-group');
+                    $('#form').removeClass('form-container');
+                    $('#art1').removeClass('col-md-3');
+                    //$('#art1').removeClass('col-sm-6');
+                    $('#art1').addClass('offset-md-2');
+                    $('#form').addClass('form-inline');
+                    $('input').css('margin-right', '10px');
+                    $('#target').css("margin-top", "10px");
+                    $('#pBotao1').css("margin-top", "8%");
+                    $('#titulo1').css("margin-bottom", "0");
+                    $('#titulo1').css("margin-top", "5%");
+                    $('#texto1').css("margin-bottom", "0");
+                    $('#section1').show();
+                    $('#section1').css("padding-bottom", "70px");
                     $.ajax({
                         type: "GET", 
                         url: "consulta1", 
                         dataType: "html", 
-                        data: { op: 1, dI: $('#dataInicial').val(), dF: $('#dataFinal').val() },
+                        data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
                         success: function(data) {
-                          $("#secao").html(data);
+                          $("#corpoTable").html(data);
                         }
                     });
                 }
@@ -137,17 +152,17 @@
         
         <section name="secao" style="margin-top: 10px; padding-bottom: 70px;" id="secao" ajax="true">
            
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Estados</strong></h2>
                 <p>Esta consulta foi criada com o foco estatístico. Para realizar a consulta, deve-se fornecer um determinado intervalo de tempo e o sistema irá buscar por todas as dividas e ações judiciais que ocorreram neste período. Por fim, o resultado da consulta tráz diversos dados quantitativos para cada UF como: a soma do valor das dívidas, número de devedores, número de dívidas, soma dos valores em ações judiciais e também o número de ações judiciais
                 </p>
             </div>
             
             <section class="row justify-content-center" style="width: 100%;">
-                <article class="col-12 col-sm-6 col-md-3">
-                        <h3>Realizar a consulta</h3> 
-                        <p>Informe o intervalo de tempo nos campos abaixo!</p>
-                        <form class="form-container" autocomplete="on" onsubmit="return validateForm()">
+                <article class="col-12 col-sm-6 col-md-3" id="art1">
+                        <h3 id="titulo1">Realizar a consulta</h3> 
+                        <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
+                        <form id="form" class="form-container" autocomplete="on" onsubmit="return validateForm()">
                             <div class="form-group">
                                     <label> Data inicial</label>
                                     <input type="date" class="form-control" id="dataInicial" value="1938-01-01">  
@@ -160,10 +175,34 @@
 
                                 <span class="right" id="err-message" style="color: darkred;"></span>
                             </p>
-                            <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
+                            <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
                         </form>
                 </article>
             </section>
+        </section>
+        
+        <section id="section1" class="table-responsive">
+            <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
+                <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
+                <div style="width:  70%;">
+                    <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
+                    <table class="table table-striped" style="border: solid 1px #999;">
+                        <thead class="thead-dark table table-striped">
+                            <tr>
+                                <th>Unidade Federativa</th> 
+                                <th>Valor das dívidas</th>
+                                <th>Quantidade de devedores</th>
+                                <th>Quantidade de dívidas</th>
+                                <th>Valor das ações judiciais</th>
+                                <th>Quantidade de ações judiciais</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTable">
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
         
         <br>

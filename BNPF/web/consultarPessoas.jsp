@@ -30,6 +30,15 @@
                 $('#texto1').css("margin-bottom", "0");
                 $('#section1').show();
                 $('#section1').css("padding-bottom", "70px");
+                $.ajax({
+                    type: "GET", 
+                    url: "consulta1", 
+                    dataType: "html", 
+                    data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
+                    success: function(data) {
+                      $("#corpoTable").html(data);
+                    }
+                });
                 
                 
                 
@@ -59,17 +68,17 @@
             </div>
             
             <section class="row justify-content-center">
-                <article class="col-12 col-sm-6 col-md-3" id="art1">
+                <article class="col-12 col-sm-6 col-md-3">
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                     <form id="form" class="form-container">
                         <div class="form-group">
                             <label>Ano Inicial:</label>
-                            <input type="number" class="form-control" name="quantity" min="1920" max="2019" value="1920">
+                            <input type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
                         </div>
                         <div class="form-group">
                             <label>Ano Final:</label>
-                            <input type="number" class="form-control" name="quantity" min="1920" max="2019" value="2019">
+                            <input type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                         </div>
 
                         
@@ -80,29 +89,23 @@
         </section>
         
         <section id="section1" class="table-responsive">
-            <div class="row" style="width: 100%; margin-top: 30px;" id="resul">;
-                <div class="col-md-2 rounded" style="margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
-                <div class="col-md-8">
+            <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
+                <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
+                <div style="width:  70%;">
+                    <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
                     <table class="table table-striped" style="border: solid 1px #999;">
                         <thead class="thead-dark table table-striped">
                         <tr>
-                            <th>#</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Age</th>
-                            <th>City</th>
-                            <th>Country</th>
+                            <th>CPF</th>
+                            <th>Nome</th>
+                            <th>Data de nascimento</th>
+                            <th>Estado Civil</th>
+                            <th>Quant. de dívidas</th>
+                            <th>Quant. de ações judiciais</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Anna</td>
-                            <td>Pitt</td>
-                            <td>35</td>
-                            <td>New York</td>
-                            <td>USA</td>
-                          </tr>
+                        <tbody id="corpoTable">
+                          
                         </tbody>
                     </table>
                 </div>
