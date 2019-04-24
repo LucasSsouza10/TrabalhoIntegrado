@@ -98,7 +98,7 @@
                         type: "GET", 
                         url: "consulta1", 
                         dataType: "html", 
-                        data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
+                        data: { op: 2, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
                         success: function(data) {
                           $("#corpoTable").html(data);
                         }

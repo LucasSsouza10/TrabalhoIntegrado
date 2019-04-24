@@ -61,56 +61,22 @@ public class consulta1 extends HttpServlet {
         String dataF = request.getParameter("dF");  
         String resultado = "";
         if(op.equals("1")){
-            resultado += "<article style=\"width: 50%\">" +
-                         "<div class=\"container\" style=\" margin-top: -10px\">" +
-                         "<h3 style=\"margin-bottom: 0px;\">Realizar a consulta de Estados</h3>" + 
-                         "<p style=\"margin-bottom: 10px; margin-top: -5px;\">Informe o intervalo de tempo nos campos abaixo!</p>" +
-                         "<form class=\"form-inline\" id=\"consultaInicial\" autocomplete=\"on\">" +
-                                "<label class=\"mr-sm-2\"> Data inicial</label>" +
-                                "<input type=\"date\" class=\"form-control mb-2 mr-sm-2\" id=\"dataInicial1\" value=\"" + dataI +"\">" + 
-                                "<label class=\"mr-sm-2\" style=\"margin-left: 10px;\"> Data final</label>" +
-                                "<input type=\"date\" class=\"form-control mb-2 mr-sm-2\" id=\"dataFinal1\" value=\"" + dataF + "\">" + 
-                                "<input type=\"button\" id=\"consultar1\" class=\"btn btn-primary mb-2\" value=\"Consultar\" style=\"margin-left: 10px;\">" +
-                        "</form>" +
-                        "<p style=\"text-align: left; margin-bottom: 0px;\">" +
-                            "<span class=\"right\" id=\"err-message1\" style=\"color: darkred;\"></span>" +
-                        "</p>" +
-                    "</div>" +
-                "</article>" +
-                "<div class=\"row\" style=\"width: 85%; margin-top: 30px; \" id=\"resul\">";
+            String ufs[] = {"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR","SC", "SP", "SE", "TO"};
+            Integer qnt1 = 11, qnt2 = 21, qnt3 = 543, valor1 = 5000, valor2 = 91543;
+            for(Integer i = 0; i < 27; i++){
+                resultado += "<tr><td>" + ufs[i] + "</td><td>" + valor1.toString() + "</td><td>" + qnt1.toString() + "</td><td>" + qnt2.toString() + "</td><td>" + valor2.toString() + "</td><td>" + qnt3.toString() + "</td></tr>";
+                qnt1 += 7;
+                qnt2 += 9;
+                qnt3 -= 11;
+                valor1 += 751;
+                valor2 -= 1734;
+            
+            }
         }
-        if(op.equals("2")){
-            resultado += "<div class=\"row\" style=\"width: 100%; margin-left: 0%; \" id=\"resul\">";
-        }
-        if(op.equals("1") || op.equals("2")){
-            resultado += 
-                "<div class=\"col-md-2 rounded\" style=\"margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;\">.col-md-3 .col-md-offset-3</div>" +
-                "<div class=\"col-md-8\" style=\"padding: 0%; margin-left: 1%;\">" +
-                    "<table class=\"table table-striped\" style=\"border: solid 1px #999;\">" +
-                      "<thead class=\"thead-dark table table-striped\">" +
-                        "<tr>" + 
-                          "<th>Unidade Federativa</th>" + 
-                          "<th>Valor das dívidas</th>" +
-                          "<th>Quantidade de devedores</th>" +
-                          "<th>Quantidade de dívidas</th>" +
-                          "<th>Valor das ações judiciais</th>" +
-                          "<th>Quantidade de ações judiciais</th>" +
-                        "</tr>" +
-                      "</thead>" +
-                      "<tbody>";
-                      String con = "";
-                for(int i = 0; i< 27; i++){
-                    con += "<tr><td>AC</td><td>" + i + "</td><td>" + dataF + "</td><td>2</td><td>2</td><td>2</td></tr>";
-                }
-                        
-                resultado += con +
-                      "</tbody>" +
-                    "</table>" +
-                  "</div>" +
-                "</div>";
-        }
-        else if(op.equals("3")){
+        else if(op.equals("2")){
+            resultado += "<tr><td>40510036808</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Solteiro</td><td>2</td><td>2</td></tr>";
             resultado += "<tr><td>40510036805</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Solteiro</td><td>2</td><td>2</td></tr>";
+        
         }
         response.setCharacterEncoding("UTF-8"); 
         PrintWriter writer = response.getWriter();

@@ -9,9 +9,13 @@
     </head>
     
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://tablesorter.com/__jquery.tablesorter.min.js" type="text/javascript"></script> 
+
+
     <script>
         $(document).ready(function() {
-
+           
+            
             var dataF = document.getElementById('dataFinal'),
                 dataI = document.getElementById('dataInicial'),
                 err_message = document.getElementById('err-message');
@@ -46,6 +50,7 @@
                     });
                 }
             });
+            
             $("#consultar").on('click', function(){
                 if($(dataF).val() < $(dataI).val()){
                     alert('Coloque um intervalo de tempo válido!')
@@ -55,22 +60,27 @@
                     $('div').removeClass('form-group');
                     $('#form').removeClass('form-container');
                     $('#art1').removeClass('col-md-3');
-                    //$('#art1').removeClass('col-sm-6');
-                    $('#art1').addClass('offset-md-2');
+                    $('#art1').addClass('offset-md-3');
+                    $('#art1').css("text-align", "center");
                     $('#form').addClass('form-inline');
                     $('input').css('margin-right', '10px');
                     $('#target').css("margin-top", "10px");
-                    $('#pBotao1').css("margin-top", "8%");
+                    $('#pBotao1').css("margin-top", "7%");
+                    $('#pBotao1').css("margin-left", "10%");
                     $('#titulo1').css("margin-bottom", "0");
-                    $('#titulo1').css("margin-top", "5%");
-                    $('#texto1').css("margin-bottom", "0");
+                    $('#secao').css("padding-bottom", "0");
+                    $('#form').css("width", "90%");
+                    $('#form').css("margin-left", "5%");
+                    $('#art1').css("margin-left", "3%");
+                    $('#texto1').css("margin-bottom", "15px");
+                   
                     $('#section1').show();
                     $('#section1').css("padding-bottom", "70px");
                     $.ajax({
                         type: "GET", 
                         url: "consulta1", 
                         dataType: "html", 
-                        data: { op: 3, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
+                        data: { op: 1, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
                         success: function(data) {
                           $("#corpoTable").html(data);
                         }
@@ -78,49 +88,8 @@
                 }
             });
 
-            $(document.body).on('click', '#consultar1', function(){
-                var dataF1 = document.getElementById('dataFinal1'),
-                dataI1 = document.getElementById('dataInicial1');
-                if($(dataF1).val() < $(dataI1).val()){
-                    alert('Coloque um intervalo de tempo válido!')
-                }
-
-                $('')
-            });
-            $(document.body).on('focusout', '#dataInicial1', function(){
-                var dataF1 = document.getElementById('dataFinal1'),
-                dataI1 = document.getElementById('dataInicial1'),
-                err_message1 = document.getElementById('err-message1');
-
-                if($(dataF1).val() < $(dataI1).val()){
-                    $(err_message1).fadeIn('slow', function(){
-                        $(this).html('Data Inicial é maior que a data final, coloque um intervalo válido!');
-                    });
-                }
-                else{
-                    $(err_message1).fadeIn('slow', function(){
-                        $(this).html('');
-                    });
-                }
-            });
-
-            $(document.body).on('focusout', '#dataFinal1', function(){
-                var dataF1 = document.getElementById('dataFinal1'),
-                dataI1 = document.getElementById('dataInicial1'),
-                err_message1 = document.getElementById('err-message1');
-
-                if($(dataF1).val() < $(dataI1).val()){
-                    $(err_message1).fadeIn('slow', function(){
-                        $(this).html('Data Inicial é maior que a data final, coloque um intervalo válido!');
-                    });
-                }
-                else{
-                    $(err_message1).fadeIn('slow', function(){
-                        $(this).html('');
-                    });
-                }
-
-            });
+            
+            
         });
 
         function validateForm() {
@@ -136,6 +105,80 @@
             }
 
         }
+        
+        function sortTableNumero(operacao, ind) {
+                
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+
+            while (switching) {
+              switching = false;
+              rows = table.rows;
+              for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[ind];
+                y = rows[i + 1].getElementsByTagName("TD")[ind];
+                
+                if(operacao === 1){
+                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                else if(operacao === 2){
+                    if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                
+              }
+              if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+              }
+            }
+        }
+
+        function sortTableLetra(operacao, ind) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+
+            while (switching) {
+
+              switching = false;
+              rows = table.rows;
+
+              for (i = 1; i < (rows.length - 1); i++) {
+
+                shouldSwitch = false;
+
+                x = rows[i].getElementsByTagName("TD")[ind];
+                y = rows[i + 1].getElementsByTagName("TD")[ind];
+                
+                if(operacao === 1){
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                      shouldSwitch = true;
+                      break;
+                    }
+                }
+                else if(operacao === 2){
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                      shouldSwitch = true;
+                      break;
+                    }
+                }
+                
+              }
+              if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+              }
+            }
+        }
+            
     </script>
     
     <body>
@@ -171,11 +214,12 @@
                                     <label> Data final</label>
                                     <input type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                             </div>
+                            
+                            <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
                             <p style="text-align: center;">
 
                                 <span class="right" id="err-message" style="color: darkred;"></span>
                             </p>
-                            <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
                         </form>
                 </article>
             </section>
@@ -183,13 +227,54 @@
         
         <section id="section1" class="table-responsive">
             <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
-                <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
-                <div style="width:  70%;">
-                    <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
-                    <table class="table table-striped" style="border: solid 1px #999;">
+                <div class="col-md-3 rounded" style=" margin-left: 40px; margin-right: 30px; border:solid 1px #999; height: 800px;">
+                    <h5 style="margin-bottom: 0">Ordenação das colunas na tabela:</h5>
+                    <p style="margin-bottom: 5px; font-size: 12px;">Quant. significa Quantidade e judi. significa judiciais</p>
+                    <form class="form-containe" style="margin-left: 5px;">
+                        
+                        <div class="radio">
+                          <label><input type="radio" name="optradio" checked onclick="sortTableLetra(1,0)">Unidade Federativa em ordem crescente</label>
+                        </div>
+                        <div class="radio">
+                          <label><input type="radio" name="optradio" onclick="sortTableLetra(2,0)">Unidade Federativa em ordem decrescente</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio" onclick="sortTableNumero(1,1)">Valor das dívidas em ordem crescente</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="optradio" onclick="sortTableNumero(2,1)">Valor das dívidas em ordem decrescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(1,2)">Quant. devedores em ordem crescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(2,2)">Quant. devedores em ordem decrescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(1,3)">Quant. de dívidas em ordem crescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(2,3)">Quant. de dívidas em ordem decrescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(1,4)">Valor das ações judi. em ordem crescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(2,4)">Valor das ações judi. em ordem decrescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(1,5)">Quant. de ações judi. em ordem crescente</label>
+                        </div>
+                        <div class="radio disabled">
+                          <label><input type="radio" name="optradio" onclick="sortTableNumero(2,5)">Quant. de ações judi. em ordem decrescente</label>
+                        </div>
+                    </form>
+                </div>
+                <div style="width:  60%;">
+                    <table class="table table-striped" style="border: solid 1px #999; width: 100%;" id="myTable">
                         <thead class="thead-dark table table-striped">
                             <tr>
-                                <th>Unidade Federativa</th> 
+                                <th id="co1">Unidade Federativa</th> 
                                 <th>Valor das dívidas</th>
                                 <th>Quantidade de devedores</th>
                                 <th>Quantidade de dívidas</th>
@@ -198,7 +283,7 @@
                             </tr>
                         </thead>
                         <tbody id="corpoTable">
-                          
+                        
                         </tbody>
                     </table>
                 </div>
@@ -213,5 +298,7 @@
                 <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Privacidade</a></li>
             </ul>
         </footer>
+        
+       
     </body>
 </html>
