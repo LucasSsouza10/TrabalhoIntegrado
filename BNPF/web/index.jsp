@@ -4,8 +4,9 @@
     <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>BNPF - Base Nacional Pessoa Física</title>
-            <link rel="stylesheet" type="text/css" href="style.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="style.css">
+            
     </head>
         
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -54,7 +55,7 @@
 
 			<section style="padding-bottom: 70px;">
 				<h2><strong>Base Nacional de Pessoas Físicas</strong></h2>
-				<p>A BNPF é uma base de dados brasileira que possui a capacidade de armazenar e gerenciar uma grande quantidade de dados de forma eficiente. Nesta base de dados são armazenadas informações de pessoas físicas, de dívidas que possuem e de ações judiciais nas quais estão envolvidas. Você pode consultar informações de uma Unidade Federativa (UF) ou informações sobre uma pessoa física.
+				<p>A BNPF é uma base de dados brasileira que possui a capacidade de armazenar e gerenciar uma grande quantidade de dados de forma eficiente. Nesta base de dados são armazenadas informações de pessoas físicas, de dívidas que possuem e de ações judiciais nas quais estão envolvidas. Você pode consultar informações das Unidades Federativas(UFs) ou informações sobre pessoas físicas.
 				</p>
 				<br>
 

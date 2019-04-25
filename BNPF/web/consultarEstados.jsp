@@ -31,7 +31,7 @@
                 window.location.href = "consultarPessoas.jsp"
             });
             
-            //Funcao para verificar a data quando sai do campo de ano inicial
+            //Funcao para verificar o intervalo de data quando sai do campo de data final
             $(dataF).focusout(function() {
                 if($(dataF).val() < $(dataI).val()){
                     $(err_message).fadeIn('slow', function(){
@@ -45,7 +45,7 @@
                 }
             });
 
-            //Funcao para verificar a data quando sai do campo de ano final
+            //Funcao para verificar o intervalo de data quando sai do campo de data inicial
             $(dataI).focusout(function() {
                 if($(dataF).val() < $(dataI).val()){
                     $(err_message).fadeIn('slow', function(){
@@ -87,14 +87,13 @@
                 }
             });
             
-            //Configuracao da tabela
+            //Configurar formato da tabela que contem os resultados
             $('#myTable').DataTable({
                "searching": false,
                "bLengthChange" : false,
                "paging": false,
                "bInfo": false
             });
-            
             $('.dataTables_length').addClass('bs-select');
         });
     </script>
@@ -112,7 +111,7 @@
                 </ul>
             </nav>
         </header>
-        
+        <br>	
         <section class="container-fluid S" style="margin-bottom: 50px;">
             <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Estados</strong></h2>

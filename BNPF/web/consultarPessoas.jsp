@@ -7,10 +7,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="style.css">
-        
     </head>
-    
-   <!-- jQuery library -->
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- Popper JS -->
@@ -21,26 +19,24 @@
   
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
-    
     <script>
         $(document).ready(function(){
-        var anoFinal = document.getElementById('anoFinal'),
-            anoInicial = document.getElementById('anoInicial'),
-            err_message = document.getElementById('err-message');
+            //Variaveis que serão utilizadas no decorrer do <script>
+            var anoFinal = document.getElementById('anoFinal'),
+                anoInicial = document.getElementById('anoInicial'),
+                err_message = document.getElementById('err-message');
            
-            
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
                 window.location.href = "consultarEstados.jsp";
             });
             
+            //Configurar formato da tabela que contem os resultados
             $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
                 "bLengthChange" : false,
-                
                 "order": [[ 1, "asc" ]],
-                
                 "columns": [
                     { "orderable": false },
                     null,
@@ -49,20 +45,14 @@
                     null,
                     null
                  ]
-                 
             });
             $('.dataTables_length').addClass('bs-select');
             
-            
+            //Funcao para verificar o periodo de ano quando sai do campo de ano inicial
             $(document.body).on('focusout', '#anoInicial', function(){
-                
-                var anoFinal = document.getElementById('anoFinal'),
-                anoInicial = document.getElementById('anoInicial'),
-                err_message = document.getElementById('err-message');
-            
                 if($(anoFinal).val() < $(anoInicial).val()){
                     $(err_message).fadeIn('slow', function(){
-                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
                     });
                 }
                 else{
@@ -72,15 +62,11 @@
                 }
             });
             
+            //Funcao para verificar o periodo de ano quando sai do campo de ano final
             $(document.body).on('focusout', '#anoFinal', function(){
-                var anoFinal = document.getElementById('anoFinal'),
-                    anoInicial = document.getElementById('anoInicial'),
-                    err_message = document.getElementById('err-message');
-                
-            
                 if($(anoFinal).val() < $(anoInicial).val()){
                     $(err_message).fadeIn('slow', function(){
-                        $(this).html('Ano Inicial é maior que o Ano final, coloque um intervalo válido!');
+                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
                     });
                 }
                 else{
@@ -90,6 +76,7 @@
                 }
             });
             
+            //Funcao para tartar o click no botao de consultar
             $( "#target" ).click(function() {
                 if($(anoFinal).val() > $(anoInicial).val()){
                     $('#texto').hide();
@@ -105,6 +92,9 @@
                     $('#texto1').css("margin-bottom", "0");
                     $('#section1').show();
                     $('#section1').css("padding-bottom", "70px");
+                }
+                else{
+                    alert('Coloque um intervalo de tempo válido!')
                 }
             });
         });
@@ -124,8 +114,8 @@
                 </ul>
             </nav>
         </header>
-        
-        <section class="container-fluid S" style="margin-bottom: 70px;">
+        <br>	
+        <section class="container-fluid S" style="margin-bottom: 50px;">
             <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Pessoas</strong></h2>
                 <p>Para fins de pesquisa dos cidadãos, essa consulta recupera os dados de diversas pessoas físicas (CPF, nome, data de nascimento e estado civil), e também número de dívidas e número de ações judiciais que essa pessoa possui em seu nome, dado um intervalo tempo em anos e um trecho do nome da pessoa.
@@ -180,7 +170,7 @@
                             <tr><td>98123545061</td><td>Pessoa 4</td><td>21/12/1991</td><td>Solteiro</td><td>13</td><td>1</td></tr>
                             <tr><td>44865527095</td><td>Pessoa 5</td><td>22/04/1993</td><td>Casado</td><td>2</td><td>2</td></tr>
                             <tr><td>17804871007</td><td>Pessoa 6</td><td>23/07/1920</td><td>Solteiro</td><td>1</td><td>1</td></tr>
-                            <tr><td>119598085082</td><td>Pessoa 7</td><td>24/07/1947</td><td>Casado</td><td>0</td><td>0</td></tr>
+                            <tr><td>11959808508</td><td>Pessoa 7</td><td>24/07/1947</td><td>Casado</td><td>0</td><td>0</td></tr>
                             <tr><td>16721171007</td><td>Pessoa 8</td><td>25/03/1987</td><td>Divorciado</td><td>0</td><td>0</td></tr>
                             <tr><td>06752284091</td><td>Pessoa 9</td><td>26/01/1921</td><td>Casado</td><td>0</td><td>2</td></tr>
                         </tbody>
