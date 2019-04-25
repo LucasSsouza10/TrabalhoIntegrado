@@ -13,22 +13,22 @@
         $(document).ready(function() {
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1" ).click(function() {
-                window.location.href = "consultarPessoas.jsp"
+                window.location.href = "consultarPessoas.jsp";
             });
             
             //Funcao para trocar de tela quando clica no botao id=consultaP2
             $("#consultaP2" ).click(function() {
-                window.location.href = "consultarPessoas.jsp"
+                window.location.href = "consultarPessoas.jsp";
             });
             
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
-                window.location.href = "consultarEstados.jsp"
+                window.location.href = "consultarEstados.jsp";
             });
             
             //Funcao para trocar de tela quando clica no botao id=consultaE2
             $("#consultaE2" ).click(function() {
-                window.location.href = "consultarEstados.jsp"
+                window.location.href = "consultarEstados.jsp";
             });
         });
     </script>

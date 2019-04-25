@@ -124,7 +124,7 @@
                 <article class="col-12 col-sm-6 col-md-3" id="art1" >
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="form" class="form-container" autocomplete="on">
+                    <form id="form" class="form-container">
                         <div class="form-group">
                                 <label> Data inicial</label>
                                 <input type="date" class="form-control" id="dataInicial" value="1938-01-01">  
@@ -145,15 +145,14 @@
         <section id="section1" class="table-responsive">
             <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
                 <div class="form-container col-md-3" style=" margin-left: 40px; margin-right: 30px; height: 800px;">
-                    <h5>Filtros dos valores</h5>
-                    
-                        <label>Valor das dívidas:</label>
-                            <input type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019" style="width:  50%">
-                    
+                        <h5 style="margin-bottom: 0px">Filtros dos valores</h5>
+                        <label style="margin: 5px 0px 0px 0px">Valor mínimo das dívidas:</label>
+                        <input type="number" class="form-control" id="anoFinal" name="quantity" min="0" style="width: 40%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Valor máximo das dívidas:</label>
+                        <input type="number" class="form-control" id="anoFinal" name="quantity" min="0" style="width: 40%;">
+                        
                         <button type="submit" class="btn btn-primary">Submit</button>
-                      
-                    
-                    
                     
                 </div>
                 <div style="width:  60%;">

@@ -125,11 +125,10 @@
             </nav>
         </header>
         
-        <section class="container-fluid S" style="margin-bottom: 50px;">
+        <section class="container-fluid S" style="margin-bottom: 70px;">
             <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Pessoas</strong></h2>
-                <p>
-                    Para fins de pesquisa dos cidadãos, essa consulta recupera os dados de diversas pessoas físicas (CPF, nome, data de nascimento e estado civil), e também número de dívidas e número de ações judiciais que essa pessoa possui em seu nome, dado um intervalo tempo em anos e um trecho do nome da pessoa.
+                <p>Para fins de pesquisa dos cidadãos, essa consulta recupera os dados de diversas pessoas físicas (CPF, nome, data de nascimento e estado civil), e também número de dívidas e número de ações judiciais que essa pessoa possui em seu nome, dado um intervalo tempo em anos e um trecho do nome da pessoa.
                 </p>
             </div>
             
@@ -190,6 +189,7 @@
             </div>
         </section>
         
+        <br>
         <footer>
             <ul style="text-align: center;">
                 <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
