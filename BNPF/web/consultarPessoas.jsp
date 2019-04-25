@@ -112,18 +112,20 @@
     
   
     <body>
-        <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
-            <a class="navbar-brand" href="#">
-                    <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
-            </a>
-            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-                <li class="nav-item" ><a class="nav-link p-2" href="index.jsp" style="color: white; margin-right: 10px;">Home</a></li>
-                <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Estados</button>
-                <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light active" style="margin-right: 20px;">Consultar Pessoas</button>
-            </ul>
-        </nav>
+        <header>
+            <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
+                <a class="navbar-brand" href="#">
+                        <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
+                </a>
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <li class="nav-item" ><a class="nav-link p-2" href="index.jsp" style="color: white; margin-right: 10px;">Home</a></li>
+                    <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Estados</button>
+                    <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light active" style="margin-right: 20px;">Consultar Pessoas</button>
+                </ul>
+            </nav>
+        </header>
         
-        <section class="container-fluid S">
+        <section class="container-fluid S" style="margin-bottom: 50px;">
             <div class="col-md-6 offset-md-3" id="texto">
                 <h2><strong>Consultar Pessoas</strong></h2>
                 <p>
@@ -131,7 +133,7 @@
                 </p>
             </div>
             
-            <section class="row justify-content-center">
+            <section class="row justify-content-center" style="width: 100%;">
                 <article class="col-12 col-sm-6 col-md-3">
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
@@ -144,15 +146,11 @@
                             <label>Ano Final:</label>
                             <input type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                         </div>
-
-                        
-                        <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                         
                         <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary">Consultar</button></p>
                         
-                        
+                        <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                     </form>
-                        
                 </article>
             </section>
         </section>

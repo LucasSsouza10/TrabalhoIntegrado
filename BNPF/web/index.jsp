@@ -34,16 +34,19 @@
     </script>
     
     <body style=" position: relative;">
-        <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
-            <a class="navbar-brand" href="#">
-                    <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
-            </a>
-            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-                <li class="nav-item" ><a class="nav-link p-2" href="#" style="color: white; margin-right: 10px;">Home</a></li>
-                <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Estados</button>
-                <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
-            </ul>
-        </nav>
+        <header>
+            <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
+                <a class="navbar-brand" href="#">
+                        <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
+                </a>
+                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                    <li class="nav-item" ><a class="nav-link p-2" href="#" style="color: white; margin-right: 10px;">Home</a></li>
+                    <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Estados</button>
+                    <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
+                </ul>
+            </nav>
+        </header>
+        
 	<br>		  
 	
 	<div class="container">
@@ -59,7 +62,7 @@
 				<div id="" class="col-6 col-xl-6 col-lg-6 col-md-6">
 					<div class="card h-100" style="border-color:green">
 						<div class="card-body" style="background-color: #ecf9ec">
-							<center><img src="brasil1.png" style="height: 300px"></center>
+							<center><img width="70%" src="brasil1.png" style="height: 300px"></center>
 							<br>
 							<h3>Consultar Estados</h3>
 							<p>Para consultar informações sobre dívidas e ações judiciais dos Estados, você deve especificar um período de tempo referente à data em que elas ocorreram. </p>
@@ -73,7 +76,7 @@
 				<div id="" class="col-6 col-xl-6 col-lg-6 col-md-6">
 					<div class="card h-100" style="border-color: #cc3399">
 						<div class="card-body" style="background-color: #faebf5">
-							<center><img src="pessoas.png" style="height: 300px"></center>
+							<center><img width="75%" src="pessoas.png" style="height: 300px"></center>
 							<br>
 							<h3>Consultar Pessoas</h3>
 							<p>Para consultar informações pessoais e sobre dívidas e ações judiciais de pessoas, você deve especificar um trecho de nome e intervalo de ano de nascimento da pessoa. </p>
