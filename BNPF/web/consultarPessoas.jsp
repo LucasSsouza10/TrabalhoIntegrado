@@ -35,10 +35,21 @@
             });
             
             $('#tabela').DataTable({
-                "pagingType'": "numbers",
-                "ordering": false,
+                "pagingType": "simple_numbers",
                 "searching": false,
-                "bLengthChange" : false
+                "bLengthChange" : false,
+                
+                "order": [[ 1, "asc" ]],
+                
+                "columns": [
+                    { "orderable": false },
+                    null,
+                    { "orderable": false },
+                    { "orderable": false }, 
+                    null,
+                    null
+                 ]
+                 
             });
             $('.dataTables_length').addClass('bs-select');
             
@@ -94,15 +105,6 @@
                     $('#texto1').css("margin-bottom", "0");
                     $('#section1').show();
                     $('#section1').css("padding-bottom", "70px");
-                    $.ajax({
-                        type: "GET", 
-                        url: "consulta1", 
-                        dataType: "html", 
-                        data: { op: 2, dI: $('#anoInicial').val(), dF: $('#anoFinal').val() },
-                        success: function(data) {
-                          $("#corpoTable").html(data);
-                        }
-                    });
                 }
             });
         });
@@ -160,19 +162,30 @@
                 <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
                 <div style="width:  70%;">
                     <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
-                    <table id="tabela" class="table table-striped" style="border: solid 1px #999;">
+                    <table id="tabela" class="table table-striped table-bordered table-sm" style="border: solid 1px #999;">
                         <thead class="thead-dark table table-striped">
                         <tr>
-                            <th>CPF</th>
-                            <th>Nome</th>
-                            <th>Data de nascimento</th>
-                            <th>Estado Civil</th>
-                            <th>Quant. de dívidas</th>
-                            <th>Quant. de ações judiciais</th>
+                            <th class="th-sm">CPF</th>
+                            <th class="th-sm">Nome</th>
+                            <th class="th-sm">Data de nascimento</th>
+                            <th class="th-sm">Estado Civil</th>
+                            <th class="th-sm">Quant. de dívidas</th>
+                            <th class="th-sm">Quant. de ações judiciais</th>
                           </tr>
                         </thead>
                         <tbody id="corpoTable">
-                          
+                            <tr><td>88874330030</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Divorciado</td><td>18</td><td>3</td></tr>
+                            <tr><td>30618753010</td><td>Lucas Sampaio de Souza</td><td>22/03/1999</td><td>Solteiro</td><td>0</td><td>0</td></tr>
+                            <tr><td>81566836093</td><td>Sofia de Almeida Machaddo da Silveira</td><td>18/08/1997</td><td>Solteiro</td><td>2</td><td>2</td></tr>
+                            <tr><td>04723606041</td><td>Pessoa 1</td><td>18/08/1995</td><td>Solteiro</td><td>3</td><td>4</td></tr>
+                            <tr><td>47129372036</td><td>Pessoa 2</td><td>19/10/1996</td><td>Solteiro</td><td>0</td><td>2</td></tr>
+                            <tr><td>81922322040</td><td>Pessoa 3</td><td>20/11/1993</td><td>Casado</td><td>10</td><td>2</td></tr>
+                            <tr><td>98123545061</td><td>Pessoa 4</td><td>21/12/1991</td><td>Solteiro</td><td>13</td><td>1</td></tr>
+                            <tr><td>44865527095</td><td>Pessoa 5</td><td>22/04/1993</td><td>Casado</td><td>2</td><td>2</td></tr>
+                            <tr><td>17804871007</td><td>Pessoa 6</td><td>23/07/1920</td><td>Solteiro</td><td>1</td><td>1</td></tr>
+                            <tr><td>119598085082</td><td>Pessoa 7</td><td>24/07/1947</td><td>Casado</td><td>0</td><td>0</td></tr>
+                            <tr><td>16721171007</td><td>Pessoa 8</td><td>25/03/1987</td><td>Divorciado</td><td>0</td><td>0</td></tr>
+                            <tr><td>06752284091</td><td>Pessoa 9</td><td>26/01/1921</td><td>Casado</td><td>0</td><td>2</td></tr>
                         </tbody>
                     </table>
                 </div>
