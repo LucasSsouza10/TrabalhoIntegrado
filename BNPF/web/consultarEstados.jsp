@@ -20,6 +20,7 @@
   
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
    
+    
     <script>
         $(document).ready(function() {
             var dataF = document.getElementById('dataFinal'),
@@ -94,11 +95,19 @@
                "paging": false,
                "bInfo": false
             });
-            $('.dataTables_length').addClass('bs-select');
+            $('.dataTables_length').addClass('bs-select'); 
         });
+        
+        //Filtrar os valores da tabela
+        function filtrarValores() {
+            var table = document.getElementById("myTable");
+            var rows = table.rows;
+            rows[1].style.display="none";
+        }
     </script>
     
     <body>
+        
         <header>
             <nav class="navbar navbar-dark bg-primary" style="padding: 0px;">
                 <a class="navbar-brand" href="#">
@@ -143,16 +152,43 @@
         
         <section id="section1" class="table-responsive">
             <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
-                <div class="form-container col-md-3" style=" margin-left: 40px; margin-right: 30px; height: 800px;">
-                        <h5 style="margin-bottom: 0px">Filtros dos valores</h5>
+                <div class="form-container col-md-3" style=" margin-left: 40px; margin-right: 30px; height: 920px;">
+                        <h4 style="margin-bottom: 0px">Filtros dos valores</h4>
                         <label style="margin: 5px 0px 0px 0px">Valor mínimo das dívidas:</label>
-                        <input type="number" class="form-control" id="anoFinal" name="quantity" min="0" style="width: 40%;">
+                        <input type="number" class="form-control" placeholder="Exemplo: 300" id="anoFinal" name="quantity" min="0" style="width: 60%;">
                         
                         <label style="margin: 5px 0px 0px 0px">Valor máximo das dívidas:</label>
-                        <input type="number" class="form-control" id="anoFinal" name="quantity" min="0" style="width: 40%;">
+                        <input type="number" class="form-control" placeholder="Exemplo: 400000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
                         
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    
+                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de devedores:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 0" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de devedores:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 10000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de dívidas:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 5" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de dívidas:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 2000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        
+                        <label style="margin: 5px 0px 0px 0px">Valor mínimo das ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 300" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Valor máxima das ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 20000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 8" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 500" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary" onclick="filtrarValores()">Filtrar</button></p>
                 </div>
                 <div style="width:  60%;">
                     <table id="myTable" class="table table-striped table-bordered table-sm" style="border: solid 1px #999;">
@@ -167,12 +203,33 @@
                             </tr>
                         </thead>
                         <tbody id="corpoTable">
-                            <tr><td>AC</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AL</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AP</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AM</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>BA</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>CE</td><td>2012</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>AC</td><td>2012</td><td>5</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>AL</td><td>1040</td><td>3</td><td>4</td><td>1032</td><td>3</td></tr>
+                            <tr><td>AP</td><td>357</td><td>4</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>AM</td><td>5877</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>BA</td><td>2450</td><td>2</td><td>6</td><td>1032</td><td>3</td></tr>
+                            <tr><td>CE</td><td>2354</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>DF</td><td>1050</td><td>3</td><td>7</td><td>1032</td><td>3</td></tr>
+                            <tr><td>ES</td><td>987</td><td>2</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>GO</td><td>112</td><td>1</td><td>8</td><td>1032</td><td>3</td></tr>
+                            <tr><td>MA</td><td>3217</td><td>5</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>MT</td><td>8563</td><td>10</td><td>9</td><td>1032</td><td>3</td></tr>
+                            <tr><td>MS</td><td>1241</td><td>2</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>MG</td><td>1548</td><td>1</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>PA</td><td>2675</td><td>2</td><td>4</td><td>1032</td><td>3</td></tr>
+                            <tr><td>PB</td><td>1572</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>PR</td><td>1246</td><td>1</td><td>1</td><td>1032</td><td>3</td></tr>
+                            <tr><td>PE</td><td>3652</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>PI</td><td>1524</td><td>2</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>RJ</td><td>1513</td><td>3</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>RN</td><td>2463</td><td>3</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>RS</td><td>1254</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
+                            <tr><td>RO</td><td>2012</td><td>1</td><td>3</td><td>1032</td><td>3</td></tr>
+                            <tr><td>RR</td><td>6852</td><td>6</td><td>6</td><td>1032</td><td>3</td></tr>
+                            <tr><td>SC</td><td>3562</td><td>7</td><td>8</td><td>1032</td><td>3</td></tr>
+                            <tr><td>SP</td><td>6854</td><td>5</td><td>6</td><td>1032</td><td>3</td></tr>
+                            <tr><td>SE</td><td>7654</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
+                            <tr><td>TO</td><td>9585</td><td>6</td><td>5</td><td>1032</td><td>3</td></tr>
                         </tbody>
                     </table>
                 </div>

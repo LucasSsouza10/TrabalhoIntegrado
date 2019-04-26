@@ -85,7 +85,7 @@
                 
                 if(!(letter_only.test(element.val()))){
                     $(err_message).fadeIn('slow', function(){
-                        $(this).html('Nome invalido permitido somente letras');
+                        $(this).html('Nome invalido, permitido somente letras');
                     });
                 }
                 else{
@@ -184,7 +184,23 @@
         
         <section id="section1" class="table-responsive">
             <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
-                <div class="col-md-2 rounded" style="margin-top: 26px; margin-left: 5%; margin-right: 5%; border:solid 1px #999; height: 400px;">.col-md-3 .col-md-offset-3</div>
+                <div class="form-container col-md-3" style=" margin-left: 40px; margin-right: 30px; height: 450px;">
+                        <h4 style="margin-bottom: 0px">Filtros dos valores</h4>
+                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de dívidas:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 5" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de dívidas:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 2000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 8" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        
+                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de ações judiciais:</label>
+                        <input type="number" class="form-control" placeholder="Exemplo: 500" id="anoFinal" name="quantity" min="0" style="width: 60%;">
+                        <br>
+                        <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary" onclick="filtrarValores()">Filtrar</button></p>
+                </div>
                 <div style="width:  70%;">
                     <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
                     <table id="tabela" class="table table-striped table-bordered table-sm" style="border: solid 1px #999;">
