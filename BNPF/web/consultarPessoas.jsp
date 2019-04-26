@@ -76,25 +76,59 @@
                 }
             });
             
+            //Funcao para verificar se o nome inserido tem apenas letras
+            $(document.body).on('focusout', '#nome', function(){
+                nome = document.getElementById('nome');
+           
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
+                var element = $(nome);
+                
+                if(!(letter_only.test(element.val()))){
+                    $(err_message).fadeIn('slow', function(){
+                        $(this).html('Nome invalido permitido somente letras');
+                    });
+                }
+                else{
+                    $(err_message).fadeOut(1000, function(){
+                        $(this).html('');
+                    });
+                }
+            });
+            
+            
             //Funcao para tartar o click no botao de consultar
             $( "#target" ).click(function() {
-                if($(anoFinal).val() > $(anoInicial).val()){
+                var anoFinal = document.getElementById('anoFinal'),
+                anoInicial = document.getElementById('anoInicial'),
+                err_message = document.getElementById('err-message'),
+                nome = document.getElementById('nome');
+           
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
+                var element = $(nome);
+                
+                if(($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))){
                     $('#texto').hide();
                     $('#card').hide();  
                     $('div').removeClass('form-group');
                     $('#form').removeClass('form-container');
                     $('#form').addClass('form-inline');
+                    $('#form').css('margin-top', '10px');
+                    $('#form').css('width', '90%');
+                    $('#form').css('margin-left', '5%');
                     $('input').css('margin-right', '10px');
-                    $('#target').css("margin-top", "10px");
-                    $('#pBotao1').css("margin-top", "8%");
+                    $('#pBotao1').css("margin-top", "37px");
+                    $('#pBotao1').css("margin-left", "5%");
                     $('#titulo1').css("margin-bottom", "0");
-                    $('#titulo1').css("margin-top", "5%");
                     $('#texto1').css("margin-bottom", "0");
                     $('#section1').show();
                     $('#section1').css("padding-bottom", "70px");
+                    $('#art1').removeClass('col-md-3');
+                    $('#art1').addClass('offset-md-1');
+                    $('#art1').css("text-align", "center");
+                    $('#art1').css("margin-left", "3%");
                 }
                 else{
-                    alert('Coloque um intervalo de tempo válido!')
+                    alert('Campos de busca inválidos, verifique e tente novamente')
                 }
             });
         });
@@ -123,10 +157,14 @@
             </div>
             
             <section class="row justify-content-center" style="width: 100%;">
-                <article class="col-12 col-sm-6 col-md-3">
+                <article id="art1" class="col-12 col-sm-6 col-md-3">
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                     <form id="form" class="form-container">
+                        <div class="form-group">
+                            <label for="usr">Nome:</label>
+                            <input id="nome" type="text" class="form-control" id="usr" placeholder="Nome">
+                          </div>
                         <div class="form-group">
                             <label>Ano Inicial:</label>
                             <input type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
