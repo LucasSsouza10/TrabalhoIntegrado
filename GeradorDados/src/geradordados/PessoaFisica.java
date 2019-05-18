@@ -25,7 +25,7 @@ public class PessoaFisica {
         
             while (linha != null) {
                 String cpf = gerarCpf();
-                String data = gerarData(0);
+                String data = gerarData(-18263); // -18263 é referente ao cast do epochDay 1920-01-01 para int
                 String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha.toUpperCase() + "'" + ", " + "'" +  data+ "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
                 if(con.insere(ins)){
                   gravarArq.write(ins + "\n");
@@ -70,17 +70,10 @@ public class PessoaFisica {
         return str;
     }
 
-    public static String gerarData(int acrescimo) {
+    public static String gerarData(int min) {
         Random random = new Random();
-        int minDay;
-        int maxDay;
-        if(acrescimo == 0){
-            minDay = (int) LocalDate.of(1920, 1, 1).toEpochDay();
-            maxDay = (int) LocalDate.of(2000, 1, 1).toEpochDay();
-        }else{
-            minDay = acrescimo;
-            maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
-        }
+        int minDay = min;
+        int maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
         
         long randomDay = minDay + random.nextInt(maxDay - minDay);
 

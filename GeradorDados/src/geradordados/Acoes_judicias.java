@@ -41,16 +41,18 @@ public class Acoes_judicias {
             ConexaoDB con = new ConexaoDB();
 
             while(cpf != null){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                   LocalDate localDate = LocalDate.parse(data, formatter);
+                   localDate = localDate.plusYears(18);
+                   int minDay = (int) localDate.toEpochDay();
+                   
                 int j = random.nextInt(9);
                 int k = 0;
                 while(k < j){ 
                     
                    int i = random.nextInt(ArrayCnpj.size());
                     
-                   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                   LocalDate localDate = LocalDate.parse(data, formatter);
-                   localDate = localDate.plusYears(18);
-                   int minDay = (int) localDate.toEpochDay();
+                 
                     
                     if(random.nextBoolean()){
                         ins = "insert into acoes_judiciais values ('" + gerarProcesso() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" +  gerarSP() + "','" + PessoaFisica.gerarData(minDay) + "'," + Float.toString(300 + random.nextInt(50000)) + ");";
