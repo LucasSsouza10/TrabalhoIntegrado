@@ -49,7 +49,8 @@ public class Dividas {
                     
                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                    LocalDate localDate = LocalDate.parse(data, formatter);
-                   localDate.plusYears(18);
+                   localDate = localDate.plusYears(18);
+                   
                    int minDay = (int) localDate.toEpochDay();
                     
                     ins = "insert into divida values ('" + gerarContrato() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" + PessoaFisica.gerarData(minDay) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";

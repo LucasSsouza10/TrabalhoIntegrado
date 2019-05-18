@@ -49,7 +49,7 @@ public class Acoes_judicias {
                     
                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                    LocalDate localDate = LocalDate.parse(data, formatter);
-                   localDate.plusYears(18);
+                   localDate = localDate.plusYears(18);
                    int minDay = (int) localDate.toEpochDay();
                     
                     if(random.nextBoolean()){

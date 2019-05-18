@@ -76,7 +76,7 @@ public class PessoaFisica {
         int maxDay;
         if(acrescimo == 0){
             minDay = (int) LocalDate.of(1920, 1, 1).toEpochDay();
-            maxDay = (int) LocalDate.of(2010, 1, 1).toEpochDay();
+            maxDay = (int) LocalDate.of(2000, 1, 1).toEpochDay();
         }else{
             minDay = acrescimo;
             maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
