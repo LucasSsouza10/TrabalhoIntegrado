@@ -73,7 +73,12 @@ public class PessoaFisica {
     public static String gerarData(int min) {
         Random random = new Random();
         int minDay = min;
-        int maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
+        int maxDay;
+        if(minDay == -18263){
+            maxDay = (int) LocalDate.of(2000, 1, 1).toEpochDay();
+        }else{
+            maxDay = (int) LocalDate.of(2019, 12, 31).toEpochDay();
+        }
         
         long randomDay = minDay + random.nextInt(maxDay - minDay);
 
