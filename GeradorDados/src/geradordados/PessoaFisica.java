@@ -26,7 +26,7 @@ public class PessoaFisica {
             while (linha != null) {
                 String cpf = gerarCpf();
                 String data = gerarData(0);
-                String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha + "'" + ", " + "'" +  data+ "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
+                String ins = "insert into Pessoa_Fisica values (" + "'" + cpf + "'" + ", " + "'" + linha.toUpperCase() + "'" + ", " + "'" +  data+ "'" + ", " + "'" + gerarEC()  + "'" + ", '" + gerarUF() + "');"; 
                 if(con.insere(ins)){
                   gravarArq.write(ins + "\n");
                   gravarArq1.write(cpf + "\n");

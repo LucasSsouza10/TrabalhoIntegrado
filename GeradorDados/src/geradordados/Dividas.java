@@ -42,14 +42,15 @@ public class Dividas {
             ConexaoDB con = new ConexaoDB();
              
             while(cpf != null){
-                int j = random.nextInt(4);
+                int j = random.nextInt(9);
                 int k = 0;
                 while(k < j){    
                     int i = random.nextInt(ArrayCnpj.size());
                     
                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                    LocalDate localDate = LocalDate.parse(data, formatter);
-                    int minDay = (int) localDate.toEpochDay();
+                   localDate.plusYears(18);
+                   int minDay = (int) localDate.toEpochDay();
                     
                     ins = "insert into divida values ('" + gerarContrato() + "','" + cpf + "','" +  ArrayCnpj.get(i) + "','" + PessoaFisica.gerarData(minDay) + "', " + Float.toString(300 + random.nextInt(50000)) + ");";
                     if(con.insere(ins)){

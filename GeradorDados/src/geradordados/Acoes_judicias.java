@@ -41,7 +41,7 @@ public class Acoes_judicias {
             ConexaoDB con = new ConexaoDB();
 
             while(cpf != null){
-                int j = random.nextInt(4);
+                int j = random.nextInt(9);
                 int k = 0;
                 while(k < j){ 
                     
@@ -49,6 +49,7 @@ public class Acoes_judicias {
                     
                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                    LocalDate localDate = LocalDate.parse(data, formatter);
+                   localDate.plusYears(18);
                    int minDay = (int) localDate.toEpochDay();
                     
                     if(random.nextBoolean()){
