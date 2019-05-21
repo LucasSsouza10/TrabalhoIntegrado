@@ -30,23 +30,7 @@
             $("#consultaE1" ).click(function() {
                 window.location.href = "consultarEstados.jsp";
             });
-            
-            //Configurar formato da tabela que contem os resultados
-            $('#tabela').DataTable({
-                "pagingType": "simple_numbers",
-                "searching": false,
-                "bLengthChange" : false,
-                "order": [[ 1, "asc" ]],
-                "columns": [
-                    { "orderable": false },
-                    null,
-                    { "orderable": false },
-                    { "orderable": false }, 
-                    null,
-                    null
-                 ]
-            });
-            $('.dataTables_length').addClass('bs-select');
+           
             
             //Funcao para verificar o periodo de ano quando sai do campo de ano inicial
             $(document.body).on('focusout', '#anoInicial', function(){
@@ -107,25 +91,7 @@
                 var element = $(nome);
                 
                 if(($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))){
-                    $('#texto').hide();
-                    $('#card').hide();  
-                    $('div').removeClass('form-group');
-                    $('#form').removeClass('form-container');
-                    $('#form').addClass('form-inline');
-                    $('#form').css('margin-top', '10px');
-                    $('#form').css('width', '90%');
-                    $('#form').css('margin-left', '5%');
-                    $('input').css('margin-right', '10px');
-                    $('#pBotao1').css("margin-top", "37px");
-                    $('#pBotao1').css("margin-left", "5%");
-                    $('#titulo1').css("margin-bottom", "0");
-                    $('#texto1').css("margin-bottom", "0");
-                    $('#section1').show();
-                    $('#section1').css("padding-bottom", "70px");
-                    $('#art1').removeClass('col-md-3');
-                    $('#art1').addClass('offset-md-1');
-                    $('#art1').css("text-align", "center");
-                    $('#art1').css("margin-left", "3%");
+                    window.location.href = "tabelaConsultarPessoa.jsp";
                 }
                 else{
                     alert('Campos de busca inválidos, verifique e tente novamente')
@@ -182,56 +148,6 @@
             </section>
         </section>
         
-        <section id="section1" class="table-responsive">
-            <div class="row" style="width: 100%; margin-top: 30px;" id="resul">
-                <div class="form-container col-md-3" style=" margin-left: 40px; margin-right: 30px; height: 450px;">
-                        <h4 style="margin-bottom: 0px">Filtros dos valores</h4>
-                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de dívidas:</label>
-                        <input type="number" class="form-control" placeholder="Exemplo: 5" id="anoFinal" name="quantity" min="0" style="width: 60%;">
-                        
-                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de dívidas:</label>
-                        <input type="number" class="form-control" placeholder="Exemplo: 2000" id="anoFinal" name="quantity" min="0" style="width: 60%;">
-                        <br>
-                        
-                        <label style="margin: 5px 0px 0px 0px">Quantidade mínima de ações judiciais:</label>
-                        <input type="number" class="form-control" placeholder="Exemplo: 8" id="anoFinal" name="quantity" min="0" style="width: 60%;">
-                        
-                        <label style="margin: 5px 0px 0px 0px">Quantidade máxima de ações judiciais:</label>
-                        <input type="number" class="form-control" placeholder="Exemplo: 500" id="anoFinal" name="quantity" min="0" style="width: 60%;">
-                        <br>
-                        <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary" onclick="filtrarValores()">Filtrar</button></p>
-                </div>
-                <div style="width:  70%;">
-                    <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
-                    <table id="tabela" class="table table-striped table-bordered table-sm" style="border: solid 1px #999;">
-                        <thead class="thead-dark table table-striped">
-                        <tr>
-                            <th class="th-sm">CPF</th>
-                            <th class="th-sm">Nome</th>
-                            <th class="th-sm">Data de nascimento</th>
-                            <th class="th-sm">Estado Civil</th>
-                            <th class="th-sm">Quant. de dívidas</th>
-                            <th class="th-sm">Quant. de ações judiciais</th>
-                          </tr>
-                        </thead>
-                        <tbody id="corpoTable">
-                            <tr><td>88874330030</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Divorciado</td><td>18</td><td>3</td></tr>
-                            <tr><td>30618753010</td><td>Lucas Sampaio de Souza</td><td>22/03/1999</td><td>Solteiro</td><td>0</td><td>0</td></tr>
-                            <tr><td>81566836093</td><td>Sofia de Almeida Machaddo da Silveira</td><td>18/08/1997</td><td>Solteiro</td><td>2</td><td>2</td></tr>
-                            <tr><td>04723606041</td><td>Pessoa 1</td><td>18/08/1995</td><td>Solteiro</td><td>3</td><td>4</td></tr>
-                            <tr><td>47129372036</td><td>Pessoa 2</td><td>19/10/1996</td><td>Solteiro</td><td>0</td><td>2</td></tr>
-                            <tr><td>81922322040</td><td>Pessoa 3</td><td>20/11/1993</td><td>Casado</td><td>10</td><td>2</td></tr>
-                            <tr><td>98123545061</td><td>Pessoa 4</td><td>21/12/1991</td><td>Solteiro</td><td>13</td><td>1</td></tr>
-                            <tr><td>44865527095</td><td>Pessoa 5</td><td>22/04/1993</td><td>Casado</td><td>2</td><td>2</td></tr>
-                            <tr><td>17804871007</td><td>Pessoa 6</td><td>23/07/1920</td><td>Solteiro</td><td>1</td><td>1</td></tr>
-                            <tr><td>11959808508</td><td>Pessoa 7</td><td>24/07/1947</td><td>Casado</td><td>0</td><td>0</td></tr>
-                            <tr><td>16721171007</td><td>Pessoa 8</td><td>25/03/1987</td><td>Divorciado</td><td>0</td><td>0</td></tr>
-                            <tr><td>06752284091</td><td>Pessoa 9</td><td>26/01/1921</td><td>Casado</td><td>0</td><td>2</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
         
         <br>
         <footer>
