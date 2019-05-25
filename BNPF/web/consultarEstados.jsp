@@ -96,7 +96,7 @@
                         <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
                 </a>
                 <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-                    <li class="nav-item" ><a class="nav-link p-2" href="index.jsp" style="color: white; margin-right: 10px;">Home</a></li>
+                    <li class="nav-item" ><a href="index.jsp" class="nav-link p-2" href="index.jsp" style="color: white; margin-right: 10px;">Home</a></li>
                     <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light active" style="margin-right: 20px;">Consultar Estados</button>
                     <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Pessoas</button>
                 </ul>
