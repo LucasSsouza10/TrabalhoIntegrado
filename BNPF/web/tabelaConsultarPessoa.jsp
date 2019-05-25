@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.PessoaFisica"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -61,6 +64,23 @@
             });
             $('.dataTables_length').addClass('bs-select');
             
+            $( "#consultar" ).click(function() {
+                var anoFinal = document.getElementById('anoFinal'),
+                anoInicial = document.getElementById('anoInicial'),
+                err_message = document.getElementById('err-message'),
+                nome = document.getElementById('nome');
+           
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
+                var element = $(nome);
+                
+                if(($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))){
+                    document.getElementById("form").submit();
+                }
+                else{
+                    alert('Campos de busca inválidos, verifique e tente novamente');
+                }
+            });
+            
         });
     </script>
     
@@ -82,22 +102,22 @@
             <article class="form-container">
                <h3 id="titulo1">Realizar a consulta</h3> 
                <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-               <form id="form" class="form-inline">
+               <form id="form" class="form-inline" method="POST" action="consulta2">
                    <div class="form form-group">
                        <label for="usr">Nome:</label>
-                       <input id="nome" type="text" class="form-control" id="usr" placeholder="Nome">
+                       <input name="nome" id="nome" type="text" class="form-control" id="usr" placeholder="Nome">
                      </div>
                    <div class="form form-group">
                        <label>Ano Inicial:</label>
-                       <input type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
+                       <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
                    </div>
                    <div class="form form-group">
                        <label>Ano Final:</label>
-                       <input type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
+                       <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                    </div>
                    
                    <div class="form form-group" style="height: 38px;">
-                       <p style="text-align: center;"><button id="target" type="button" class="btn btn-primary" >Consultar</button></p>
+                       <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary" >Consultar</button></p>
                    </div>
                    
 
@@ -145,18 +165,21 @@
                       </tr>
                     </thead>
                     <tbody id="corpoTable">
-                        <tr><td>88874330030</td><td>Leonardo Seiji Nozaki</td><td>02/02/1998</td><td>Divorciado</td><td>18</td><td>3</td></tr>
-                        <tr><td>30618753010</td><td>Lucas Sampaio de Souza</td><td>22/03/1999</td><td>Solteiro</td><td>0</td><td>0</td></tr>
-                        <tr><td>81566836093</td><td>Sofia de Almeida Machaddo da Silveira</td><td>18/08/1997</td><td>Solteiro</td><td>2</td><td>2</td></tr>
-                        <tr><td>04723606041</td><td>Pessoa 1</td><td>18/08/1995</td><td>Solteiro</td><td>3</td><td>4</td></tr>
-                        <tr><td>47129372036</td><td>Pessoa 2</td><td>19/10/1996</td><td>Solteiro</td><td>0</td><td>2</td></tr>
-                        <tr><td>81922322040</td><td>Pessoa 3</td><td>20/11/1993</td><td>Casado</td><td>10</td><td>2</td></tr>
-                        <tr><td>98123545061</td><td>Pessoa 4</td><td>21/12/1991</td><td>Solteiro</td><td>13</td><td>1</td></tr>
-                        <tr><td>44865527095</td><td>Pessoa 5</td><td>22/04/1993</td><td>Casado</td><td>2</td><td>2</td></tr>
-                        <tr><td>17804871007</td><td>Pessoa 6</td><td>23/07/1920</td><td>Solteiro</td><td>1</td><td>1</td></tr>
-                        <tr><td>11959808508</td><td>Pessoa 7</td><td>24/07/1947</td><td>Casado</td><td>0</td><td>0</td></tr>
-                        <tr><td>16721171007</td><td>Pessoa 8</td><td>25/03/1987</td><td>Divorciado</td><td>0</td><td>0</td></tr>
-                        <tr><td>06752284091</td><td>Pessoa 9</td><td>26/01/1921</td><td>Casado</td><td>0</td><td>2</td></tr>
+                        <%
+                            ArrayList<PessoaFisica> arrayPessoas = (ArrayList<PessoaFisica>) request.getAttribute("ArrayPessoas");
+                            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+                            for (int i = 0; i < arrayPessoas.size(); i++) {
+                        %>
+                        <tr>
+                            <td><%= arrayPessoas.get(i).getCpf() %></td>
+                            <td><%= arrayPessoas.get(i).getNome() %></td>
+                            <td><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime()) %></td>
+                            <td><%= arrayPessoas.get(i).getEstadoCivil() %></td>
+                            <td><%= arrayPessoas.get(i).getQuantDividas() %></td>
+                            <td><%= arrayPessoas.get(i).getQuantAcoes() %></td>
+                        </tr>
+                        
+                        <% } %>
                     </tbody>
                 </table>
             </div>

@@ -91,7 +91,7 @@
                 var element = $(nome);
                 
                 if(($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))){
-                    window.location.href = "tabelaConsultarPessoa.jsp";
+                    document.getElementById("form").submit();
                 }
                 else{
                     alert('Campos de busca inválidos, verifique e tente novamente')
@@ -126,18 +126,18 @@
                 <article id="art1" class="col-12 col-sm-6 col-md-3">
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="form" class="form-container">
+                    <form id="form" class="form-container" method="POST" action="consulta2">
                         <div class="form-group">
                             <label for="usr">Nome:</label>
-                            <input id="nome" type="text" class="form-control" id="usr" placeholder="Nome">
+                            <input name="nome" id="nome" type="text" class="form-control" placeholder="Nome">
                           </div>
                         <div class="form-group">
                             <label>Ano Inicial:</label>
-                            <input type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
+                            <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
                         </div>
                         <div class="form-group">
                             <label>Ano Final:</label>
-                            <input type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
+                            <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                         </div>
                         
                         <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary">Consultar</button></p>

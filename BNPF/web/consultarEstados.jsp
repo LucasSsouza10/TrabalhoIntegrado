@@ -29,7 +29,7 @@
 
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1" ).click(function() {
-                window.location.href = "consultarPessoas.jsp"
+                window.location.href = "consultarPessoas.jsp";
             });
             
             //Funcao para verificar o intervalo de data quando sai do campo de data final
@@ -63,10 +63,10 @@
             //Funcao para tartar o click no botao de consultar
             $("#consultar").on('click', function(){
                 if($(dataF).val() < $(dataI).val()){ //Intervalo de tempo invalido
-                    alert('Coloque um intervalo de tempo válido!')
+                    alert('Coloque um intervalo de tempo válido!');
                 }
                 else{ //Intervalo de tempo valido
-                    window.location.href = "tabelaConsultarEstados.jsp"
+                    document.getElementById("form").submit();
                 }
             });
             
@@ -114,14 +114,14 @@
                 <article class="col-12 col-sm-6 col-md-3" id="art1" >
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="form" class="form-container">
+                    <form id="form" class="form-container" method="POST" action="consulta1">
                         <div class="form-group">
                                 <label> Data inicial</label>
-                                <input type="date" class="form-control" id="dataInicial" value="1938-01-01">  
+                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value="1938-01-01">  
                         </div>
                         <div class="form-group">
                                 <label> Data final</label>
-                                <input type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
+                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                         </div>
 
                         <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>

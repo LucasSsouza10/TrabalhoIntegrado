@@ -1,4 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Estado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -45,21 +49,23 @@
             
             
             //Configurar formato da tabela que contem os resultados
-            $('#tabela').DataTable({
+            $('#myTable').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
                 "bLengthChange" : false,
-                "order": [[ 1, "asc" ]],
-                "columns": [
-                    { "orderable": false },
-                    null,
-                    { "orderable": false },
-                    { "orderable": false }, 
-                    null,
-                    null
-                 ]
+                "order": [[ 0, "asc" ]],
+                "paging": false    
             });
             $('.dataTables_length').addClass('bs-select');
+            
+            $("#consultar").on('click', function(){
+                if($(dataF).val() < $(dataI).val()){ //Intervalo de tempo invalido
+                    alert('Coloque um intervalo de tempo válido!');
+                }
+                else{ //Intervalo de tempo valido
+                    document.getElementById("form").submit();
+                }
+            });
             
         });
     </script>
@@ -82,14 +88,14 @@
                 <article class="form-container" id="art1" >
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="form" class="form-inline">
+                    <form id="form" class="form-inline" method="POST" action="consulta1">
                         <div class="form form-group">
                                 <label> Data inicial</label>
-                                <input type="date" class="form-control" id="dataInicial" value="1938-01-01">  
+                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value="1938-01-01">  
                         </div>
                         <div class="form form-group">
                                 <label> Data final</label>
-                                <input type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
+                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                         </div>
 
                         <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
@@ -163,33 +169,24 @@
                             </tr>
                         </thead>
                         <tbody id="corpoTable">
-                            <tr><td>AC</td><td>20120000000000000</td><td>5</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AL</td><td>1040</td><td>3</td><td>4</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AP</td><td>357</td><td>4</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>AM</td><td>5877</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>BA</td><td>2450</td><td>2</td><td>6</td><td>1032</td><td>3</td></tr>
-                            <tr><td>CE</td><td>2354</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>DF</td><td>1050</td><td>3</td><td>7</td><td>1032</td><td>3</td></tr>
-                            <tr><td>ES</td><td>987</td><td>2</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>GO</td><td>112</td><td>1</td><td>8</td><td>1032</td><td>3</td></tr>
-                            <tr><td>MA</td><td>3217</td><td>5</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>MT</td><td>8563</td><td>10</td><td>9</td><td>1032</td><td>3</td></tr>
-                            <tr><td>MS</td><td>1241</td><td>2</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>MG</td><td>1548</td><td>1</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>PA</td><td>2675</td><td>2</td><td>4</td><td>1032</td><td>3</td></tr>
-                            <tr><td>PB</td><td>1572</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>PR</td><td>1246</td><td>1</td><td>1</td><td>1032</td><td>3</td></tr>
-                            <tr><td>PE</td><td>3652</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>PI</td><td>1524</td><td>2</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>RJ</td><td>1513</td><td>3</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>RN</td><td>2463</td><td>3</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>RS</td><td>1254</td><td>1</td><td>2</td><td>1032</td><td>3</td></tr>
-                            <tr><td>RO</td><td>2012</td><td>1</td><td>3</td><td>1032</td><td>3</td></tr>
-                            <tr><td>RR</td><td>6852</td><td>6</td><td>6</td><td>1032</td><td>3</td></tr>
-                            <tr><td>SC</td><td>3562</td><td>7</td><td>8</td><td>1032</td><td>3</td></tr>
-                            <tr><td>SP</td><td>6854</td><td>5</td><td>6</td><td>1032</td><td>3</td></tr>
-                            <tr><td>SE</td><td>7654</td><td>3</td><td>5</td><td>1032</td><td>3</td></tr>
-                            <tr><td>TO</td><td>9585</td><td>6</td><td>5</td><td>1032</td><td>3</td></tr>
+
+                            <% 
+                                ArrayList<Estado> arrayEstados = (ArrayList<Estado>) request.getAttribute("ArrayEstados");
+                                for (int i = 0; i < arrayEstados.size(); i++) {
+                                    
+                            %>
+                            <tr>
+                                <td><%= arrayEstados.get(i).getUf() %></td>
+                                <td><%= String.format("%.2f",arrayEstados.get(i).getValorDividas()) %></td>
+                                <td><%= arrayEstados.get(i).getQuantDevedores() %></td>
+                                <td><%= arrayEstados.get(i).getQuantDividas() %></td>
+                                <td><%= String.format("%.2f",arrayEstados.get(i).getValorAcoes()) %></td>
+                                <td><%= arrayEstados.get(i).getQuantAcoes() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            
                         </tbody>
                     </table>
                 </div>
