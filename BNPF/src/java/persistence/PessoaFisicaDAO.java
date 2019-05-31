@@ -17,7 +17,7 @@ public class PessoaFisicaDAO {
         this.connection = ConnectionFactory.getConnection();
     }
     
-     public ArrayList<PessoaFisica> consultar(int anoInicial, int anoFinal, String nome) throws SQLException{
+     public ArrayList<PessoaFisica> consultar(int anoInicial, int anoFinal, String nome) throws SQLException, DAOException{
          PreparedStatement statment;
          ResultSet rs;
          ArrayList<PessoaFisica> arrayPessoas = new ArrayList<>();
@@ -43,7 +43,7 @@ public class PessoaFisicaDAO {
              
              arrayPessoas.add(pessoa);
          }
-        
+         
          return arrayPessoas;
          
      }

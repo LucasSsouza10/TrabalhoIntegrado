@@ -128,10 +128,10 @@
             </div>
             
             <section class="row justify-content-center" style="width: 100%;">
-                <article id="art1" class="col-12 col-sm-6 col-md-3">
+                <article id="art1" class="col-12 col-sm-6 col-md-3 form-container">
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
-                    <form id="form" class="form-container" method="POST" action="consulta2">
+                    <form id="form" class="" method="POST" action="consulta2">
                         <div class="form-group">
                             <label for="usr">Nome:</label>
                             <input name="nome" id="nome" type="text" class="form-control" placeholder="Nome">
