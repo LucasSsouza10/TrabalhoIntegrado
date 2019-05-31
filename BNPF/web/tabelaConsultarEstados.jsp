@@ -75,7 +75,7 @@
             </nav>
         </header>
 
-        <section class="row justify-content-center" style="width: 100%;">
+        <section class="row justify-content-center">
             <article class="form-container" id="art1" >
                 <h3 id="titulo1">Realizar a consulta</h3> 
                 <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
@@ -96,56 +96,63 @@
             </article>
         </section>
 
-        <section id="section1" class="row justify-content-center container-fluid" style="padding-bottom: 80px;">
-            <div class="filtros col-3">
-                <h4 style="margin-bottom: 0px">Filtros dos valores</h4>
-                <h5 style="margin: 5px 0px;">Valor de dívidas:</h5>
-                <div class="row justify-content-center">
-                    <label>De:</label>
-                    <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
-                    <label>Até:</label>
-                    <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+        <section id="section1" class="row justify-content-center container-fluid">
+            <div class="col-3">
+                <div class="filtros">
+                    <h4 style="margin-bottom: 0px">Filtros dos valores</h4>
+                    <h5 style="margin: 5px 0px;">Valor de dívidas:</h5>
+                    
+                    <br>
+                    <div class="row justify-content-center">
+                        <label>De:</label>
+                        <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                        <label>Até:</label>
+                        <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                    </div>
+                    
+                    <br>
+                    <label style="margin: 5px 0px;">Quantidade de devedores:</label>
+                    <div class="row justify-content-center">
+                        <label>De:</label>
+                        <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                        <label>Até:</label>
+                        <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                    </div>
+                    
+                    <br>
+                    <label style="margin: 5px 0px;">Quantidade de dívidas</label>
+                    <div class="row justify-content-center">
+                        <label>De:</label>
+                        <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                        <label>Até:</label>
+                        <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                    </div>
+                    
+                    <br>
+                    <label style="margin: 5px 0px;">Valor de ações judiciais:</label>
+                    <div class="row justify-content-center">
+                        <label>De:</label>
+                        <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
+                        <label>Até:</label>
+                        <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
+                    </div>
+                    
+                    <br>
+                    <label style="margin: 5px 0px;">Quantidade de ações judiciais:</label>
+                    <div class="row justify-content-center">
+                        <label>De:</label>
+                        <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
+                        <label>Até:</label>
+                        <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
+                    </div>
+                    
+                    <br>
+                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary" onclick="filtrarValores()">Filtrar</button></p>
                 </div>
 
-                <br>
-                <label style="margin: 5px 0px;">Quantidade de devedores:</label>
-                <div class="row justify-content-center">
-                    <label>De:</label>
-                    <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
-                    <label>Até:</label>
-                    <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
-                </div>
 
-                <br>
-                <label style="margin: 5px 0px;">Quantidade de dívidas</label>
-                <div class="row justify-content-center">
-                    <label>De:</label>
-                    <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
-                    <label>Até:</label>
-                    <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
-                </div>
 
-                <br>
-                <label style="margin: 5px 0px;">Valor de ações judiciais:</label>
-                <div class="row justify-content-center">
-                    <label>De:</label>
-                    <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
-                    <label>Até:</label>
-                    <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
-                </div>
 
-                <br>
-
-                <label style="margin: 5px 0px;">Quantidade de ações judiciais:</label>
-                <div class="row justify-content-center">
-                    <label>De:</label>
-                    <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
-                    <label>Até:</label>
-                    <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
-                </div>
-
-                <br>
-                <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary" onclick="filtrarValores()">Filtrar</button></p>
             </div>
             <div class="table-responsive col-8">
                 <table id="myTable" class="table table-striped table-bordered table-sm" style="border: solid 1px #999;">
@@ -183,11 +190,11 @@
             </div>
         </section>
 
-        <footer class="page-footer font-small pt-4">
+        <footer class="page-footer font-small pt-5" style="color: white;">
 
-            <div class="container-fluid text-center text-md-left" style="background-color: rgb(33,150,243); padding: 24px 24px 0px;">
+            <div class="container-fluid text-center text-md-left bg-info">
                 <div class="row">
-                    <div class="col-md-6 mt-md-0 mt-3" style="color:white;">
+                    <div class="col-md-6 mt-md-0 mt-3">
                         <h5 class="text-uppercase">BNPF</h5>
                         <p style="margin-left: 10px;">Monitorando pessoas por você.</p>
 
@@ -224,7 +231,7 @@
                 </div>
 
             </div>
-            <div class="footer-copyright text-center py-3" style="background-color: rgb(26,120,194);">
+            <div class="footer-copyright text-center py-3 bg-primary">
                 ©Copyright 2019 BNPF - All Rights Reserved
             </div>
 

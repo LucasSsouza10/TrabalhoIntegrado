@@ -18,7 +18,7 @@ public class EstadoDAO {
           ArrayList<Estado> arrayEstados = new ArrayList<>();
           
           
-          String sql = "SELECT nome_UF, soma_div, qtd_devedores, qtd_div, soma_acoes, qtd_acoes FROM consultar_estados('"+ dtInicial +"','"+ dtFinal+"');";
+          String sql = "SELECT nome_UF, soma_div, qtd_devedores, qtd_div, soma_acoes, qtd_acoes FROM consultar_estados('"+ dtInicial +"', '"+ dtFinal+"');";
           
           statement = connection.prepareStatement(sql);
           rs = statement.executeQuery();
