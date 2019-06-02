@@ -6,7 +6,7 @@
         <title>BNPF - Consultar Estados</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css"> 
     </head>
 
     <!-- jQuery library -->
@@ -20,14 +20,17 @@
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
-
+    <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
+    
     <script>
         $(document).ready(function () {
+            
             var dataF = document.getElementById('dataFinal'),
                     dataI = document.getElementById('dataInicial'),
                     err_message = document.getElementById('err-message');
+                    
 
-            //Funcao para trocar de tela quando clica no botao id=consultaP1
+            //Funcao para trocar de tela quando clica no botao consultar pessoas
             $("#consultaP1").click(function () {
                 window.location.href = "consultarPessoas.jsp";
             });
@@ -35,10 +38,14 @@
             //Funcao para verificar o intervalo de data quando sai do campo de data final
             $(dataF).focusout(function () {
                 if ($(dataF).val() < $(dataI).val()) {
+                    $(dataI).css('border', '1px solid red');
+                    $(dataF).css('border', '1px solid red');
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('Data inicial é maior que a data final, coloque um intervalo válido!');
                     });
                 } else {
+                    $(dataF).css('border', '1px solid #ced4da');
+                    $(dataI).css('border', '1px solid #ced4da');
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('');
                     });
@@ -48,41 +55,39 @@
             //Funcao para verificar o intervalo de data quando sai do campo de data inicial
             $(dataI).focusout(function () {
                 if ($(dataF).val() < $(dataI).val()) {
+                    $(dataI).css('border', '1px solid red');
+                    $(dataF).css('border', '1px solid red');
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('Data inicial é maior que a data final, coloque um intervalo válido!');
-                    });
+                    });  
                 } else {
+                    $(dataF).css('border', '1px solid #ced4da');
+                    $(dataI).css('border', '1px solid #ced4da');
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('');
                     });
+                    
+                    
                 }
             });
 
             //Funcao para tartar o click no botao de consultar
             $("#consultar").on('click', function () {
                 if ($(dataF).val() < $(dataI).val()) { //Intervalo de tempo invalido
-                    alert('Coloque um intervalo de tempo válido!');
+                    swal({
+                        title:"Problema encontrado",
+                        text: "O intervalo de datas é invalido, você deve corrigir isso para poder realizar a consulta",
+                        icon: "error",
+                        button: "Entendido",
+                    })
                 } else { //Intervalo de tempo valido
                     document.getElementById("form").submit();
                 }
             });
-
-            //Configurar formato da tabela que contem os resultados
-            $('#myTable').DataTable({
-                "searching": false,
-                "bLengthChange": false,
-                "paging": false,
-                "bInfo": false
-            });
-            $('.dataTables_length').addClass('bs-select');
         });
+        
 
-        //Filtrar os valores da tabela
-        function filtrarValores() {
-            var table = document.getElementById("myTable");
-            var rows = table.rows;
-            rows[1].style.display = "none";
-        }
+        
     </script>
 
     <body>
@@ -124,12 +129,12 @@
                         <input name="dtFinal" type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                     </div>
 
-                    <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
-
-                    <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
+                    <p style="text-align: center; width: 350px;"><span class="right" id="err-message" style="color: darkred;"></span></p>
+                    
+                    <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>     
                 </form>
             </div>
-
+            
         </section>
 
         <footer>

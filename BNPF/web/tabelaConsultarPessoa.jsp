@@ -24,25 +24,23 @@
     
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     
+    <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
+    
     <script>
         $(document).ready(function() {
+            var anoF = document.getElementById('anoFinal'),
+                    anoI = document.getElementById('anoInicial'),
+                    err_message = document.getElementById('err-message'),
+                    err_message1 = document.getElementById('err-message1'),
+                    err_message2 = document.getElementById('err-message2'),
+                    nome = document.getElementById('nome');
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1" ).click(function() {
                 window.location.href = "consultarPessoas.jsp";
             });
             
-            //Funcao para trocar de tela quando clica no botao id=consultaP2
-            $("#consultaP2" ).click(function() {
-                window.location.href = "consultarPessoas.jsp";
-            });
-            
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1" ).click(function() {
-                window.location.href = "consultarEstados.jsp";
-            });
-            
-            //Funcao para trocar de tela quando clica no botao id=consultaE2
-            $("#consultaE2" ).click(function() {
                 window.location.href = "consultarEstados.jsp";
             });
             
@@ -65,21 +63,22 @@
             $('.dataTables_length').addClass('bs-select');
             
             $( "#consultar" ).click(function() {
-                var anoFinal = document.getElementById('anoFinal'),
-                anoInicial = document.getElementById('anoInicial'),
-                err_message = document.getElementById('err-message'),
-                nome = document.getElementById('nome');
-           
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
                 
-                if(($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))){
+                if(($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))){
                     document.getElementById("form").submit();
                 }
                 else{
-                    alert('Campos de busca inválidos, verifique e tente novamente');
+                    swal({
+                        title:"Problema encontrado",
+                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
+                        icon: "error",
+                        button: "Entendido",
+                    })
                 }
             });
+            
             
         });
     </script>
@@ -184,8 +183,7 @@
                 </table>
             </div>
         </section>
-        
-	  
+         
         <footer>
             <ul style="text-align: center;">
                 <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>

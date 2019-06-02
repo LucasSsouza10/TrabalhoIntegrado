@@ -19,86 +19,106 @@
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
+    <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
+    
     <script>
         $(document).ready(function () {
             //Variaveis que serão utilizadas no decorrer do <script>
-            var anoFinal = document.getElementById('anoFinal'),
-                    anoInicial = document.getElementById('anoInicial'),
-                    err_message = document.getElementById('err-message');
+            var anoF = document.getElementById('anoFinal'),
+                    anoI = document.getElementById('anoInicial'),
+                    err_message = document.getElementById('err-message'),
+                    err_message1 = document.getElementById('err-message1'),
+                    err_message2 = document.getElementById('err-message2'),
+                    nome = document.getElementById('nome');
 
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1").click(function () {
                 window.location.href = "consultarEstados.jsp";
             });
 
-            //Funcao para trocar de tela quando clica no botao id=consultaP1
-            $("#consultaP1").click(function () {
-                window.location.href = "consultarPessoas.jsp";
+            //Funcao para verificar quando sair do campo ano final
+            $(anoF).focusout(function () {
+                verificar();
             });
 
-
-            //Funcao para verificar o periodo de ano quando sai do campo de ano inicial
-            $(document.body).on('focusout', '#anoInicial', function () {
-                if ($(anoFinal).val() < $(anoInicial).val()) {
-                    $(err_message).fadeIn('slow', function () {
-                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
-                    });
-                } else {
-                    $(err_message).fadeOut(1000, function () {
-                        $(this).html('');
-                    });
-                }
+            //Funcao para verificar quando sair do campo ano inicial
+            $(anoI).focusout(function () {
+                verificar();
+            });
+            
+            //Funcao para verificar quando sair do campo nivel
+            $(nome).focusout(function () {
+                verificar();
             });
 
-            //Funcao para verificar o periodo de ano quando sai do campo de ano final
-            $(document.body).on('focusout', '#anoFinal', function () {
-                if ($(anoFinal).val() < $(anoInicial).val()) {
-                    $(err_message).fadeIn('slow', function () {
-                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
-                    });
-                } else {
-                    $(err_message).fadeOut(1000, function () {
-                        $(this).html('');
-                    });
-                }
-            });
-
-            //Funcao para verificar se o nome inserido tem apenas letras
-            $(document.body).on('focusout', '#nome', function () {
-                nome = document.getElementById('nome');
-
-                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
-                var element = $(nome);
-
-                if (!(letter_only.test(element.val()))) {
-                    $(err_message).fadeIn('slow', function () {
-                        $(this).html('Nome invalido, permitido somente letras');
-                    });
-                } else {
-                    $(err_message).fadeOut(1000, function () {
-                        $(this).html('');
-                    });
-                }
-            });
-
-
-            //Funcao para tartar o click no botao de consultar
+            //Funcao para tratar o click no botao de consultar
             $("#target").click(function () {
-                var anoFinal = document.getElementById('anoFinal'),
-                        anoInicial = document.getElementById('anoInicial'),
-                        err_message = document.getElementById('err-message'),
-                        nome = document.getElementById('nome');
-
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
 
-                if (($(anoFinal).val() > $(anoInicial).val()) && (letter_only.test(element.val()))) {
+                if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
                     document.getElementById("form").submit();
                 } else {
-                    alert('Campos de busca inválidos, verifique e tente novamente')
+                    swal({
+                        title:"Problema encontrado",
+                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
+                        icon: "error",
+                        button: "Entendido",
+                    })
                 }
             });
+            
+            //Funcao para verificar todos os campos
+            function verificar(){
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
+                var element = $(nome);
+                var flag = 0;
+                
+                if (!(letter_only.test(element.val()))) {
+                    $(nome).css('border', '1px solid red');
+                    flag = 1;
+                    $(err_message).fadeIn('slow', function () {
+                        $(this).html('Nome invalido, permitido somente letras.');
+                    });
+                } 
+                else {
+                    $(nome).css('border', '1px solid #ced4da');
+                    $(err_message).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+                
+                if ( $(nome).val().length < 3){
+                    $(nome).css('border', '1px solid red');
+                    $(err_message1).fadeIn('slow', function () {
+                        $(this).html('Digite três caracteres no mínimo.');
+                    });
+                }
+                else {
+                    if(flag === 0){
+                        $(nome).css('border', '1px solid #ced4da');
+                    }
+                    $(err_message1).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+                if ($(anoF).val() < $(anoI).val()) {
+                    $(anoI).css('border', '1px solid red');
+                    $(anoF).css('border', '1px solid red');
+                    $(err_message2).fadeIn('slow', function () {
+                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
+                    });
+                }
+                else {
+                    $(anoF).css('border', '1px solid #ced4da');
+                    $(anoI).css('border', '1px solid #ced4da');
+                    $(err_message2).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+            }
         });
+        
     </script>
 
 
@@ -147,9 +167,12 @@
                         <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                     </div>
 
-                    <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary">Consultar</button></p>
-
-                    <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
+                    <p style="text-align: center; width: 336px;"><span class="right" id="err-message" style="color: darkred;"></span>
+                        <br><span class="right" id="err-message1" style="color: darkred;"></span>
+                        <br><span class="right" id="err-message2" style="color: darkred;"></span>
+                    </p>
+                    
+                    <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary col-12">Consultar</button></p>
                 </form>
 
             </div>
