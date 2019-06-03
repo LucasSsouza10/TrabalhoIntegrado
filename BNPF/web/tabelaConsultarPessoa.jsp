@@ -46,7 +46,7 @@
             
             
             //Configurar formato da tabela que contem os resultados
-            $('#tabela').DataTable({
+           var table = $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
                 "bLengthChange" : false,
@@ -61,6 +61,13 @@
                  ]
             });
             $('.dataTables_length').addClass('bs-select');
+                              
+            var rows = table.rows();
+            
+            $('#tabela').on( 'click', 'tbody tr', function () {
+                //Codigo para abrir o modal com profundidade da pessoa;
+             } );
+             
             
             $( "#consultar" ).click(function() {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
