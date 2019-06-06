@@ -29,90 +29,90 @@
 
     <script>
         $(document).ready(function () {
-        var anoF = document.getElementById('anoFinal'),
-                anoI = document.getElementById('anoInicial'),
-                err_message = document.getElementById('err-message'),
-                err_message1 = document.getElementById('err-message1'),
-                err_message2 = document.getElementById('err-message2'),
-                nome = document.getElementById('nome');
-                //Funcao para trocar de tela quando clica no botao id=consultaP1
-                $("#consultaP1").click(function () {
-        window.location.href = "consultarPessoas.jsp";
-        });
-                //Funcao para trocar de tela quando clica no botao id=consultaE1
-                $("#consultaE1").click(function () {
-        window.location.href = "consultarEstados.jsp";
-        });
-                //Configurar formato da tabela que contem os resultados
-                var table = $('#tabela').DataTable({
-        "pagingType": "simple_numbers",
+            var anoF = document.getElementById('anoFinal'),
+                    anoI = document.getElementById('anoInicial'),
+                    err_message = document.getElementById('err-message'),
+                    err_message1 = document.getElementById('err-message1'),
+                    err_message2 = document.getElementById('err-message2'),
+                    nome = document.getElementById('nome');
+            //Funcao para trocar de tela quando clica no botao id=consultaP1
+            $("#consultaP1").click(function () {
+                window.location.href = "consultarPessoas.jsp";
+            });
+            //Funcao para trocar de tela quando clica no botao id=consultaE1
+            $("#consultaE1").click(function () {
+                window.location.href = "consultarEstados.jsp";
+            });
+            //Configurar formato da tabela que contem os resultados
+            var table = $('#tabela').DataTable({
+                "pagingType": "simple_numbers",
                 "searching": false,
                 "pageLength": 20,
                 "bLengthChange": false,
                 "order": [[1, "asc"]],
                 "columns": [
-                {"orderable": false},
-                        null,
-                {"orderable": false},
-                {"orderable": false},
-                        null,
-                        null
+                    {"orderable": false},
+                    null,
+                    {"orderable": false},
+                    {"orderable": false},
+                    null,
+                    null
                 ]
-        });
-                $('.dataTables_length').addClass('bs-select');
-                $('#tabela').on('mouseover', 'tbody tr', function () {
-        $(this).css('background', 'gray');
-        });
-                $('#tabela').on('mouseout', 'tbody tr', function () {
-        $(this).css('background', '');
-        });
-                $("#consultar").click(function () {
-        var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
+            });
+            $('.dataTables_length').addClass('bs-select');
+            $('#tabela').on('mouseover', 'tbody tr', function () {
+                $(this).css('background', 'gray');
+            });
+            $('#tabela').on('mouseout', 'tbody tr', function () {
+                $(this).css('background', '');
+            });
+            $("#consultar").click(function () {
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
                 if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
-        document.getElementById("form").submit();
-        } else {
-        swal({
-        title: "Problema encontrado",
-                text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
-                icon: "error",
-                button: "Entendido"
-        });
-        }
-        });
-                $('tbody tr').click(function () {
-        $('#pnome').html($(this).find('.nome').text());
+                    document.getElementById("form").submit();
+                } else {
+                    swal({
+                        title: "Problema encontrado",
+                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
+                        icon: "error",
+                        button: "Entendido"
+                    });
+                }
+            });
+            $('#tabela').on('click', 'tbody tr', function () {
+                $('#pnome').html($(this).find('.nome').text());
                 $('#pcpf').html($(this).find('.cpf').text());
                 $('#pdtNascimento').html($(this).find('.dtNascimento').text());
                 $('#pestadoCivil').html($(this).find('.estadoCivil').text());
                 $.ajax({
-                type: 'post',
-                        url: 'ConsultarDetalhes',
-                        data: {cpf: $(this).find('.cpf').text()},
-                        dataType: 'JSON',
-                        success: function (dados) {
-                            $('#dadosDividas').html('');
-                            $('#dadosAcoes').html('');
-                            $.each(dados[0], function (i) {
-                                $('#dadosDividas').append('<tr>');
-                                $('#dadosDividas').append('<td>' + dados[0][i].contrato + '</td>');
-                                $('#dadosDividas').append('<td>' + dados[0][i].cnpj + '</td>');
-                                $('#dadosDividas').append('<td>' + dados[0][i].data.dayOfMonth + '/' + dados[0][i].data.month + '/' + dados[0][i].data.year +'</td>');
-                                $('#dadosDividas').append('<td>' + dados[0][i].valor + '</td>');
-                                $('#dadosDividas').append('</tr>');
-                            });
-                            $.each(dados[1], function (i) {
-                                $('#dadosAcoes').append('<tr>');
-                                $('#dadosAcoes').append('<td>' + dados[1][i].numProcesso + '</td>');
-                                $('#dadosAcoes').append('<td>' + dados[1][i].identAutor + '</td>');
-                                $('#dadosAcoes').append('<td>' + dados[1][i].situacao + '</td>');
-                                $('#dadosAcoes').append('<td>' + dados[1][i].data.dayOfMonth + '/' + dados[1][i].data.month + '/' + dados[1][i].data.year + '</td>');
-                                $('#dadosAcoes').append('<td>' + dados[1][i].valor + '</td>');
-                                $('#dadosAcoes').append('</tr>');
-                            });
-                        }
+                    type: 'post',
+                    url: 'ConsultarDetalhes',
+                    data: {cpf: $(this).find('.cpf').text()},
+                    dataType: 'JSON',
+                    success: function (dados) {
+                        $('#dadosDividas').html('');
+                        $('#dadosAcoes').html('');
+                        $.each(dados[0], function (i) {
+                            $('#dadosDividas').append('<tr>');
+                            $('#dadosDividas').append('<td>' + dados[0][i].contrato + '</td>');
+                            $('#dadosDividas').append('<td>' + dados[0][i].cnpj + '</td>');
+                            $('#dadosDividas').append('<td>' + dados[0][i].data.dayOfMonth + '/' + dados[0][i].data.month + '/' + dados[0][i].data.year + '</td>');
+                            $('#dadosDividas').append('<td>' + dados[0][i].valor + '</td>');
+                            $('#dadosDividas').append('</tr>');
+                        });
+                        $.each(dados[1], function (i) {
+                            $('#dadosAcoes').append('<tr>');
+                            $('#dadosAcoes').append('<td>' + dados[1][i].numProcesso + '</td>');
+                            $('#dadosAcoes').append('<td>' + dados[1][i].identAutor + '</td>');
+                            $('#dadosAcoes').append('<td>' + dados[1][i].situacao + '</td>');
+                            $('#dadosAcoes').append('<td>' + dados[1][i].data.dayOfMonth + '/' + dados[1][i].data.month + '/' + dados[1][i].data.year + '</td>');
+                            $('#dadosAcoes').append('<td>' + dados[1][i].valor + '</td>');
+                            $('#dadosAcoes').append('</tr>');
+                        });
+                    }
                 });
-        });
+            });
         }
         );
     </script>
