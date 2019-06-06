@@ -4,17 +4,17 @@ package model;
 import java.util.Calendar;
 
 public class Divida {
-    private String cantrato;
+    private String contrato;
     private String cnpj;
     private Calendar data;
     private double valor;
 
-    public String getCantrato() {
-        return cantrato;
+    public String getContrato() {
+        return contrato;
     }
 
-    public void setCantrato(String cantrato) {
-        this.cantrato = cantrato;
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
     }
 
     public String getCnpj() {
@@ -40,6 +40,12 @@ public class Divida {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "Divida{" + "contrato=" + contrato + ", cnpj=" + cnpj + ", data=" + data + ", valor=" + valor + '}';
+    }
+    
     
     
 }

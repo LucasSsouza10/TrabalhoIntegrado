@@ -5,19 +5,24 @@
  */
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AcoesJudiciais;
 import model.Divida;
+import persistence.AcoesJudiciaisDAO;
 import persistence.DAOException;
 import persistence.DividaDAO;
 
@@ -45,7 +50,7 @@ public class ConsultarDetalhes extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConsultarDetalhes</title>");            
+            out.println("<title>Servlet ConsultarDetalhes</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ConsultarDetalhes at " + request.getContextPath() + "</h1>");
@@ -81,13 +86,24 @@ public class ConsultarDetalhes extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cpf = request.getParameter("cpf");
-        
+
         try {
             DividaDAO ddao = new DividaDAO();
             ArrayList<Divida> arrayDividas = ddao.consultar(cpf);
+
+            AcoesJudiciaisDAO adao = new AcoesJudiciaisDAO();
+            ArrayList<AcoesJudiciais> arrayAcoes = adao.consultar(cpf);
             
-           
+            ArrayList<Object> array= new ArrayList<>();
+            array.add(arrayDividas);
+            array.add(arrayAcoes);
             
+            String json = new Gson().toJson(array);
+
+            PrintWriter retorno = response.getWriter();
+            retorno.write(json);
+            retorno.close();
+
         } catch (DAOException | SQLException ex) {
             Logger.getLogger(ConsultarDetalhes.class.getName()).log(Level.SEVERE, null, ex);
         }

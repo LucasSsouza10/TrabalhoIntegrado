@@ -29,7 +29,7 @@ public class DividaDAO {
         while (rs.next()) {
             Divida divida = new Divida();
 
-            divida.setCantrato(rs.getString("contrato"));
+            divida.setContrato(rs.getString("contrato"));
             divida.setCnpj(rs.getString("cnpj"));
 
             Calendar cal = Calendar.getInstance();

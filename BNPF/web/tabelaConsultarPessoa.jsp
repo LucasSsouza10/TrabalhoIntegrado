@@ -29,78 +29,92 @@
 
     <script>
         $(document).ready(function () {
-            var anoF = document.getElementById('anoFinal'),
-                    anoI = document.getElementById('anoInicial'),
-                    err_message = document.getElementById('err-message'),
-                    err_message1 = document.getElementById('err-message1'),
-                    err_message2 = document.getElementById('err-message2'),
-                    nome = document.getElementById('nome');
-            //Funcao para trocar de tela quando clica no botao id=consultaP1
-            $("#consultaP1").click(function () {
-                window.location.href = "consultarPessoas.jsp";
-            });
-
-            //Funcao para trocar de tela quando clica no botao id=consultaE1
-            $("#consultaE1").click(function () {
-                window.location.href = "consultarEstados.jsp";
-            });
-
-
-            //Configurar formato da tabela que contem os resultados
-            var table = $('#tabela').DataTable({
-                "pagingType": "simple_numbers",
+        var anoF = document.getElementById('anoFinal'),
+                anoI = document.getElementById('anoInicial'),
+                err_message = document.getElementById('err-message'),
+                err_message1 = document.getElementById('err-message1'),
+                err_message2 = document.getElementById('err-message2'),
+                nome = document.getElementById('nome');
+                //Funcao para trocar de tela quando clica no botao id=consultaP1
+                $("#consultaP1").click(function () {
+        window.location.href = "consultarPessoas.jsp";
+        });
+                //Funcao para trocar de tela quando clica no botao id=consultaE1
+                $("#consultaE1").click(function () {
+        window.location.href = "consultarEstados.jsp";
+        });
+                //Configurar formato da tabela que contem os resultados
+                var table = $('#tabela').DataTable({
+        "pagingType": "simple_numbers",
                 "searching": false,
                 "pageLength": 20,
                 "bLengthChange": false,
                 "order": [[1, "asc"]],
                 "columns": [
-                    {"orderable": false},
-                    null,
-                    {"orderable": false},
-                    {"orderable": false},
-                    null,
-                    null
+                {"orderable": false},
+                        null,
+                {"orderable": false},
+                {"orderable": false},
+                        null,
+                        null
                 ]
-            });
-            $('.dataTables_length').addClass('bs-select');
-
-            $('#tabela').on('mouseover', 'tbody tr', function () {
-                $(this).css('background', 'gray');
-            });
-
-            $('#tabela').on('mouseout', 'tbody tr', function () {
-                $(this).css('background', '');
-            });
-
-
-            $("#consultar").click(function () {
-                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
-                var element = $(nome);
-
-                if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
-                    document.getElementById("form").submit();
-                } else {
-                    swal({
-                        title: "Problema encontrado",
-                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
-                        icon: "error",
-                        button: "Entendido"
-                    });
-                }
-            });
-
-            $('tbody tr').click(function () {
-
-                $.ajax({
-                    type: 'post',
-                    url: 'ConsultarDetalhes',
-                    data: {cpf: $(this).find('.cpf').text()},
-                }).done(function () {
-                    $('#modal-body').load();
-                });
-            });
-
         });
+                $('.dataTables_length').addClass('bs-select');
+                $('#tabela').on('mouseover', 'tbody tr', function () {
+        $(this).css('background', 'gray');
+        });
+                $('#tabela').on('mouseout', 'tbody tr', function () {
+        $(this).css('background', '');
+        });
+                $("#consultar").click(function () {
+        var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
+                var element = $(nome);
+                if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
+        document.getElementById("form").submit();
+        } else {
+        swal({
+        title: "Problema encontrado",
+                text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
+                icon: "error",
+                button: "Entendido"
+        });
+        }
+        });
+                $('tbody tr').click(function () {
+        $('#pnome').html($(this).find('.nome').text());
+                $('#pcpf').html($(this).find('.cpf').text());
+                $('#pdtNascimento').html($(this).find('.dtNascimento').text());
+                $('#pestadoCivil').html($(this).find('.estadoCivil').text());
+                $.ajax({
+                type: 'post',
+                        url: 'ConsultarDetalhes',
+                        data: {cpf: $(this).find('.cpf').text()},
+                        dataType: 'JSON',
+                        success: function (dados) {
+                            $('#dadosDividas').html('');
+                            $('#dadosAcoes').html('');
+                            $.each(dados[0], function (i) {
+                                $('#dadosDividas').append('<tr>');
+                                $('#dadosDividas').append('<td>' + dados[0][i].contrato + '</td>');
+                                $('#dadosDividas').append('<td>' + dados[0][i].cnpj + '</td>');
+                                $('#dadosDividas').append('<td>' + dados[0][i].data.dayOfMonth + '/' + dados[0][i].data.month + '/' + dados[0][i].data.year +'</td>');
+                                $('#dadosDividas').append('<td>' + dados[0][i].valor + '</td>');
+                                $('#dadosDividas').append('</tr>');
+                            });
+                            $.each(dados[1], function (i) {
+                                $('#dadosAcoes').append('<tr>');
+                                $('#dadosAcoes').append('<td>' + dados[1][i].numProcesso + '</td>');
+                                $('#dadosAcoes').append('<td>' + dados[1][i].identAutor + '</td>');
+                                $('#dadosAcoes').append('<td>' + dados[1][i].situacao + '</td>');
+                                $('#dadosAcoes').append('<td>' + dados[1][i].data.dayOfMonth + '/' + dados[1][i].data.month + '/' + dados[1][i].data.year + '</td>');
+                                $('#dadosAcoes').append('<td>' + dados[1][i].valor + '</td>');
+                                $('#dadosAcoes').append('</tr>');
+                            });
+                        }
+                });
+        });
+        }
+        );
     </script>
 
     <body class="fundoConsulta">
@@ -148,7 +162,7 @@
                 </div>
 
 
-                <div class="container mt-5">
+                <div class="container form-container mt-5">
                     <!--<div class="form-container">-->
                     <h4 style="margin-bottom: 0px">Filtrar valores</h4>
 
@@ -203,12 +217,12 @@
                             SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
                             for (int i = 0; i < arrayPessoas.size(); i++) {
                         %>
-                        <tr data-toggle="modal" data-target="#exampleModal">
+                        <tr data-toggle="modal" data-target="#modalPessoa">
                             <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
-                            <td><%= arrayPessoas.get(i).getNome()%></td>
-                            <td><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
-                            <td><%= arrayPessoas.get(i).getEstadoCivil()%></td>
-                            <td><%= arrayPessoas.get(i).getQuantDividas()%></td>
+                            <td class="nome"><%= arrayPessoas.get(i).getNome()%></td>
+                            <td class="dtNascimento"><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
+                            <td class="estadoCivil"><%= arrayPessoas.get(i).getEstadoCivil()%></td>
+                            <td ><%= arrayPessoas.get(i).getQuantDividas()%></td>
                             <td><%= arrayPessoas.get(i).getQuantAcoes()%></td>
                         </tr>
 
@@ -222,17 +236,58 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h2 class="modal-title" id="exampleModalLabel">Detalhes pessoas</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div id="modal-body" class="modal-body">
-                    
+                    <div>
+                        <h5>Dados Pessoais</h5>
+                        <label>Nome:</label><p id="pnome"></p>
+                        <label>CPF:</label><p id="pcpf"></p>
+                        <label>Data de Nascimento:</label><p id="pdtNascimento"></p>
+                        <label>Estado civil</label><p id="pestadoCivil"></p>
+                    </div>
+                    <div id='dividas'>
+                        <h5>Dividas</h5>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th class='th-sm'>Contrato</th>
+                                    <th class='th-sm'>CNPJ</th>
+                                    <th class='th-sm'>Data</th>
+                                    <th class='th-sm'>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dadosDividas">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id='acoes'> 
+                        <h5>Acoes</h5>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th class='th-sm'>Numero do processo</th>
+                                    <th class='th-sm'>Autor</th>
+                                    <th class='th-sm'>Situação</th>
+                                    <th class='th-sm'>Data</th>
+                                    <th class='th-sm'>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dadosAcoes">
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

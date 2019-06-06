@@ -49,6 +49,12 @@ public class AcoesJudiciais {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
+    @Override
+    public String toString() {
+        return "AcoesJudiciais{" + "numProcesso=" + numProcesso + ", identAutor=" + identAutor + ", situacao=" + situacao + ", data=" + data + ", valor=" + valor + '}';
+    }
+    
     
     
 }
