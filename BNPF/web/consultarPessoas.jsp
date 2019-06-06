@@ -20,7 +20,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
     <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
-    
+
     <script>
         $(document).ready(function () {
             //Variaveis que serão utilizadas no decorrer do <script>
@@ -45,7 +45,7 @@
             $(anoI).focusout(function () {
                 verificar();
             });
-            
+
             //Funcao para verificar quando sair do campo nivel
             $(nome).focusout(function () {
                 verificar();
@@ -60,42 +60,40 @@
                     document.getElementById("form").submit();
                 } else {
                     swal({
-                        title:"Problema encontrado",
+                        title: "Problema encontrado",
                         text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
                         icon: "error",
-                        button: "Entendido",
-                    })
+                        button: "Entendido"
+                    });
                 }
             });
-            
+
             //Funcao para verificar todos os campos
-            function verificar(){
+            function verificar() {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
                 var element = $(nome);
                 var flag = 0;
-                
+
                 if (!(letter_only.test(element.val()))) {
                     $(nome).css('border', '1px solid red');
                     flag = 1;
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('Nome invalido, permitido somente letras.');
                     });
-                } 
-                else {
+                } else {
                     $(nome).css('border', '1px solid #ced4da');
                     $(err_message).fadeIn('slow', function () {
                         $(this).html('');
                     });
                 }
-                
-                if ( $(nome).val().length < 3){
+
+                if ($(nome).val().length < 3) {
                     $(nome).css('border', '1px solid red');
                     $(err_message1).fadeIn('slow', function () {
                         $(this).html('Digite três caracteres no mínimo.');
                     });
-                }
-                else {
-                    if(flag === 0){
+                } else {
+                    if (flag === 0) {
                         $(nome).css('border', '1px solid #ced4da');
                     }
                     $(err_message1).fadeIn('slow', function () {
@@ -108,8 +106,7 @@
                     $(err_message2).fadeIn('slow', function () {
                         $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
                     });
-                }
-                else {
+                } else {
                     $(anoF).css('border', '1px solid #ced4da');
                     $(anoI).css('border', '1px solid #ced4da');
                     $(err_message2).fadeIn('slow', function () {
@@ -118,7 +115,7 @@
                 }
             }
         });
-        
+
     </script>
 
 
@@ -155,7 +152,7 @@
                     <h3 id="titulo1">Realizar a consulta</h3> 
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                     <div class="form-group">
-                        <label for="usr">Nome:</label>
+                        <label for="usr">Trecho do nome:</label>
                         <input name="nome" id="nome" type="text" class="form-control" placeholder="Nome">
                     </div>
                     <div class="form-group">
@@ -171,7 +168,7 @@
                         <br><span class="right" id="err-message1" style="color: darkred;"></span>
                         <br><span class="right" id="err-message2" style="color: darkred;"></span>
                     </p>
-                    
+
                     <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary col-12">Consultar</button></p>
                 </form>
 

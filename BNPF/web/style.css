@@ -16,6 +16,11 @@ th, td {
   text-align: center;
 }
 
+#tabela{
+    border: 1px solid #777;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
 .form-container{
     background: #fff;
     padding: 30px;
@@ -23,19 +28,15 @@ th, td {
     box-shadow: 0px 0px 10px 0px #000;
 }
 
-.filtros{
-    margin: 10px;
-    padding: 30px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px #000;
+.fil{
+    border-top: 1px solid #777;
 }
 
 .form{
     margin-right: 10px; 
 }
 
-#section1 label{
+.fil label{
     margin: 5px 10px;
 }
 
@@ -59,4 +60,13 @@ th, td {
 
 tbody tr:hover{
     cursor:pointer;
+}
+
+.fundoConsulta{
+    background-color: rgb( 233, 235, 238);
+}
+
+.bg-foo{
+    background-color: rgb(66, 103, 178);
+    color: white;
 }
