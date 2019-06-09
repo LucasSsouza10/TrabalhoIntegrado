@@ -22,7 +22,10 @@
     <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
 
     <script>
+        
         $(document).ready(function () {
+            $('#myModal').modal('hide');
+            
             //Variaveis que serão utilizadas no decorrer do <script>
             var anoF = document.getElementById('anoFinal'),
                     anoI = document.getElementById('anoInicial'),
@@ -57,6 +60,7 @@
                 var element = $(nome);
 
                 if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
+                    $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 } else {
                     swal({
@@ -65,6 +69,12 @@
                         icon: "error",
                         button: "Entendido"
                     });
+                    if ($(nome).val().length < 3) {
+                        $(nome).css('border', '1px solid red');
+                        $(err_message1).fadeIn('slow', function () {
+                            $(this).html('Digite no mínimo três letras no trecho de nome.');
+                        });
+                    }
                 }
             });
 
@@ -90,7 +100,7 @@
                 if ($(nome).val().length < 3) {
                     $(nome).css('border', '1px solid red');
                     $(err_message1).fadeIn('slow', function () {
-                        $(this).html('Digite três caracteres no mínimo.');
+                        $(this).html('Digite no mínimo três letras no trecho de nome.');
                     });
                 } else {
                     if (flag === 0) {
@@ -125,7 +135,7 @@
                 <a class="navbar-brand" href="#">
                     <img src="./LogoBNPF.png" width="80" height="80" alt="" style="margin-left: 20px;">
                 </a>
-                <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                <ul class="navbar-nav flex-row ml-md-auto d-md-flex">
                     <li class="nav-item" ><a href="index.jsp" class="nav-link p-2" href="index.jsp" style="color: white; margin-right: 10px;">Home</a></li>
                     <li class="nav-item"><button type="button" id="consultaE1" class="btn btn-outline-light" style="margin-right: 20px;">Consultar Estados</button>
                     <li class="nav-item"><button type="button" id="consultaP1" class="btn btn-outline-light active" style="margin-right: 20px;">Consultar Pessoas</button>
@@ -153,7 +163,7 @@
                     <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                     <div class="form-group">
                         <label for="usr">Trecho do nome:</label>
-                        <input name="nome" id="nome" type="text" class="form-control" placeholder="Nome">
+                        <input name="nome" id="nome" type="text" class="form-control" placeholder="Digite no mínimo três letras">
                     </div>
                     <div class="form-group">
                         <label>Ano Inicial:</label>
@@ -171,17 +181,46 @@
 
                     <p id="pBotao1" style="text-align: center;"><button id="target" type="button" class="btn btn-primary col-12">Consultar</button></p>
                 </form>
-
             </div>
         </section>
+        
+        <!-- Modal para avisar que que esta carregando a consulta -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
 
+        <footer class="page-footer font-small">
+            <div class="container-fluid text-center text-md-left bg-foo">
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
 
-        <footer>
-            <ul style="text-align: center;">
-                <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
-                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Termos de uso</a></li>
-                <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Privacidade</a></li>
-            </ul>
+                    </div>
+                    <hr class="clearfix w-100 d-md-none pb-3">
+                </div>
+            </div>
+            <div class="footer-copyright text-center py-3 bg-white">
+                ©Copyright 2019 BNPF - All Rights Reserved
+            </div>
         </footer>
     </body>
 </html>

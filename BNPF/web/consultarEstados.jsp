@@ -24,7 +24,7 @@
     
     <script>
         $(document).ready(function () {
-            
+            $('#myModal').modal('hide');
             var dataF = document.getElementById('dataFinal'),
                     dataI = document.getElementById('dataInicial'),
                     err_message = document.getElementById('err-message');
@@ -76,11 +76,12 @@
                 if ($(dataF).val() < $(dataI).val()) { //Intervalo de tempo invalido
                     swal({
                         title:"Problema encontrado",
-                        text: "O intervalo de datas é invalido, você deve corrigir isso para poder realizar a consulta",
+                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
                         icon: "error",
                         button: "Entendido",
                     })
                 } else { //Intervalo de tempo valido
+                    $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 }
             });
@@ -134,13 +135,45 @@
                     <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>     
                 </form>
             </div>
-            
         </section>
 
-        <footer>
-            <ul style="text-align: center;">
-                <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
-            </ul>
+        <!-- Modal para avisar que que esta carregando a consulta -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+        
+        <footer class="page-footer font-small">
+            <div class="container-fluid text-center text-md-left bg-foo">
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
+
+                    </div>
+                    <hr class="clearfix w-100 d-md-none pb-3">
+                </div>
+            </div>
+            <div class="footer-copyright text-center py-3 bg-white">
+                ©Copyright 2019 BNPF - All Rights Reserved
+            </div>
         </footer>
 
 

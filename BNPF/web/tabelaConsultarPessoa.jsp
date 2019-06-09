@@ -29,20 +29,24 @@
 
     <script>
         $(document).ready(function () {
+            $('#myModal').modal('hide');
             var anoF = document.getElementById('anoFinal'),
                     anoI = document.getElementById('anoInicial'),
                     err_message = document.getElementById('err-message'),
                     err_message1 = document.getElementById('err-message1'),
                     err_message2 = document.getElementById('err-message2'),
                     nome = document.getElementById('nome');
+                    
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1").click(function () {
                 window.location.href = "consultarPessoas.jsp";
             });
+            
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1").click(function () {
                 window.location.href = "consultarEstados.jsp";
             });
+            
             //Configurar formato da tabela que contem os resultados
             var table = $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
@@ -59,17 +63,21 @@
                     null
                 ]
             });
+            
             $('.dataTables_length').addClass('bs-select');
             $('#tabela').on('mouseover', 'tbody tr', function () {
                 $(this).css('background', 'gray');
             });
+            
             $('#tabela').on('mouseout', 'tbody tr', function () {
                 $(this).css('background', '');
             });
+            
             $("#consultar").click(function () {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
                 if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
+                    $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 } else {
                     swal({
@@ -78,13 +86,35 @@
                         icon: "error",
                         button: "Entendido"
                     });
+                    if ($(nome).val().length < 3) {
+                        $(nome).css('border', '1px solid red');
+                        $(err_message1).fadeIn('slow', function () {
+                            $(this).html('Digite no mínimo três letras no trecho de nome.');
+                        });
+                    }
                 }
             });
+            
+            //Funcao para verificar quando sair do campo ano final
+            $(anoF).focusout(function () {
+                verificar();
+            });
+
+            //Funcao para verificar quando sair do campo ano inicial
+            $(anoI).focusout(function () {
+                verificar();
+            });
+
+            //Funcao para verificar quando sair do campo nivel
+            $(nome).focusout(function () {
+                verificar();
+            });
+            
             $('#tabela').on('click', 'tbody tr', function () {
-                $('#pnome').html($(this).find('.nome').text());
-                $('#pcpf').html($(this).find('.cpf').text());
-                $('#pdtNascimento').html($(this).find('.dtNascimento').text());
-                $('#pestadoCivil').html($(this).find('.estadoCivil').text());
+                $('#pnome').html('Nome: ' + $(this).find('.nome').text());
+                $('#pcpf').html('CPF: ' + $(this).find('.cpf').text());
+                $('#pdtNascimento').html('Data de nascimento: ' + $(this).find('.dtNascimento').text());
+                $('#pestadoCivil').html('Estado civil: ' + $(this).find('.estadoCivil').text());
                 $.ajax({
                     type: 'post',
                     url: 'ConsultarDetalhes',
@@ -113,8 +143,82 @@
                     }
                 });
             });
+            
+            //Funcao para verificar todos os campos
+            function verificar() {
+                var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
+                var element = $(nome);
+                var flag = 0;
+
+                if (!(letter_only.test(element.val()))) {
+                    $(nome).css('border', '1px solid red');
+                    flag = 1;
+                    $(err_message).fadeIn('slow', function () {
+                        $(this).html('Nome invalido, permitido somente letras.');
+                    });
+                } else {
+                    $(nome).css('border', '1px solid #ced4da');
+                    $(err_message).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+
+                if ($(nome).val().length < 3) {
+                    $(nome).css('border', '1px solid red');
+                    $(err_message1).fadeIn('slow', function () {
+                        $(this).html('Digite no mínimo três letras no trecho de nome.');
+                    });
+                } else {
+                    if (flag === 0) {
+                        $(nome).css('border', '1px solid #ced4da');
+                    }
+                    $(err_message1).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+                if ($(anoF).val() < $(anoI).val()) {
+                    $(anoI).css('border', '1px solid red');
+                    $(anoF).css('border', '1px solid red');
+                    $(err_message2).fadeIn('slow', function () {
+                        $(this).html('Ano inicial é maior que o ano final, coloque um intervalo válido!');
+                    });
+                } else {
+                    $(anoF).css('border', '1px solid #ced4da');
+                    $(anoI).css('border', '1px solid #ced4da');
+                    $(err_message2).fadeIn('slow', function () {
+                        $(this).html('');
+                    });
+                }
+            }
+            
+            
+           
+            
+        });
+        
+        //Filtrar os valores da tabela
+        function filtrarValores() {
+            var table = $('#tabela').DataTable();
+            var table1 = $('#tabelaResultado').DataTable();
+            var filtro1 = false;
+            var filtro2 = false;
+            
+            
+            
+            var row = table1.row(2).data();
+            
+            
+            alert(table1.cell(1, 2).data());
+ 
+            table.clear().draw();
+            for(var i = 0; i < 30; i++){
+                table.row.add( row ).draw();
+            }
+            row = table1.row(1).data();
+            table.row.add( row ).draw();
+            
         }
-        );
+        
     </script>
 
     <body class="fundoConsulta">
@@ -140,7 +244,7 @@
                         <form id="form" class="form" method="POST" action="consulta2">
                             <div class="form form-group">
                                 <label for="usr">Trecho do nome:</label>
-                                <input name="nome" id="nome" type="text" class="form-control" id="usr" placeholder="Digite pelo menos três letras">
+                                <input name="nome" id="nome" type="text" class="form-control" placeholder="Digite pelo menos três letras">
                             </div>
                             <div class="form form-group">
                                 <label>Ano Inicial:</label>
@@ -152,7 +256,7 @@
                             </div>
 
                             <div class="form form-group" style="height: 38px;">
-                                <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary" >Consultar</button></p>
+                                <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
                             </div>
 
 
@@ -171,9 +275,9 @@
                         <label style="margin: 5px 0px 0px 0px">Quantidade de dívidas:</label>
                         <div class="row justify-content-center">
                             <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 5" id="anoFinal" name="quantity" min="0">
                             <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 10" id="anoFinal" name="quantity" min="0">
                         </div>
                     </div>
 
@@ -184,9 +288,9 @@
                         <label style="margin: 5px 0px 0px 0px">Quantidade de ações judiciais:</label>
                         <div class="row justify-content-center">
                             <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 8" id="anoFinal" name="quantity" min="0">
                             <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 9" id="anoFinal" name="quantity" min="0">
                         </div>
                     </div>
 
@@ -233,28 +337,57 @@
         </div>
 
     </section>
+    <div style = "display: none;">
+        <table id="tabelaResultado" class="table table-striped table-bordered table-sm">
+            <thead class="thead-dark table table-striped">
+                <tr>
+                    <th class="th-sm">CPF</th>
+                    <th class="th-sm">Nome</th>
+                    <th class="th-sm">Data de nascimento</th>
+                    <th class="th-sm">Estado Civil</th>
+                    <th class="th-sm">Quant. de dívidas</th>
+                    <th class="th-sm">Quant. de ações judiciais</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTable">
+                <%
+                    for (int i = 0; i < arrayPessoas.size(); i++) {
+                %>
+                <tr data-toggle="modal" data-target="#modalPessoa">
+                    <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
+                    <td class="nome"><%= arrayPessoas.get(i).getNome()%></td>
+                    <td class="dtNascimento"><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
+                    <td class="estadoCivil"><%= arrayPessoas.get(i).getEstadoCivil()%></td>
+                    <td ><%= arrayPessoas.get(i).getQuantDividas()%></td>
+                    <td><%= arrayPessoas.get(i).getQuantAcoes()%></td>
+                </tr>
 
+                <% }%>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Detalhes pessoas</h2>
+                    <h2 class="modal-title" id="exampleModalLabel">Mais informações</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div id="modal-body" class="modal-body">
                     <div>
-                        <h5>Dados Pessoais</h5>
-                        <label>Nome:</label><p id="pnome"></p>
-                        <label>CPF:</label><p id="pcpf"></p>
-                        <label>Data de Nascimento:</label><p id="pdtNascimento"></p>
-                        <label>Estado civil</label><p id="pestadoCivil"></p>
+                        <h5><b>Dados Pessoais</b></h5>
+                        <p id="pnome"></p>
+                        <p id="pcpf"></p>
+                        <p id="pdtNascimento"></p>
+                        <p id="pestadoCivil"></p>
                     </div>
+                    <br>
                     <div id='dividas'>
-                        <h5>Dividas</h5>
+                        <h5><b>Dividas</b></h5>
                         <table class="table table-striped table-bordered table-sm">
                             <thead>
                                 <tr>
@@ -269,9 +402,9 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <br>
                     <div id='acoes'> 
-                        <h5>Acoes</h5>
+                        <h5><b>Acoes</b></h5>
                         <table class="table table-striped table-bordered table-sm">
                             <thead>
                                 <tr>
@@ -296,13 +429,43 @@
         </div>
     </div>
 
+        <!-- Modal para avisar que que esta carregando a consulta -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+    
+        <footer class="page-footer font-small pt-5">
+            <div class="container-fluid text-center text-md-left bg-foo">
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
 
-    <footer>
-        <ul style="text-align: center;">
-            <li style="display: inline-block; margin-left:170px; padding-top: 5px">©Copyright 2019 BNPF - All Rights Reserved</li>
-            <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Termos de uso</a></li>
-            <li style="display: inline-block; float: right; padding: 5px 10px;"><a href="#">Privacidade</a></li>
-        </ul>
-    </footer>
+                    </div>
+                    <hr class="clearfix w-100 d-md-none pb-3">
+                </div>
+            </div>
+            <div class="footer-copyright text-center py-3 bg-white">
+                ©Copyright 2019 BNPF - All Rights Reserved
+            </div>
+        </footer>
 </body>
 </html>

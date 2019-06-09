@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="style.css">
-
     </head>
 
     <!-- jQuery library -->
@@ -30,6 +29,7 @@
 
     <script>
         $(document).ready(function () {
+            $('#myModal').modal('hide');
             var dataF = document.getElementById('dataFinal'),
                     dataI = document.getElementById('dataInicial'),
                     err_message = document.getElementById('err-message');
@@ -78,17 +78,19 @@
                 "order": [[0, "asc"]],
                 "paging": false
             });
+            
             $('.dataTables_length').addClass('bs-select');
 
             $("#consultar").on('click', function () {
                 if ($(dataF).val() < $(dataI).val()) { //Intervalo de tempo invalido
                     swal({
                         title: "Problema encontrado",
-                        text: "O intervalo de datas é invalido, você deve corrigir isso para poder realizar a consulta",
+                        text: "Há algum erro no preenchimento dos dados, você deve corrigir isso para poder realizar a consulta",
                         icon: "error",
                         button: "Entendido",
                     })
                 } else { //Intervalo de tempo valido
+                    $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 }
             });
@@ -146,9 +148,7 @@
                                 <input name="dtFinal" type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
                             </div>
 
-                            <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary">Consultar</button></p>
-
-
+                            <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
                         </form>
                         <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                     </article>
@@ -157,16 +157,14 @@
                 <div class="container mt-5">
                     <div class="form-container">
                         <h4 style="margin-bottom: 0px">Filtrar valores</h4>
-                        <h5 style="margin: 5px 0px;">Valor de dívidas:</h5>
-
                         <br>
                         <div class="fil">
                             <label style="margin: 5px 0px;">Valor de dívidas</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 1000" id="anoFinal" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 5000" id="anoFinal" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -176,9 +174,9 @@
                             <label style="margin: 5px 0px;">Quantidade de devedores:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 40" id="anoFinal" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 500" id="anoFinal" name="quantity" min="0">
                             </div>
 
                         </div>
@@ -188,9 +186,9 @@
                             <label style="margin: 5px 0px;">Quantidade de dívidas</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="5" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 60" id="anoFinal" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="2000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 850" id="anoFinal" name="quantity" min="0">
                             </div>
 
                         </div>
@@ -200,9 +198,9 @@
                             <label style="margin: 5px 0px;">Valor de ações judiciais:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 2000" id="anoFinal" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 9000" id="anoFinal" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -213,9 +211,9 @@
                             <label style="margin: 5px 0px;">Quantidade de ações judiciais:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="8" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 30" id="anoFinal" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="500" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 300" id="anoFinal" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -265,7 +263,7 @@
 
         </section>
 
-        <!-- Modal -->
+        <!-- Modal para exibir dados da consulta mais profunda -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -285,14 +283,35 @@
             </div>
         </div>
 
-
+        <!-- Modal para avisar que que esta carregando a consulta -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+        
         <footer class="page-footer font-small pt-5">
-
             <div class="container-fluid text-center text-md-left bg-foo">
                 <div class="row">
                     <div class="col-md-6 mt-md-0 mt-3">
-                        <h5 class="text-uppercase">BNPF</h5>
-                        <p style="margin-left: 10px;">Monitorando pessoas por você.</p>
+                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
 
                     </div>
                     <hr class="clearfix w-100 d-md-none pb-3">
@@ -301,7 +320,6 @@
             <div class="footer-copyright text-center py-3 bg-white">
                 ©Copyright 2019 BNPF - All Rights Reserved
             </div>
-
         </footer>
     </body>
 </html>
