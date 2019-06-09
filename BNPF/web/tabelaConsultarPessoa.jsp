@@ -196,28 +196,65 @@
             
         });
         
+        async function filtrar(){
+            alert('oi');
+            await mostrar();
+            await filtrarValores();
+        }
+       
+        async function mostrar(){
+            $('#myModalFiltro').modal('show');
+        }
+        
         //Filtrar os valores da tabela
-        function filtrarValores() {
+        async function filtrarValores() {
+            var maxQntDividas = document.getElementById('maxQntDividas'),
+                    maxQntAcoes = document.getElementById('maxQntAcoes'),
+                    deQntDividas = document.getElementById('deQntDividas'),
+                    ateQntDividas = document.getElementById('ateQntDividas'),
+                    deQntAcoes = document.getElementById('deQntAcoes'),
+                    ateQntAcoes = document.getElementById('ateQntAcoes');
+            
+            var minDiv = 0, maxDiv = 0, minAcs = 0, maxAcs = 0;
+
+            if($(deQntDividas).val().length > 0 ){
+                minDiv = parseInt($(deQntDividas).val());
+            }
+            if($(ateQntDividas).val().length > 0 ){
+                maxDiv = parseInt($(ateQntDividas).val());
+            }
+            else{
+                maxDiv = parseInt($(maxQntDividas).text());
+            }
+            
+            if($(deQntAcoes).val().length > 0 ){
+                minAcs = parseInt($(deQntAcoes).val());
+            }
+            if($(ateQntAcoes).val().length > 0 ){
+                maxAcs = parseInt($(ateQntAcoes).val());
+            }
+            else{
+                maxAcs = parseInt($(maxQntAcoes).text());
+            }
+            
             var table = $('#tabela').DataTable();
             var table1 = $('#tabelaResultado').DataTable();
-            var filtro1 = false;
-            var filtro2 = false;
-            
-            
-            
-            var row = table1.row(2).data();
-            
-            
-            alert(table1.cell(1, 2).data());
- 
+            var row, valorQntDividas, valorQntAcoes;
+
             table.clear().draw();
-            for(var i = 0; i < 30; i++){
-                table.row.add( row ).draw();
-            }
-            row = table1.row(1).data();
-            table.row.add( row ).draw();
             
+            for(var i = 0; i < table1.data().length; i++){
+                row = table1.row(i).data();
+                valorQntDividas = parseInt(table1.cell(i, 4).data());
+                valorQntAcoes = parseInt(table1.cell(i, 5).data());
+                
+                if(valorQntDividas >= minDiv && valorQntDividas <= maxDiv && valorQntAcoes >= minAcs && valorQntAcoes <= maxAcs){
+                    table.row.add( row );
+                }
+            }
+            table.draw();
         }
+        
         
     </script>
 
@@ -234,7 +271,7 @@
                 </ul>
             </nav>
         </header>
-
+        
         <section class="row mt-5 mx-auto">
             <div class="col-3">
                 <div class="container">
@@ -275,9 +312,9 @@
                         <label style="margin: 5px 0px 0px 0px">Quantidade de dívidas:</label>
                         <div class="row justify-content-center">
                             <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 5" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 5" id="deQntDividas" name="quantity" min="0">
                             <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 10" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 10" id="ateQntDividas" name="quantity" min="0">
                         </div>
                     </div>
 
@@ -288,15 +325,15 @@
                         <label style="margin: 5px 0px 0px 0px">Quantidade de ações judiciais:</label>
                         <div class="row justify-content-center">
                             <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 8" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 8" id="deQntAcoes" name="quantity" min="0">
                             <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 9" id="anoFinal" name="quantity" min="0">
+                            <input type="number" class="col-4 form-control" placeholder="Ex: 9" id="ateQntAcoes" name="quantity" min="0">
                         </div>
                     </div>
 
 
                     <br>
-                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12" onclick="filtrarValores()">Filtrar</button></p>
+                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12" onclick="filtrar()">Filtrar</button></p>
                 </div>
             </div>
         </div>
@@ -351,7 +388,14 @@
             </thead>
             <tbody id="corpoTable">
                 <%
+                    int maxQntDividas = 0, maxQntAcoes = 0;
                     for (int i = 0; i < arrayPessoas.size(); i++) {
+                        if(arrayPessoas.get(i).getQuantDividas() > maxQntDividas){
+                            maxQntDividas = arrayPessoas.get(i).getQuantDividas();
+                        }
+                        if(arrayPessoas.get(i).getQuantAcoes() > maxQntAcoes){
+                            maxQntAcoes = arrayPessoas.get(i).getQuantAcoes();
+                        }
                 %>
                 <tr data-toggle="modal" data-target="#modalPessoa">
                     <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
@@ -365,6 +409,8 @@
                 <% }%>
             </tbody>
         </table>
+            <label id="maxQntDividas"><%= maxQntDividas %></label>
+            <label id="maxQntAcoes"><%= maxQntAcoes %></label>
     </div>
 
     <!-- Modal -->
@@ -451,6 +497,30 @@
               </div>
             </div>
         </div>
+        
+        <!-- Modal para avisar que que esta organizando os resultados -->
+        <div class="modal fade" id="myModalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Organizando os resultados</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                    <p>Ordenando e paginando os dados na tabela antes de exibir, aguarde um instante</p>
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+        
     
         <footer class="page-footer font-small pt-5">
             <div class="container-fluid text-center text-md-left bg-foo">
