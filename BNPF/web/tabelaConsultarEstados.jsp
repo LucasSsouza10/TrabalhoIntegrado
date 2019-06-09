@@ -107,13 +107,102 @@
             $('#tabela').on('mouseout', 'tbody tr', function () {
                 $(this).css('background', '');
             });
-
+            
         });
         //Filtrar os valores da tabela
         function filtrarValores() {
-            var table = document.getElementById("myTable");
-            var rows = table.rows;
-            rows[1].style.display = "none";
+            var maxValDividas = document.getElementById('maxValDividas'),
+                maxQntDevedores = document.getElementById('maxQntDevedores'),
+                maxQntDividas = document.getElementById('maxQntDividas'),
+                maxValAcoes = document.getElementById('maxValAcoes'),
+                maxQntAcoes = document.getElementById('maxQntAcoes');
+                
+                
+            var deValDividas = document.getElementById('deValDividas'), ateValDividas = document.getElementById('ateValDividas'),
+                deQntDevedores = document.getElementById('deQntDevedores'), ateQntDevedores = document.getElementById('ateQntDevedores'),
+                deQntDividas = document.getElementById('deQntDividas'), ateQntDividas = document.getElementById('ateQntDividas'),
+                deValAcs = document.getElementById('deValAcs'), ateValAcs = document.getElementById('ateValAcs'),
+                deQntAcs = document.getElementById('deQntAcs'), ateQntAcs = document.getElementById('ateQntAcs');
+                
+            var ValorMinValDiv = 0.0, ValorMaxValDiv = parseFloat($(maxValDividas).text().replace(',','.'));
+            var ValorMinQntDev = 0, ValorMaxQntDev = parseInt($(maxQntDevedores).text());
+            var ValorMinQntDiv = 0, ValorMaxQntDiv = parseInt($(maxQntDividas).text());
+            var ValorMinValAcs = 0.0, ValorMaxValAcs = parseFloat($(maxValAcoes).text().replace(',','.'));
+            var ValorMinQntAcs = 0, ValorMaxQntAcs = parseInt($(maxQntAcoes).text());
+            
+
+            if($(deValDividas).val().length > 0 ){
+                ValorMinValDiv = parseFloat($(deValDividas).val());
+            }
+            if($(ateValDividas).val().length > 0 ){
+                ValorMaxValDiv = parseFloat($(ateValDividas).val());
+            }
+            //----------------------------------
+            
+            if($(deQntDevedores).val().length > 0 ){
+                ValorMinQntDev = parseInt($(deQntDevedores).val());
+            }
+            if($(ateQntDevedores).val().length > 0 ){
+                ValorMaxQntDev = parseInt($(ateQntDevedores).val());
+            }
+            //----------------------------------
+            
+            if($(deQntDividas).val().length > 0 ){
+                ValorMinQntDiv = parseInt($(deQntDividas).val());
+            }
+            if($(ateQntDividas).val().length > 0 ){
+                ValorMaxQntDiv = parseInt($(ateQntDividas).val());
+            }
+            //----------------------------------
+            
+            if($(deValAcs).val().length > 0 ){
+                ValorMinValAcs = parseFloat($(deValAcs).val());
+            }
+            if($(ateValAcs).val().length > 0 ){
+                ValorMaxValAcs = parseFloat($(ateValAcs).val());
+            }
+            //----------------------------------
+            
+            if($(deQntAcs).val().length > 0 ){
+                ValorMinQntAcs = parseInt($(deQntAcs).val());
+            }
+            if($(ateQntAcs).val().length > 0 ){
+                ValorMaxQntAcs = parseInt($(ateQntAcs).val());
+            }
+            
+            
+            var table = $('#tabela').DataTable();
+            var table1 = $('#tabelaResultado').DataTable();
+            var row, valorValDividas, valorQntDevedores, valorQntDividas, valorValAcoes, valorQntAcoes;
+
+            table.clear().draw();
+            
+           
+
+            
+            for(var i = 0; i < table1.data().length; i++){
+                row = table1.row(i).data();
+                valorValDividas = parseFloat(table1.cell(i, 1).data().replace(',','.'));
+                valorQntDevedores = parseInt(table1.cell(i, 2).data());
+                valorQntDividas = parseInt(table1.cell(i, 3).data());
+                valorValAcoes = parseFloat(table1.cell(i, 4).data().replace(',','.'));
+                valorQntAcoes = parseInt(table1.cell(i, 5).data());
+
+                if(valorValDividas >= ValorMinValDiv && valorValDividas <= ValorMaxValDiv && valorQntDevedores >= ValorMinQntDev && valorQntDevedores <= ValorMaxQntDev){
+                    if(valorQntDividas >= ValorMinQntDiv && valorQntDividas <= ValorMaxQntDiv && valorValAcoes >= ValorMinValAcs && valorValAcoes <= ValorMaxValAcs){
+                        if(valorQntAcoes >= ValorMinQntAcs && valorQntAcoes <= ValorMaxQntAcs){
+                            table.row.add( row );
+                        }
+                    }
+                }
+            }
+            table.draw();
+            swal({
+                title: "Sucesso",
+                text: "A filtragem foi realizada, consulte os resultados",
+                icon: "success",
+                button: "Entendido",
+            })
         }
     </script>
 
@@ -162,9 +251,9 @@
                             <label style="margin: 5px 0px;">Valor de dívidas</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 1000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 1000" id="deValDividas" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 5000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 5000" id="ateValDividas" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -174,9 +263,9 @@
                             <label style="margin: 5px 0px;">Quantidade de devedores:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 40" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 40" id="deQntDevedores" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 500" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 500" id="ateQntDevedores" name="quantity" min="0">
                             </div>
 
                         </div>
@@ -186,9 +275,9 @@
                             <label style="margin: 5px 0px;">Quantidade de dívidas</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 60" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 60" id="deQntDividas" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 850" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 850" id="ateQntDividas" name="quantity" min="0">
                             </div>
 
                         </div>
@@ -198,9 +287,9 @@
                             <label style="margin: 5px 0px;">Valor de ações judiciais:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 2000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 2000" id="deValAcs" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 9000" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 9000" id="ateValAcs" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -211,9 +300,9 @@
                             <label style="margin: 5px 0px;">Quantidade de ações judiciais:</label>
                             <div class="row justify-content-center">
                                 <label>De:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 30" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 30" id="deQntAcs" name="quantity" min="0">
                                 <label>Até:</label>
-                                <input type="number" class="col-4 form-control" placeholder="Ex: 300" id="anoFinal" name="quantity" min="0">
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 300" id="ateQntAcs" name="quantity" min="0">
                             </div>
                         </div>
 
@@ -260,8 +349,62 @@
                     </table>
                 </div>
             </div>
-
         </section>
+                            
+        <div style = "display: none;">
+            <table id="tabelaResultado" class="table table-striped table-bordered table-sm">
+                <thead class="thead-dark table table-striped">
+                    <tr>
+                        <th class="th-sm" id="co1">Unidade Federativa</th> 
+                        <th class="th-sm">Valor das dívidas</th>
+                        <th class="th-sm">Quantidade de devedores</th>
+                        <th class="th-sm">Quantidade de dívidas</th>
+                        <th class="th-sm">Valor das ações judiciais</th>
+                        <th class="th-sm">Quantidade de ações judiciais</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTable">
+
+                    <%
+                        double maxValDividas = 0, maxQntDevedores = 0, maxQntDividas = 0, maxValAcoes = 0, maxQntAcoes = 0;
+                        for (int i = 0; i < arrayEstados.size(); i++) {
+                            if(arrayEstados.get(i).getValorDividas() > maxValDividas ){
+                                maxValDividas = arrayEstados.get(i).getValorDividas();
+                            }
+                            if(arrayEstados.get(i).getQuantDevedores() > maxQntDevedores){
+                                maxQntDevedores = arrayEstados.get(i).getQuantDevedores();
+                            }
+                            if(arrayEstados.get(i).getQuantDividas() > maxQntDividas){
+                                maxQntDividas = arrayEstados.get(i).getQuantDividas();
+                            }
+                            if(arrayEstados.get(i).getValorAcoes() > maxValAcoes){
+                                maxValAcoes = arrayEstados.get(i).getValorAcoes();
+                            }
+                            if(arrayEstados.get(i).getQuantAcoes() > maxQntAcoes){
+                                maxQntAcoes = arrayEstados.get(i).getQuantAcoes();
+                            }
+
+                    %>
+                    <tr  data-toggle="modal" data-target="#exampleModal">
+                        <td><%= arrayEstados.get(i).getUf()%></td>
+                        <td><%= String.format("%.2f", arrayEstados.get(i).getValorDividas())%></td>
+                        <td><%= arrayEstados.get(i).getQuantDevedores()%></td>
+                        <td><%= arrayEstados.get(i).getQuantDividas()%></td>
+                        <td><%= String.format("%.2f", arrayEstados.get(i).getValorAcoes())%></td>
+                        <td><%= arrayEstados.get(i).getQuantAcoes()%></td>
+                    </tr>
+                    <%
+                        }
+                    %>
+
+                </tbody>
+            </table>
+            <label id="maxValDividas"><%= maxValDividas %></label>
+            <label id="maxQntDevedores"><%= maxQntDevedores %></label>
+            <label id="maxQntDividas"><%= maxQntDividas %></label>
+            <label id="maxValAcoes"><%= maxValAcoes %></label>
+            <label id="maxQntAcoes"><%= maxQntAcoes %></label>
+        </div>  
 
         <!-- Modal para exibir dados da consulta mais profunda -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
