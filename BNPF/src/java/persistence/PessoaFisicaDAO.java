@@ -21,10 +21,12 @@ public class PessoaFisicaDAO {
          PreparedStatement statment;
          ResultSet rs;
          ArrayList<PessoaFisica> arrayPessoas = new ArrayList<>();
+       
          
-         String sql = "SELECT cpf, nome, data_do_nascimento, estado_civil, qtd_dividas, qtd_processo FROM consultar_pessoas('%" + nome.toUpperCase() + "%', " +  anoInicial +", " +  anoFinal + ");";          
-         
-         statment = connection.prepareStatement(sql);
+         statment = connection.prepareStatement("SELECT cpf, nome, data_do_nascimento, estado_civil, qtd_dividas, qtd_processo FROM consultar_pessoas(?,?,?);");
+         statment.setString(1, '%' + nome.toUpperCase() + '%');
+         statment.setInt(2, anoInicial);
+         statment.setInt(3, anoFinal);
          rs = statment.executeQuery();
          
          while(rs.next()){

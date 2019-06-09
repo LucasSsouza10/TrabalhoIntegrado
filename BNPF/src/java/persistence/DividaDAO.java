@@ -21,9 +21,8 @@ public class DividaDAO {
         ResultSet rs;
         ArrayList<Divida> arrayDividas = new ArrayList<>();
 
-        String sql = "SELECT * FROM consultar_dividas('" + cpf + "');";
-
-        statement = connection.prepareStatement(sql);
+        statement = connection.prepareStatement("SELECT * FROM consultar_dividas(?);");
+        statement.setString(1, cpf);
         rs = statement.executeQuery();
 
         while (rs.next()) {

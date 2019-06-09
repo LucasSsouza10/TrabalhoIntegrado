@@ -19,11 +19,10 @@ public class AcoesJudiciaisDAO {
         PreparedStatement statement;
         ResultSet rs;
         ArrayList<AcoesJudiciais> arrayAcoes = new ArrayList<>();
-
-        String sql = "SELECT * FROM consultar_acoes('" + cpf + "');";
-
-        statement = connection.prepareStatement(sql);
-        rs = statement.executeQuery();
+            
+        statement = connection.prepareStatement("SELECT * FROM consultar_acoes(?);");
+        statement.setString(1, cpf);
+        rs = statement.executeQuery();  
 
         while (rs.next()) {
             AcoesJudiciais acao = new AcoesJudiciais();
