@@ -36,17 +36,17 @@
                     err_message1 = document.getElementById('err-message1'),
                     err_message2 = document.getElementById('err-message2'),
                     nome = document.getElementById('nome');
-                    
+
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1").click(function () {
                 window.location.href = "consultarPessoas.jsp";
             });
-            
+
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1").click(function () {
                 window.location.href = "consultarEstados.jsp";
             });
-            
+
             //Configurar formato da tabela que contem os resultados
             var table = $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
@@ -63,16 +63,16 @@
                     null
                 ]
             });
-            
+
             $('.dataTables_length').addClass('bs-select');
             $('#tabela').on('mouseover', 'tbody tr', function () {
                 $(this).css('background', 'gray');
             });
-            
+
             $('#tabela').on('mouseout', 'tbody tr', function () {
                 $(this).css('background', '');
             });
-            
+
             $("#consultar").click(function () {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
@@ -94,7 +94,7 @@
                     }
                 }
             });
-            
+
             //Funcao para verificar quando sair do campo ano final
             $(anoF).focusout(function () {
                 verificar();
@@ -109,7 +109,7 @@
             $(nome).focusout(function () {
                 verificar();
             });
-            
+
             $('#tabela').on('click', 'tbody tr', function () {
                 $('#pnome').html('Nome: ' + $(this).find('.nome').text());
                 $('#pcpf').html('CPF: ' + $(this).find('.cpf').text());
@@ -143,7 +143,7 @@
                     }
                 });
             });
-            
+
             //Funcao para verificar todos os campos
             function verificar() {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
@@ -190,72 +190,87 @@
                     });
                 }
             }
-            
-            
-           
-            
-        });
-        
-        async function filtrar(){
-            alert('oi');
-            await mostrar();
-            await filtrarValores();
-        }
-       
-        async function mostrar(){
-            $('#myModalFiltro').modal('show');
-        }
-        
-        //Filtrar os valores da tabela
-        async function filtrarValores() {
-            var maxQntDividas = document.getElementById('maxQntDividas'),
-                    maxQntAcoes = document.getElementById('maxQntAcoes'),
-                    deQntDividas = document.getElementById('deQntDividas'),
-                    ateQntDividas = document.getElementById('ateQntDividas'),
-                    deQntAcoes = document.getElementById('deQntAcoes'),
-                    ateQntAcoes = document.getElementById('ateQntAcoes');
-            
-            var minDiv = 0, maxDiv = 0, minAcs = 0, maxAcs = 0;
 
-            if($(deQntDividas).val().length > 0 ){
-                minDiv = parseInt($(deQntDividas).val());
-            }
-            if($(ateQntDividas).val().length > 0 ){
-                maxDiv = parseInt($(ateQntDividas).val());
-            }
-            else{
-                maxDiv = parseInt($(maxQntDividas).text());
-            }
-            
-            if($(deQntAcoes).val().length > 0 ){
-                minAcs = parseInt($(deQntAcoes).val());
-            }
-            if($(ateQntAcoes).val().length > 0 ){
-                maxAcs = parseInt($(ateQntAcoes).val());
-            }
-            else{
-                maxAcs = parseInt($(maxQntAcoes).text());
-            }
-            
-            var table = $('#tabela').DataTable();
-            var table1 = $('#tabelaResultado').DataTable();
-            var row, valorQntDividas, valorQntAcoes;
+            var trs = '';
+            console.log(trs);
 
-            table.clear().draw();
-            
-            for(var i = 0; i < table1.data().length; i++){
-                row = table1.row(i).data();
-                valorQntDividas = parseInt(table1.cell(i, 4).data());
-                valorQntAcoes = parseInt(table1.cell(i, 5).data());
-                
-                if(valorQntDividas >= minDiv && valorQntDividas <= maxDiv && valorQntAcoes >= minAcs && valorQntAcoes <= maxAcs){
-                    table.row.add( row );
+            $('#filtrar').on('click', function () {
+                table.destroy();
+                $('#corpoTable').append(trs);
+                trs = '';
+
+                var maxQntDividas = 8,
+                        maxQntAcoes = 8,
+                        deQntDividas = document.getElementById('deQntDividas'),
+                        ateQntDividas = document.getElementById('ateQntDividas'),
+                        deQntAcoes = document.getElementById('deQntAcoes'),
+                        ateQntAcoes = document.getElementById('ateQntAcoes');
+
+                var minDiv = 0, maxDiv = 0, minAcs = 0, maxAcs = 0;
+
+                if ($(deQntDividas).val().length > 0) {
+                    minDiv = parseInt($(deQntDividas).val());
                 }
-            }
-            table.draw();
-        }
-        
-        
+
+                if ($(ateQntDividas).val().length > 0) {
+                    maxDiv = parseInt($(ateQntDividas).val());
+                } else {
+                    maxDiv = maxQntDividas;
+                }
+
+                if ($(deQntAcoes).val().length > 0) {
+                    minAcs = parseInt($(deQntAcoes).val());
+                }
+                if ($(ateQntAcoes).val().length > 0) {
+                    maxAcs = parseInt($(ateQntAcoes).val());
+                } else {
+                    maxAcs = maxQntAcoes;
+                }
+
+                $('#tabela').find('tr').each(function (i) {
+                    var flag = true;
+                    $(this).find('td').each(function (i) {
+                        if (i == 4)
+                            if (parseInt($(this).html()) < minDiv || parseInt($(this).html()) > maxDiv) {
+                                trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+
+
+                        if (i == 5 && flag)
+                            if (parseInt($(this).html()) < minAcs || parseInt($(this).html()) > maxAcs) {
+                                trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                            }
+
+                    });
+
+                });
+                table = $('#tabela').DataTable({
+                    "pagingType": "simple_numbers",
+                    "searching": false,
+                    "pageLength": 20,
+                    "bLengthChange": false,
+                    "order": [[1, "asc"]],
+                    "columns": [
+                        {"orderable": false},
+                        null,
+                        {"orderable": false},
+                        {"orderable": false},
+                        null,
+                        null
+                    ]
+                });
+
+            });
+
+
+        });
+
+
+
+
     </script>
 
     <body class="fundoConsulta">
@@ -271,7 +286,7 @@
                 </ul>
             </nav>
         </header>
-        
+
         <section class="row mt-5 mx-auto">
             <div class="col-3">
                 <div class="container">
@@ -333,7 +348,7 @@
 
 
                     <br>
-                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12" onclick="filtrar()">Filtrar</button></p>
+                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12">Filtrar</button></p>
                 </div>
             </div>
         </div>
@@ -356,6 +371,7 @@
                         <%
                             ArrayList<PessoaFisica> arrayPessoas = (ArrayList<PessoaFisica>) request.getAttribute("ArrayPessoas");
                             SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+
                             for (int i = 0; i < arrayPessoas.size(); i++) {
                         %>
                         <tr data-toggle="modal" data-target="#modalPessoa">
@@ -370,48 +386,11 @@
                         <% }%>
                     </tbody>
                 </table>
+
             </div>
         </div>
 
     </section>
-    <div style = "display: none;">
-        <table id="tabelaResultado" class="table table-striped table-bordered table-sm">
-            <thead class="thead-dark table table-striped">
-                <tr>
-                    <th class="th-sm">CPF</th>
-                    <th class="th-sm">Nome</th>
-                    <th class="th-sm">Data de nascimento</th>
-                    <th class="th-sm">Estado Civil</th>
-                    <th class="th-sm">Quant. de dívidas</th>
-                    <th class="th-sm">Quant. de ações judiciais</th>
-                </tr>
-            </thead>
-            <tbody id="corpoTable">
-                <%
-                    int maxQntDividas = 0, maxQntAcoes = 0;
-                    for (int i = 0; i < arrayPessoas.size(); i++) {
-                        if(arrayPessoas.get(i).getQuantDividas() > maxQntDividas){
-                            maxQntDividas = arrayPessoas.get(i).getQuantDividas();
-                        }
-                        if(arrayPessoas.get(i).getQuantAcoes() > maxQntAcoes){
-                            maxQntAcoes = arrayPessoas.get(i).getQuantAcoes();
-                        }
-                %>
-                <tr data-toggle="modal" data-target="#modalPessoa">
-                    <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
-                    <td class="nome"><%= arrayPessoas.get(i).getNome()%></td>
-                    <td class="dtNascimento"><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
-                    <td class="estadoCivil"><%= arrayPessoas.get(i).getEstadoCivil()%></td>
-                    <td ><%= arrayPessoas.get(i).getQuantDividas()%></td>
-                    <td><%= arrayPessoas.get(i).getQuantAcoes()%></td>
-                </tr>
-
-                <% }%>
-            </tbody>
-        </table>
-            <label id="maxQntDividas"><%= maxQntDividas %></label>
-            <label id="maxQntAcoes"><%= maxQntAcoes %></label>
-    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -475,67 +454,67 @@
         </div>
     </div>
 
-        <!-- Modal para avisar que que esta carregando a consulta -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
+    <!-- Modal para avisar que que esta carregando a consulta -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
                 </div>
                 <div class="modal-body">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
-                  </div>
                     <br>
                     <div class="d-flex justify-content-center">
-                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                        <p>Realizando a consulta dos dados, aguarde um instante</p>
                     </div>
                 </div>
-                
-              </div>
-            </div>
-        </div>
-        
-        <!-- Modal para avisar que que esta organizando os resultados -->
-        <div class="modal fade" id="myModalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Organizando os resultados</h5>
-                </div>
-                <div class="modal-body">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                    <p>Ordenando e paginando os dados na tabela antes de exibir, aguarde um instante</p>
-                    </div>
-                </div>
-                
-              </div>
-            </div>
-        </div>
-        
-    
-        <footer class="page-footer font-small pt-5">
-            <div class="container-fluid text-center text-md-left bg-foo">
-                <div class="row">
-                    <div class="col-md-6 mt-md-0 mt-3">
-                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
-                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
 
-                    </div>
-                    <hr class="clearfix w-100 d-md-none pb-3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para avisar que que esta organizando os resultados -->
+    <div class="modal fade" id="myModalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Organizando os resultados</h5>
                 </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <p>Ordenando e paginando os dados na tabela antes de exibir, aguarde um instante</p>
+                    </div>
+                </div>
+
             </div>
-            <div class="footer-copyright text-center py-3 bg-white">
-                ©Copyright 2019 BNPF - All Rights Reserved
+        </div>
+    </div>
+
+
+    <footer class="page-footer font-small pt-5">
+        <div class="container-fluid text-center text-md-left bg-foo">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                    <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
+
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
             </div>
-        </footer>
+        </div>
+        <div class="footer-copyright text-center py-3 bg-white">
+            ©Copyright 2019 BNPF - All Rights Reserved
+        </div>
+    </footer>
 </body>
 </html>
