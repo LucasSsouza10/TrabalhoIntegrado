@@ -149,7 +149,7 @@
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
                 var element = $(nome);
                 var flag = 0;
-
+                
                 if (!(letter_only.test(element.val()))) {
                     $(nome).css('border', '1px solid red');
                     flag = 1;
@@ -230,7 +230,7 @@
                 $('#tabela').find('tr').each(function (i) {
                     var flag = true;
                     $(this).find('td').each(function (i) {
-                        if (i == 4)
+                        if (i === 4)
                             if (parseInt($(this).html()) < minDiv || parseInt($(this).html()) > maxDiv) {
                                 trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
                                 $(this).parent().remove();
@@ -238,7 +238,7 @@
                             }
 
 
-                        if (i == 5 && flag)
+                        if (i === 5 && flag)
                             if (parseInt($(this).html()) < minAcs || parseInt($(this).html()) > maxAcs) {
                                 trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
                                 $(this).parent().remove();
@@ -262,7 +262,12 @@
                         null
                     ]
                 });
-
+                swal({
+                    title: "Sucesso",
+                    text: "A filtragem foi realizada, consulte os resultados",
+                    icon: "success",
+                    button: "Entendido",
+                })
             });
 
 
@@ -307,55 +312,59 @@
                                 <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                             </div>
 
-                            <div class="form form-group" style="height: 38px;">
-                                <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
-                            </div>
-
-
-                            <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
+                            <p style="text-align: center; width: 100%;">
+                                <span  id="err-message" style="color: darkred;"></span>
+                                <br><span  id="err-message1" style="color: darkred;"></span>
+                                <br><span  id="err-message2" style="color: darkred;"></span>
+                            </p>
+                            
+                            
+                            <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
+                            
                         </form>
                     </article>
                 </div>
 
 
-                <div class="container form-container mt-5">
-                    <!--<div class="form-container">-->
-                    <h4 style="margin-bottom: 0px">Filtrar valores</h4>
+                <div class="container mt-5">
+                    <div class="form-container">
+                        <h4 style="margin-bottom: 0px">Filtrar valores</h4>
 
-                    <br>
-                    <div class="fil">
-                        <label style="margin: 5px 0px 0px 0px">Quantidade de dívidas:</label>
-                        <div class="row justify-content-center">
-                            <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 5" id="deQntDividas" name="quantity" min="0">
-                            <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 10" id="ateQntDividas" name="quantity" min="0">
+                        <br>
+                        <div class="fil">
+                            <label style="margin: 5px 0px 0px 0px">Quantidade de dívidas:</label>
+                            <div class="row justify-content-center">
+                                <label>De:</label>
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 5" id="deQntDividas" name="quantity" min="0">
+                                <label>Até:</label>
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 10" id="ateQntDividas" name="quantity" min="0">
+                            </div>
                         </div>
-                    </div>
 
 
-                    <br>
+                        <br>
 
-                    <div class="fil">
-                        <label style="margin: 5px 0px 0px 0px">Quantidade de ações judiciais:</label>
-                        <div class="row justify-content-center">
-                            <label>De:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 8" id="deQntAcoes" name="quantity" min="0">
-                            <label>Até:</label>
-                            <input type="number" class="col-4 form-control" placeholder="Ex: 9" id="ateQntAcoes" name="quantity" min="0">
+                        <div class="fil">
+                            <label style="margin: 5px 0px 0px 0px">Quantidade de ações judiciais:</label>
+                            <div class="row justify-content-center">
+                                <label>De:</label>
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 8" id="deQntAcoes" name="quantity" min="0">
+                                <label>Até:</label>
+                                <input type="number" class="col-4 form-control" placeholder="Ex: 9" id="ateQntAcoes" name="quantity" min="0">
+                            </div>
                         </div>
+
+
+                        <br>
+                        <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12">Filtrar</button></p>
                     </div>
-
-
-                    <br>
-                    <p id="pBotao1" style="text-align: center;"><button id="filtrar" type="button" class="btn btn-primary col-12">Filtrar</button></p>
                 </div>
             </div>
-        </div>
+        
 
         <div class="col-9">
             <div class="table-responsive">
-                <p style="margin-bottom: 5px;">Resultados da consulta na tabela a seguir, observação: Quant. significa Quantidade</p>
+                <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
                 <table id="tabela" class="table table-striped table-bordered table-sm">
                     <thead class="thead-dark table table-striped">
                         <tr>
@@ -392,7 +401,7 @@
 
     </section>
 
-    <!-- Modal -->
+    <!-- Modal para a busca avançada -->
     <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -476,30 +485,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal para avisar que que esta organizando os resultados -->
-    <div class="modal fade" id="myModalFiltro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Organizando os resultados</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <p>Ordenando e paginando os dados na tabela antes de exibir, aguarde um instante</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
 
     <footer class="page-footer font-small pt-5">
         <div class="container-fluid text-center text-md-left bg-foo">

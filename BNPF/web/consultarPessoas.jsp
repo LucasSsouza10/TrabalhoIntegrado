@@ -174,7 +174,8 @@
                         <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
                     </div>
 
-                    <p style="text-align: center; width: 336px;"><span class="right" id="err-message" style="color: darkred;"></span>
+                    <p style="text-align: center; width: 336px;">
+                        <span class="right" id="err-message" style="color: darkred;"></span>
                         <br><span class="right" id="err-message1" style="color: darkred;"></span>
                         <br><span class="right" id="err-message2" style="color: darkred;"></span>
                     </p>
