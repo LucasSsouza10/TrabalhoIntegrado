@@ -35,3 +35,13 @@ $BODY$
   ROWS 1000;
 ALTER FUNCTION consultar_dividas(character varying)
   OWNER TO postgres;
+
+
+--Funcao para busca avancada dos estados
+CREATE OR REPLACE FUNCTION consultar_uf(d1 varchar)
+RETURNS table(nome varchar, capital varchar, regiao varchar) AS $$
+	BEGIN
+		RETURN QUERY 
+		SELECT u.nome, u.capital, u.regiao FROM UFs as u WHERE nome_uf = d1;
+	END;
+$$ language 'plpgsql';

@@ -167,11 +167,11 @@
                     </div>
                     <div class="form-group">
                         <label>Ano Inicial:</label>
-                        <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
+                        <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1938" max="2019" value="1938">
                     </div>
                     <div class="form-group">
                         <label>Ano Final:</label>
-                        <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
+                        <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1938" max="2019" value="2019">
                     </div>
 
                     <p style="text-align: center; width: 336px;">

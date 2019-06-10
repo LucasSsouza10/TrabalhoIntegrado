@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="style.css">
-
     </head>
 
     <!-- jQuery library -->
@@ -304,11 +303,11 @@
                             </div>
                             <div class="form form-group">
                                 <label>Ano Inicial:</label>
-                                <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1920" max="2019" value="1920">
+                                <input name="anoInicial" type="number" class="form-control" id="anoInicial" name="quantity" min="1938" max="2019" value="1938">
                             </div>
                             <div class="form form-group">
                                 <label>Ano Final:</label>
-                                <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1920" max="2019" value="2019">
+                                <input name="anoFinal" type="number" class="form-control" id="anoFinal" name="quantity" min="1938" max="2019" value="2019">
                             </div>
 
                             <p style="text-align: center; width: 100%;">

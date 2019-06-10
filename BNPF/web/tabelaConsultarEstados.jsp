@@ -1,3 +1,6 @@
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Estado"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -85,24 +88,35 @@
 
             $('#tabela').on('click', 'tbody tr', function () {
                 var UF = $(this).find('.UF').text();
-                $('#UF').html('Sigla da Unidade Federativa: ' + UF);
-                for (var i = 0; i < 27; i++) {
-                    if (UF === colunaValorDivida[i].estado) {
-                        $('#rankValorDividas').html(i + 1 + 'ª Unidade Federativa com maior valor de dívidas');
+                $('#UF').html(UF);
+                for(var i = 0; i < 27; i++){
+                    if(UF === colunaValorDivida[i].estado){
+                        $('#rankValorDividas').html(i+1 + 'ª Unidade Federativa com maior valor de dívidas');
                     }
-                    if (UF === colunaQntDevedores[i].estado) {
-                        $('#rankQntDevedores').html(i + 1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    if(UF === colunaQntDevedores[i].estado){
+                        $('#rankQntDevedores').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
                     }
-                    if (UF === colunaQntDivida[i].estado) {
-                        $('#rankQntDividas').html(i + 1 + 'ª Unidade Federativa com maior quantidade de dívidas');
+                    if(UF === colunaQntDivida[i].estado){
+                        $('#rankQntDividas').html(i+1 + 'ª Unidade Federativa com maior quantidade de dívidas');
                     }
-                    if (UF === colunaValorAcoes[i].estado) {
-                        $('#rankValorAcoes').html(i + 1 + 'ª Unidade Federativa com maior valor de acções ju');
+                    if(UF === colunaValorAcoes[i].estado){
+                        $('#rankValorAcoes').html(i+1 + 'ª Unidade Federativa com maior valor de ações judiciais');
                     }
-                    if (UF === colunaQntAcoes[i].estado) {
-                        $('#rankQntAcoes').html(i + 1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    if(UF === colunaQntAcoes[i].estado){
+                        $('#rankQntAcoes').html(i+1 + 'ª Unidade Federativa com maior quantidade de ações judiciais');
                     }
                 }
+                $.ajax({
+                    type: 'post',
+                    url: 'consultarDetalhesUf',
+                    data: {sigla: UF},
+                    dataType: 'JSON',
+                    success: function (dados) {
+                        $('#nomeUF').html(dados.nome);
+                        $('#capitalUF').html(dados.capital);
+                        $('#regiaoUF').html(dados.regiao);
+                    }
+                });
             });
 
 
@@ -372,17 +386,13 @@
                         <h3 id="titulo1">Realizar nova consulta</h3> 
                         <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                         <form id="form" class="form" method="POST" action="consulta1">
-                            <%
-                                String dataI = (String) request.getAttribute("dtInicial");
-                                String dataF = (String) request.getAttribute("dtFinal");
-                            %>
                             <div class="form form-group">
                                 <label> Data inicial</label>
-                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value= <%= dataI%> >  
+                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value= '1938-01-01' >  
                             </div>
                             <div class="form form-group">
                                 <label> Data final</label>
-                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value= <%=  dataF%> > 
+                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value= '2019-01-01' > 
                             </div>
                             <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                             <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
@@ -463,7 +473,16 @@
 
             <div class="col-9">
                 <div class="table-responsive">
+                    <%
+                        String dataI = (String) request.getAttribute("dtInicial");
+                        String dataF = (String) request.getAttribute("dtFinal");
+                        SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+                    %>
                     <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de estados.</h5>
+                    <div class="mb-3">
+                        <span><strong>Ano Inical: </strong><%= s.format(Date.valueOf(dataI))%> </span>
+                        <span class="ml-2"><strong>Ano Final:</strong> <%= s.format(Date.valueOf(dataI))%> </span>
+                    </div>
                     <table id="tabela" class="table table-striped table-bordered table-sm">
                         <thead class="thead-dark table table-striped">
                             <tr>
@@ -535,7 +554,16 @@
                     <div class="modal-body">
                         <div>
                             <h5><b>Dados da Unidade Federativa</b></h5>
-                            <p id="UF"></p>
+                            <ul class="perfil-lista">
+                                <li class="clearfix"><strong class="titulo">Sigla do UF: </strong><span id="UF" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo">Nome do UF: </strong><span id="nomeUF" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo">Capital do UF: </strong><span id="capitalUF" class="cont"></span></li>     
+                                <li class="clearfix"><strong class="titulo">Região do UF: </strong><span id="regiaoUF" class="cont"></span></li>
+                            </ul> 
+                        </div>
+                        <br>
+                        <div id='regioes'> 
+                            <h5><b>Ranking da Unidade Federativa</b></h5>
                             <p id="rankValorDividas"></p>
                             <p id="rankQntDevedores"></p>
                             <p id="rankQntDividas"></p>
