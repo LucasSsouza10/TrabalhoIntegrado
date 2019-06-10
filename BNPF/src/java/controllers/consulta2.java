@@ -89,6 +89,9 @@ public class consulta2 extends HttpServlet {
             ArrayList<PessoaFisica> arrayPessoas = pdao.consultar(anoInicial, anoFinal, nome);
             
             request.setAttribute("ArrayPessoas", arrayPessoas);
+            request.setAttribute("nome", nome);
+            request.setAttribute("anoInicial", anoInicial);
+            request.setAttribute("anoFinal", anoFinal);
             RequestDispatcher dispatcher = null;
             dispatcher = request.getRequestDispatcher("./tabelaConsultarPessoa.jsp");
             dispatcher.forward(request, response);

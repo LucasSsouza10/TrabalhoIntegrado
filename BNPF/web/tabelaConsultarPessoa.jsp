@@ -111,10 +111,10 @@
             });
 
             $('#tabela').on('click', 'tbody tr', function () {
-                $('#pnome').html('Nome: ' + $(this).find('.nome').text());
-                $('#pcpf').html('CPF: ' + $(this).find('.cpf').text());
-                $('#pdtNascimento').html('Data de nascimento: ' + $(this).find('.dtNascimento').text());
-                $('#pestadoCivil').html('Estado civil: ' + $(this).find('.estadoCivil').text());
+                $('#pnome').html($(this).find('.nome').text());
+                $('#pcpf').html($(this).find('.cpf').text());
+                $('#pdtNascimento').html($(this).find('.dtNascimento').text());
+                $('#pestadoCivil').html($(this).find('.estadoCivil').text());
                 $.ajax({
                     type: 'post',
                     url: 'ConsultarDetalhes',
@@ -149,7 +149,7 @@
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
                 var element = $(nome);
                 var flag = 0;
-                
+
                 if (!(letter_only.test(element.val()))) {
                     $(nome).css('border', '1px solid red');
                     flag = 1;
@@ -192,7 +192,6 @@
             }
 
             var trs = '';
-            console.log(trs);
 
             $('#filtrar').on('click', function () {
                 table.destroy();
@@ -230,7 +229,7 @@
                 $('#tabela').find('tr').each(function (i) {
                     var flag = true;
                     $(this).find('td').each(function (i) {
-                        if (i === 4)
+                        if (i === 4) //quantidade dividas
                             if (parseInt($(this).html()) < minDiv || parseInt($(this).html()) > maxDiv) {
                                 trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
                                 $(this).parent().remove();
@@ -238,7 +237,7 @@
                             }
 
 
-                        if (i === 5 && flag)
+                        if (i === 5 && flag) //quantidade açoes
                             if (parseInt($(this).html()) < minAcs || parseInt($(this).html()) > maxAcs) {
                                 trs += '<tr data-toggle="modal" data-target="#modalPessoa">' + $(this).parent().html() + '</tr>';
                                 $(this).parent().remove();
@@ -317,10 +316,10 @@
                                 <br><span  id="err-message1" style="color: darkred;"></span>
                                 <br><span  id="err-message2" style="color: darkred;"></span>
                             </p>
-                            
-                            
+
+
                             <p style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
-                            
+
                         </form>
                     </article>
                 </div>
@@ -360,146 +359,160 @@
                     </div>
                 </div>
             </div>
-        
 
-        <div class="col-9">
-            <div class="table-responsive">
-                <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
-                <table id="tabela" class="table table-striped table-bordered table-sm">
-                    <thead class="thead-dark table table-striped">
-                        <tr>
-                            <th class="th-sm">CPF</th>
-                            <th class="th-sm">Nome</th>
-                            <th class="th-sm">Data de nascimento</th>
-                            <th class="th-sm">Estado Civil</th>
-                            <th class="th-sm">Quant. de dívidas</th>
-                            <th class="th-sm">Quant. de ações judiciais</th>
-                        </tr>
-                    </thead>
-                    <tbody id="corpoTable">
-                        <%
-                            ArrayList<PessoaFisica> arrayPessoas = (ArrayList<PessoaFisica>) request.getAttribute("ArrayPessoas");
-                            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
 
-                            for (int i = 0; i < arrayPessoas.size(); i++) {
-                        %>
-                        <tr data-toggle="modal" data-target="#modalPessoa">
-                            <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
-                            <td class="nome"><%= arrayPessoas.get(i).getNome()%></td>
-                            <td class="dtNascimento"><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
-                            <td class="estadoCivil"><%= arrayPessoas.get(i).getEstadoCivil()%></td>
-                            <td ><%= arrayPessoas.get(i).getQuantDividas()%></td>
-                            <td><%= arrayPessoas.get(i).getQuantAcoes()%></td>
-                        </tr>
+            <div class="col-9">
+                <div class="table-responsive">
+                    <%
+                        String nome = (String) request.getAttribute("nome");
+                        int anoInicial = (int) request.getAttribute("anoInicial");
+                        int anoFinal = (int) request.getAttribute("anoFinal");
+                    %>
 
-                        <% }%>
-                    </tbody>
-                </table>
+                    <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
+                    <div class="mb-3">
+                        <span><strong>Nome:</strong><%= nome%></span>
+                        <span class="ml-2"><strong>Ano Inical: </strong><%= anoInicial%> </span>
+                        <span class="ml-2"><strong>Ano Final:</strong> <%= anoFinal%> </span>
+                    </div>
+                    <table id="tabela" class="table table-striped table-bordered table-sm">
+                        <thead class="thead-dark table table-striped">
+                            <tr>
+                                <th class="th-sm">CPF</th>
+                                <th class="th-sm">Nome</th>
+                                <th class="th-sm">Data de nascimento</th>
+                                <th class="th-sm">Estado Civil</th>
+                                <th class="th-sm">Quant. de dívidas</th>
+                                <th class="th-sm">Quant. de ações judiciais</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTable">
+                            <%
+                                ArrayList<PessoaFisica> arrayPessoas = (ArrayList<PessoaFisica>) request.getAttribute("ArrayPessoas");
+                                SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
 
+                                for (int i = 0; i < arrayPessoas.size(); i++) {
+                            %>
+                            <tr data-toggle="modal" data-target="#modalPessoa">
+                                <td class="cpf"><%= arrayPessoas.get(i).getCpf()%></td>
+                                <td class="nome"><%= arrayPessoas.get(i).getNome()%></td>
+                                <td class="dtNascimento"><%= s.format(arrayPessoas.get(i).getDtNascimento().getTime())%></td>
+                                <td class="estadoCivil"><%= arrayPessoas.get(i).getEstadoCivil()%></td>
+                                <td ><%= arrayPessoas.get(i).getQuantDividas()%></td>
+                                <td><%= arrayPessoas.get(i).getQuantAcoes()%></td>
+                            </tr>
+
+                            <% }%>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Modal para a busca avançada -->
+        <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel">Mais informações</h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+                        <div class="col-7 mx-auto">
+                            <div class="perfil-titulo text-center">
+                                <h3 id="pnome" ></h3>
+                            </div> 
+                            <ul class="perfil-lista">
+                                <li class="clearfix"><strong class="titulo">Cpf:</strong><span id="pcpf" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo">Data de Nascimento:</strong><span id="pdtNascimento" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo">Estado Civil:</strong><span id="pestadoCivil" class="cont"></span></li>       
+                            </ul>
+                        </div>
+                        <br>
+                        <div id='dividas'>
+                            <h5><b>Dividas</b></h5>
+                            <table class="table table-striped table-bordered table-sm">
+                                <thead>
+                                    <tr class="header">
+                                        <th class='th-sm'>Contrato</th>
+                                        <th class='th-sm'>CNPJ</th>
+                                        <th class='th-sm'>Data</th>
+                                        <th class='th-sm'>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dadosDividas">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                        <div id='acoes'> 
+                            <h5><b>Acoes</b></h5>
+                            <table class="table table-striped table-bordered table-sm">
+                                <thead>
+                                    <tr class="header">
+                                        <th class='th-sm'>Numero do processo</th>
+                                        <th class='th-sm'>Autor</th>
+                                        <th class='th-sm'>Situação</th>
+                                        <th class='th-sm'>Data</th>
+                                        <th class='th-sm'>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dadosAcoes">
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-    </section>
-
-    <!-- Modal para a busca avançada -->
-    <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Mais informações</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div id="modal-body" class="modal-body">
-                    <div>
-                        <h5><b>Dados Pessoais</b></h5>
-                        <p id="pnome"></p>
-                        <p id="pcpf"></p>
-                        <p id="pdtNascimento"></p>
-                        <p id="pestadoCivil"></p>
+        <!-- Modal para avisar que que esta carregando a consulta -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
                     </div>
-                    <br>
-                    <div id='dividas'>
-                        <h5><b>Dividas</b></h5>
-                        <table class="table table-striped table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th class='th-sm'>Contrato</th>
-                                    <th class='th-sm'>CNPJ</th>
-                                    <th class='th-sm'>Data</th>
-                                    <th class='th-sm'>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dadosDividas">
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <div id='acoes'> 
-                        <h5><b>Acoes</b></h5>
-                        <table class="table table-striped table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th class='th-sm'>Numero do processo</th>
-                                    <th class='th-sm'>Autor</th>
-                                    <th class='th-sm'>Situação</th>
-                                    <th class='th-sm'>Data</th>
-                                    <th class='th-sm'>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dadosAcoes">
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para avisar que que esta carregando a consulta -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="sr-only">Loading...</span>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <p>Realizando a consulta dos dados, aguarde um instante</p>
                         </div>
                     </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                        <p>Realizando a consulta dos dados, aguarde um instante</p>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer font-small pt-5">
+            <div class="container-fluid text-center text-md-left bg-foo">
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
+                        <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
+
                     </div>
+                    <hr class="clearfix w-100 d-md-none pb-3">
                 </div>
-
             </div>
-        </div>
-    </div>
-
-    <footer class="page-footer font-small pt-5">
-        <div class="container-fluid text-center text-md-left bg-foo">
-            <div class="row">
-                <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 style="margin-top: 10px; margin-bottom: 0px; margin-left: 10px;">BNPF</h5>
-                    <p style="margin-left: 25px;">Monitorando pessoas por você.</p>
-
-                </div>
-                <hr class="clearfix w-100 d-md-none pb-3">
+            <div class="footer-copyright text-center py-3 bg-white">
+                ©Copyright 2019 BNPF - All Rights Reserved
             </div>
-        </div>
-        <div class="footer-copyright text-center py-3 bg-white">
-            ©Copyright 2019 BNPF - All Rights Reserved
-        </div>
-    </footer>
-</body>
+        </footer>
+    </body>
 </html>

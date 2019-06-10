@@ -28,7 +28,7 @@
     <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script> 
 
     <script>
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $('#myModal').modal('hide');
             var dataF = document.getElementById('dataFinal'),
                     dataI = document.getElementById('dataInicial'),
@@ -78,79 +78,79 @@
                 "order": [[0, "asc"]],
                 "paging": false
             });
-            
+
             $('.dataTables_length').addClass('bs-select');
 
             gerarInformacoes();
-          
+
             $('#tabela').on('click', 'tbody tr', function () {
                 var UF = $(this).find('.UF').text();
                 $('#UF').html('Sigla da Unidade Federativa: ' + UF);
-                for(var i = 0; i < 27; i++){
-                    if(UF === colunaValorDivida[i].estado){
-                        $('#rankValorDividas').html(i+1 + 'ª Unidade Federativa com maior valor de dívidas');
+                for (var i = 0; i < 27; i++) {
+                    if (UF === colunaValorDivida[i].estado) {
+                        $('#rankValorDividas').html(i + 1 + 'ª Unidade Federativa com maior valor de dívidas');
                     }
-                    if(UF === colunaQntDevedores[i].estado){
-                        $('#rankQntDevedores').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    if (UF === colunaQntDevedores[i].estado) {
+                        $('#rankQntDevedores').html(i + 1 + 'ª Unidade Federativa com maior quantidade de devedores');
                     }
-                    if(UF === colunaQntDivida[i].estado){
-                        $('#rankQntDividas').html(i+1 + 'ª Unidade Federativa com maior quantidade de dívidas');
+                    if (UF === colunaQntDivida[i].estado) {
+                        $('#rankQntDividas').html(i + 1 + 'ª Unidade Federativa com maior quantidade de dívidas');
                     }
-                    if(UF === colunaValorAcoes[i].estado){
-                        $('#rankValorAcoes').html(i+1 + 'ª Unidade Federativa com maior valor de acções ju');
+                    if (UF === colunaValorAcoes[i].estado) {
+                        $('#rankValorAcoes').html(i + 1 + 'ª Unidade Federativa com maior valor de acções ju');
                     }
-                    if(UF === colunaQntAcoes[i].estado){
-                        $('#rankQntAcoes').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    if (UF === colunaQntAcoes[i].estado) {
+                        $('#rankQntAcoes').html(i + 1 + 'ª Unidade Federativa com maior quantidade de devedores');
                     }
                 }
             });
-                
-                
-                
-            function gerarInformacoes(){
-                
+
+
+
+            function gerarInformacoes() {
+
                 var table = $('#tabela').DataTable();
                 var estado, valor1, valor2, valor3, valor4, valor5;
                 var totalNorte = 0, totalNordeste = 0, totalSudeste = 0, totalCentroOeste = 0, totalSul = 0;
                 colunaValorDivida = [], colunaQntDevedores = [], colunaQntDivida = [], colunaValorAcoes = [], colunaQntAcoes = [];
-                for(var i = 0; i < 27; i++){
+                for (var i = 0; i < 27; i++) {
                     estado = table.cell(i, 0).data();
                     valor1 = parseFloat(table.cell(i, 1).data());
                     valor2 = parseInt(table.cell(i, 2).data());
                     valor3 = parseInt(table.cell(i, 3).data());
                     valor4 = parseFloat(table.cell(i, 4).data());
                     valor5 = parseInt(table.cell(i, 5).data());
-                    
-                    colunaValorDivida[i] = {valor : valor1, estado : estado};
-                    colunaQntDevedores[i] = {valor : valor2, estado : estado};
-                    colunaQntDivida[i] = {valor : valor3, estado : estado};
-                    colunaValorAcoes[i] = {valor : valor4, estado : estado};
-                    colunaQntAcoes[i] = {valor : valor5, estado : estado};
-                    
+
+                    colunaValorDivida[i] = {valor: valor1, estado: estado};
+                    colunaQntDevedores[i] = {valor: valor2, estado: estado};
+                    colunaQntDivida[i] = {valor: valor3, estado: estado};
+                    colunaValorAcoes[i] = {valor: valor4, estado: estado};
+                    colunaQntAcoes[i] = {valor: valor5, estado: estado};
+
                     //Regiao norte, 7 estados
-                    if(estado === "AM" || estado === "RR" || estado === "AP" || estado === "PA" || estado === "TO" || estado === "RO" || estado === "AC"){
+                    if (estado === "AM" || estado === "RR" || estado === "AP" || estado === "PA" || estado === "TO" || estado === "RO" || estado === "AC") {
                         totalNorte = totalNorte + valor2;
                     } //Regiao centro oeste, 4 estados
-                    else if(estado === "DF" || estado === "MT" || estado === "MS" || estado === "GO"){
+                    else if (estado === "DF" || estado === "MT" || estado === "MS" || estado === "GO") {
                         totalCentroOeste = totalCentroOeste + valor2;
                     } //Regiao sudeste, 4 estados
-                    else if(estado === "SP" || estado === "RJ" || estado === "ES" || estado === "MG"){
+                    else if (estado === "SP" || estado === "RJ" || estado === "ES" || estado === "MG") {
                         totalSudeste = totalSudeste + valor2;
                     }//Regiao Sul, 3 estados
-                    else if(estado === "PR" || estado === "RS" || estado === "SC"){
+                    else if (estado === "PR" || estado === "RS" || estado === "SC") {
                         totalSul = totalSul + valor2;
                     } //Regiao Nordeste, 9 estados
-                    else if(estado === "MA" || estado === "PI" || estado === "CE" || estado === "RN" || estado === "PE" || estado === "PB" || estado === "SE" || estado === "AL" || estado === "BA"){
+                    else if (estado === "MA" || estado === "PI" || estado === "CE" || estado === "RN" || estado === "PE" || estado === "PB" || estado === "SE" || estado === "AL" || estado === "BA") {
                         totalNordeste = totalNordeste + valor2;
                     }
-                    
+
                 }
-                
-                function compare(a,b) {
+
+                function compare(a, b) {
                     if (a.valor > b.valor)
-                       return -1;
+                        return -1;
                     if (a.valor < b.valor)
-                      return 1;
+                        return 1;
                     return 0;
                 }
                 colunaValorDivida.sort(compare);
@@ -168,12 +168,12 @@
                 $('#ValorSudeste').html(totalSudeste);
                 $('#NomeSul').html('Sul');
                 $('#ValorSul').html(totalSul);
-                
-                
-                var canvas = document.getElementById('canvas'); 
-                
-                var data = [], colors = [], total = 0; 
-                
+
+
+                var canvas = document.getElementById('canvas');
+
+                var data = [], colors = [], total = 0;
+
                 data[0] = totalNorte;
                 data[1] = totalNordeste;
                 data[2] = totalCentroOeste;
@@ -185,32 +185,32 @@
                 colors[2] = 'rgb(203,0,151)';
                 colors[3] = 'rgb(1,141,220)';
                 colors[4] = 'rgb(205,153,139)';
-                
-                var ctx = canvas.getContext('2d'); 
-                var canvas_size = [canvas.width, canvas.height]; 
-                var radius = Math.min(canvas_size[0], canvas_size[1]) / 2; 
-                var center = [canvas_size[0]/2, canvas_size[1]/2];
+
+                var ctx = canvas.getContext('2d');
+                var canvas_size = [canvas.width, canvas.height];
+                var radius = Math.min(canvas_size[0], canvas_size[1]) / 2;
+                var center = [canvas_size[0] / 2, canvas_size[1] / 2];
                 var sofar = 0; // monitora o andamento do script   
                 // loop por data[]   
-                for (var piece in data) {        
-                    var thisvalue = data[piece] / total;        
-                    ctx.beginPath();      
-                    ctx.moveTo(center[0], center[1]); 
+                for (var piece in data) {
+                    var thisvalue = data[piece] / total;
+                    ctx.beginPath();
+                    ctx.moveTo(center[0], center[1]);
                     // centro do gráfico       
-                    ctx.arc(  // desenha próximo arco           
-                    center[0],          
-                    center[1],          
-                    radius,         
-                    Math.PI * (- 0.5 + 2 * sofar), // -0.5 define o início no topo           
-                    Math.PI * (- 0.5 + 2 * (sofar + thisvalue)),          false      );        
+                    ctx.arc(// desenha próximo arco           
+                            center[0],
+                            center[1],
+                            radius,
+                            Math.PI * (-0.5 + 2 * sofar), // -0.5 define o início no topo           
+                            Math.PI * (-0.5 + 2 * (sofar + thisvalue)), false);
                     ctx.lineTo(center[0], center[1]); // linha de retorno ao centro      
-                    ctx.closePath();      
+                    ctx.closePath();
                     ctx.fillStyle = colors[piece];    // cor       
-                    ctx.fill();        
+                    ctx.fill();
                     sofar += thisvalue; // incrementa o andamento do script   
                 }
             }
-                
+
             $("#consultar").on('click', function () {
                 if ($(dataF).val() < $(dataI).val()) { //Intervalo de tempo invalido
                     swal({
@@ -237,102 +237,117 @@
             $('#tabela').on('mouseout', 'tbody tr', function () {
                 $(this).css('background', '');
             });
-            
-        });
-        //Filtrar os valores da tabela
-        function filtrarValores() {
-            var maxValDividas = document.getElementById('maxValDividas'),
-                maxQntDevedores = document.getElementById('maxQntDevedores'),
-                maxQntDividas = document.getElementById('maxQntDividas'),
-                maxValAcoes = document.getElementById('maxValAcoes'),
-                maxQntAcoes = document.getElementById('maxQntAcoes');
-                
-                
-            var deValDividas = document.getElementById('deValDividas'), ateValDividas = document.getElementById('ateValDividas'),
-                deQntDevedores = document.getElementById('deQntDevedores'), ateQntDevedores = document.getElementById('ateQntDevedores'),
-                deQntDividas = document.getElementById('deQntDividas'), ateQntDividas = document.getElementById('ateQntDividas'),
-                deValAcs = document.getElementById('deValAcs'), ateValAcs = document.getElementById('ateValAcs'),
-                deQntAcs = document.getElementById('deQntAcs'), ateQntAcs = document.getElementById('ateQntAcs');
-                
-            var ValorMinValDiv = 0.0, ValorMaxValDiv = parseFloat($(maxValDividas).text().replace(',','.'));
-            var ValorMinQntDev = 0, ValorMaxQntDev = parseInt($(maxQntDevedores).text());
-            var ValorMinQntDiv = 0, ValorMaxQntDiv = parseInt($(maxQntDividas).text());
-            var ValorMinValAcs = 0.0, ValorMaxValAcs = parseFloat($(maxValAcoes).text().replace(',','.'));
-            var ValorMinQntAcs = 0, ValorMaxQntAcs = parseInt($(maxQntAcoes).text());
-            
 
-            if($(deValDividas).val().length > 0 ){
-                ValorMinValDiv = parseFloat($(deValDividas).val());
-            }
-            if($(ateValDividas).val().length > 0 ){
-                ValorMaxValDiv = parseFloat($(ateValDividas).val());
-            }
-            //----------------------------------
-            
-            if($(deQntDevedores).val().length > 0 ){
-                ValorMinQntDev = parseInt($(deQntDevedores).val());
-            }
-            if($(ateQntDevedores).val().length > 0 ){
-                ValorMaxQntDev = parseInt($(ateQntDevedores).val());
-            }
-            //----------------------------------
-            
-            if($(deQntDividas).val().length > 0 ){
-                ValorMinQntDiv = parseInt($(deQntDividas).val());
-            }
-            if($(ateQntDividas).val().length > 0 ){
-                ValorMaxQntDiv = parseInt($(ateQntDividas).val());
-            }
-            //----------------------------------
-            
-            if($(deValAcs).val().length > 0 ){
-                ValorMinValAcs = parseFloat($(deValAcs).val());
-            }
-            if($(ateValAcs).val().length > 0 ){
-                ValorMaxValAcs = parseFloat($(ateValAcs).val());
-            }
-            //----------------------------------
-            
-            if($(deQntAcs).val().length > 0 ){
-                ValorMinQntAcs = parseInt($(deQntAcs).val());
-            }
-            if($(ateQntAcs).val().length > 0 ){
-                ValorMaxQntAcs = parseInt($(ateQntAcs).val());
-            }
-            
-            
-            var table = $('#tabela').DataTable();
-            var valorValDividas, valorQntDevedores, valorQntDividas, valorValAcoes, valorQntAcoes;
-            
-            var table1 = document.getElementById("tabela");
-            var rows = table1.rows;
-            
-            for(var i = 1; i <= 27; i++){
-                valorValDividas = parseFloat(table.cell(i, 1).data().replace(',','.'));
-                valorQntDevedores = parseInt(table.cell(i, 2).data());
-                valorQntDividas = parseInt(table.cell(i, 3).data());
-                valorValAcoes = parseFloat(table.cell(i, 4).data().replace(',','.'));
-                valorQntAcoes = parseInt(table.cell(i, 5).data());
-                
-                if(valorValDividas >= ValorMinValDiv && valorValDividas <= ValorMaxValDiv && valorQntDevedores >= ValorMinQntDev && valorQntDevedores <= ValorMaxQntDev){
-                    if(valorQntDividas >= ValorMinQntDiv && valorQntDividas <= ValorMaxQntDiv && valorValAcoes >= ValorMinValAcs && valorValAcoes <= ValorMaxValAcs){
-                        if(valorQntAcoes >= ValorMinQntAcs && valorQntAcoes <= ValorMaxQntAcs){
-                            $(rows[i]).removeClass("esconder");
-                        }
-                        else{$(rows[i]).addClass("esconder");}
-                    }
-                    else{$(rows[i]).addClass("esconder");}
+            var trs = '';
+
+            $('#filtrar').click(function () {
+                $('#corpoTable').append(trs);
+                trs = '';
+
+                var maxValDividas = document.getElementById('maxValDividas'),
+                        maxQntDevedores = document.getElementById('maxQntDevedores'),
+                        maxQntDividas = document.getElementById('maxQntDividas'),
+                        maxValAcoes = document.getElementById('maxValAcoes'),
+                        maxQntAcoes = document.getElementById('maxQntAcoes');
+
+
+                var deValDividas = document.getElementById('deValDividas'), ateValDividas = document.getElementById('ateValDividas'),
+                        deQntDevedores = document.getElementById('deQntDevedores'), ateQntDevedores = document.getElementById('ateQntDevedores'),
+                        deQntDividas = document.getElementById('deQntDividas'), ateQntDividas = document.getElementById('ateQntDividas'),
+                        deValAcs = document.getElementById('deValAcs'), ateValAcs = document.getElementById('ateValAcs'),
+                        deQntAcs = document.getElementById('deQntAcs'), ateQntAcs = document.getElementById('ateQntAcs');
+
+                var ValorMinValDiv = 0.0, ValorMaxValDiv = parseFloat($(maxValDividas).text().replace(',', '.'));
+                var ValorMinQntDev = 0, ValorMaxQntDev = parseInt($(maxQntDevedores).text());
+                var ValorMinQntDiv = 0, ValorMaxQntDiv = parseInt($(maxQntDividas).text());
+                var ValorMinValAcs = 0.0, ValorMaxValAcs = parseFloat($(maxValAcoes).text().replace(',', '.'));
+                var ValorMinQntAcs = 0, ValorMaxQntAcs = parseInt($(maxQntAcoes).text());
+
+
+                if ($(deValDividas).val().length > 0) {
+                    ValorMinValDiv = parseFloat($(deValDividas).val());
                 }
-                else{$(rows[i]).addClass("esconder");}
-            }
-            
-            swal({
-                title: "Sucesso",
-                text: "A filtragem foi realizada, consulte os resultados",
-                icon: "success",
-                button: "Entendido",
-            })
-        }
+                if ($(ateValDividas).val().length > 0) {
+                    ValorMaxValDiv = parseFloat($(ateValDividas).val());
+                }
+                //----------------------------------
+
+                if ($(deQntDevedores).val().length > 0) {
+                    ValorMinQntDev = parseInt($(deQntDevedores).val());
+                }
+                if ($(ateQntDevedores).val().length > 0) {
+                    ValorMaxQntDev = parseInt($(ateQntDevedores).val());
+                }
+                //----------------------------------
+
+                if ($(deQntDividas).val().length > 0) {
+                    ValorMinQntDiv = parseInt($(deQntDividas).val());
+                }
+                if ($(ateQntDividas).val().length > 0) {
+                    ValorMaxQntDiv = parseInt($(ateQntDividas).val());
+                }
+                //----------------------------------
+
+                if ($(deValAcs).val().length > 0) {
+                    ValorMinValAcs = parseFloat($(deValAcs).val());
+                }
+                if ($(ateValAcs).val().length > 0) {
+                    ValorMaxValAcs = parseFloat($(ateValAcs).val());
+                }
+                //----------------------------------
+
+                if ($(deQntAcs).val().length > 0) {
+                    ValorMinQntAcs = parseInt($(deQntAcs).val());
+                }
+                if ($(ateQntAcs).val().length > 0) {
+                    ValorMaxQntAcs = parseInt($(ateQntAcs).val());
+                }
+
+                $('#tabela').find('tr').each(function (j) {
+                    var flag = true;
+                    $(this).find('td').each(function (i) {
+                        if (i === 1 && flag) //valor das dividas
+                            if (parseFloat($(this).html()) < ValorMinValDiv || parseFloat($(this).html()) > ValorMaxValDiv) {
+                                trs += '<tr data-toggle="modal" data-target="#exampleModal">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+                        if (i === 2 && flag) //quantidade devedores
+                            if (parseFloat($(this).html()) < ValorMinQntDev || parseFloat($(this).html()) > ValorMaxQntDev) {
+                                trs += '<tr data-toggle="modal" data-target="#exampleModal">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+                        if (i === 3 && flag) //quantidade dividas
+                            if (parseFloat($(this).html()) < ValorMinQntDiv || parseFloat($(this).html()) > ValorMaxQntDiv) {
+                                trs += '<tr data-toggle="modal" data-target="#exampleModal">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+                        if (i === 4 && flag) //valor açoes 
+                            if (parseFloat($(this).html()) < ValorMinValAcs || parseFloat($(this).html()) > ValorMaxValAcs) {
+                                trs += '<tr data-toggle="modal" data-target="#exampleModal">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+                        if (i === 5 && flag) //quantidade açoes
+                            if (parseFloat($(this).html()) < ValorMinQntAcs || parseFloat($(this).html()) > ValorMaxQntAcs) {
+                                trs += '<tr data-toggle="modal" data-target="#exampleModal">' + $(this).parent().html() + '</tr>';
+                                $(this).parent().remove();
+                                flag = false;
+                            }
+                    });
+                });
+                swal({
+                    title: "Sucesso",
+                    text: "A filtragem foi realizada, consulte os resultados",
+                    icon: "success",
+                    button: "Entendido"
+                });
+
+            });
+
+        });
     </script>
 
 
@@ -357,22 +372,22 @@
                         <h3 id="titulo1">Realizar nova consulta</h3> 
                         <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                         <form id="form" class="form" method="POST" action="consulta1">
-                            <% 
-                                String dataI = (String) request.getAttribute("dtInicial"); 
-                                String dataF = (String) request.getAttribute("dtFinal"); 
+                            <%
+                                String dataI = (String) request.getAttribute("dtInicial");
+                                String dataF = (String) request.getAttribute("dtFinal");
                             %>
                             <div class="form form-group">
                                 <label> Data inicial</label>
-                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value= <%= dataI %> >  
+                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value= <%= dataI%> >  
                             </div>
                             <div class="form form-group">
                                 <label> Data final</label>
-                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value= <%=  dataF %> > 
+                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value= <%=  dataF%> > 
                             </div>
                             <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                             <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
                         </form>
-                        
+
                     </article>
                 </div>
 
@@ -466,19 +481,19 @@
                                 ArrayList<Estado> arrayEstados = (ArrayList<Estado>) request.getAttribute("ArrayEstados");
                                 double maxValDividas = 0, maxQntDevedores = 0, maxQntDividas = 0, maxValAcoes = 0, maxQntAcoes = 0;
                                 for (int i = 0; i < arrayEstados.size(); i++) {
-                                    if(arrayEstados.get(i).getValorDividas() > maxValDividas ){
+                                    if (arrayEstados.get(i).getValorDividas() > maxValDividas) {
                                         maxValDividas = arrayEstados.get(i).getValorDividas();
                                     }
-                                    if(arrayEstados.get(i).getQuantDevedores() > maxQntDevedores){
+                                    if (arrayEstados.get(i).getQuantDevedores() > maxQntDevedores) {
                                         maxQntDevedores = arrayEstados.get(i).getQuantDevedores();
                                     }
-                                    if(arrayEstados.get(i).getQuantDividas() > maxQntDividas){
+                                    if (arrayEstados.get(i).getQuantDividas() > maxQntDividas) {
                                         maxQntDividas = arrayEstados.get(i).getQuantDividas();
                                     }
-                                    if(arrayEstados.get(i).getValorAcoes() > maxValAcoes){
+                                    if (arrayEstados.get(i).getValorAcoes() > maxValAcoes) {
                                         maxValAcoes = arrayEstados.get(i).getValorAcoes();
                                     }
-                                    if(arrayEstados.get(i).getQuantAcoes() > maxQntAcoes){
+                                    if (arrayEstados.get(i).getQuantAcoes() > maxQntAcoes) {
                                         maxQntAcoes = arrayEstados.get(i).getQuantAcoes();
                                     }
                             %>
@@ -497,11 +512,11 @@
                         </tbody>
                     </table>
                     <div class="esconder">
-                        <label id="maxValDividas"><%= maxValDividas %></label>
-                        <label id="maxQntDevedores"><%= maxQntDevedores %></label>
-                        <label id="maxQntDividas"><%= maxQntDividas %></label>
-                        <label id="maxValAcoes"><%= maxValAcoes %></label>
-                        <label id="maxQntAcoes"><%= maxQntAcoes %></label>
+                        <label id="maxValDividas"><%= maxValDividas%></label>
+                        <label id="maxQntDevedores"><%= maxQntDevedores%></label>
+                        <label id="maxQntDividas"><%= maxQntDividas%></label>
+                        <label id="maxValAcoes"><%= maxValAcoes%></label>
+                        <label id="maxQntAcoes"><%= maxQntAcoes%></label>
                     </div>
                 </div>
             </div>
@@ -583,26 +598,26 @@
         <!-- Modal para avisar que que esta carregando a consulta -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
-                </div>
-                <div class="modal-body">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                      <span class="sr-only">Loading...</span>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Consultando</h5>
                     </div>
-                  </div>
-                    <br>
-                    <div class="d-flex justify-content-center">
-                    <p>Realizando a consulta dos dados, aguarde um instante</p>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <p>Realizando a consulta dos dados, aguarde um instante</p>
+                        </div>
                     </div>
+
                 </div>
-                
-              </div>
             </div>
         </div>
-        
+
         <footer class="page-footer font-small pt-5">
             <div class="container-fluid text-center text-md-left bg-foo">
                 <div class="row">

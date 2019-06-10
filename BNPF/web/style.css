@@ -73,3 +73,46 @@ tbody tr:hover{
     background-color: rgb(66, 103, 178);
     color: white;
 }
+
+
+.perfil-titulo{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0;
+    color: #3d4451;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dedede
+}
+
+.titulo{
+    display: block;
+    width: 240px;
+    float: left;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.perfil-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cont {
+    display: block;
+    margin-left: 125px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #9da0a7;
+}
+
+.header {
+  color: #ffffff;
+  background: #6c7ae0;
+}   
