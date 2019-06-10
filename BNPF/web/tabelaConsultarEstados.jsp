@@ -572,12 +572,12 @@
                         </div>
                         <br>
                         <div id='regioes'> 
-                            <h5><b>Devedores por Regiao do Brasil</b></h5>
+                            <h5><b>Devedores por região do Brasil</b></h5>
                             <table class="table table-bordered table-sm">
                                 <thead>
                                     <tr style="background-color: rgb(52,58,64);">
                                         <th class='th-sm' style="color: white;">Cor</th>
-                                        <th class='th-sm' style="color: white;">Regiao</th>
+                                        <th class='th-sm' style="color: white;">Região</th>
                                         <th class='th-sm' style="color: white;">Quantidade de devedores</th>
                                     </tr>
                                 </thead>
