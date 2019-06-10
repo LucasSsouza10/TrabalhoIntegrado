@@ -81,16 +81,38 @@
             
             $('.dataTables_length').addClass('bs-select');
 
-            aa();
-            
-            
-            function aa(){
+            gerarInformacoes();
+          
+            $('#tabela').on('click', 'tbody tr', function () {
+                var UF = $(this).find('.UF').text();
+                $('#UF').html('Sigla da Unidade Federativa: ' + UF);
+                for(var i = 0; i < 27; i++){
+                    if(UF === colunaValorDivida[i].estado){
+                        $('#rankValorDividas').html(i+1 + 'ª Unidade Federativa com maior valor de dívidas');
+                    }
+                    if(UF === colunaQntDevedores[i].estado){
+                        $('#rankQntDevedores').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    }
+                    if(UF === colunaQntDivida[i].estado){
+                        $('#rankQntDividas').html(i+1 + 'ª Unidade Federativa com maior quantidade de dívidas');
+                    }
+                    if(UF === colunaValorAcoes[i].estado){
+                        $('#rankValorAcoes').html(i+1 + 'ª Unidade Federativa com maior valor de acções ju');
+                    }
+                    if(UF === colunaQntAcoes[i].estado){
+                        $('#rankQntAcoes').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    }
+                }
+            });
+                
+                
+                
+            function gerarInformacoes(){
                 
                 var table = $('#tabela').DataTable();
                 var estado, valor1, valor2, valor3, valor4, valor5;
-                var colunaValorDivida = [], colunaQntDevedores = [], colunaQntDivida = [], colunaValorAcoes = [], colunaQntAcoes = [];
                 var totalNorte = 0, totalNordeste = 0, totalSudeste = 0, totalCentroOeste = 0, totalSul = 0;
-                
+                colunaValorDivida = [], colunaQntDevedores = [], colunaQntDivida = [], colunaValorAcoes = [], colunaQntAcoes = [];
                 for(var i = 0; i < 27; i++){
                     estado = table.cell(i, 0).data();
                     valor1 = parseFloat(table.cell(i, 1).data());
@@ -335,13 +357,17 @@
                         <h3 id="titulo1">Realizar nova consulta</h3> 
                         <p id="texto1">Informe o intervalo de tempo nos campos abaixo!</p>
                         <form id="form" class="form" method="POST" action="consulta1">
+                            <% 
+                                String dataI = (String) request.getAttribute("dtInicial"); 
+                                String dataF = (String) request.getAttribute("dtFinal"); 
+                            %>
                             <div class="form form-group">
                                 <label> Data inicial</label>
-                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value="1938-01-01">  
+                                <input name="dtInicial" type="date" class="form-control" id="dataInicial" value= <%= dataI %> >  
                             </div>
                             <div class="form form-group">
                                 <label> Data final</label>
-                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value="2019-01-01" > 
+                                <input name="dtFinal" type="date" class="form-control" id="dataFinal" value= <%=  dataF %> > 
                             </div>
                             <p style="text-align: center;"><span class="right" id="err-message" style="color: darkred;"></span></p>
                             <p id="pBotao1" style="text-align: center;"><button id="consultar" type="button" class="btn btn-primary col-12">Consultar</button></p>
@@ -457,7 +483,7 @@
                                     }
                             %>
                             <tr  data-toggle="modal" data-target="#exampleModal">
-                                <td><%= arrayEstados.get(i).getUf()%></td>
+                                <td class="UF"><%= arrayEstados.get(i).getUf()%></td>
                                 <td><%= String.format("%.2f", arrayEstados.get(i).getValorDividas())%></td>
                                 <td><%= arrayEstados.get(i).getQuantDevedores()%></td>
                                 <td><%= arrayEstados.get(i).getQuantDividas()%></td>
@@ -492,6 +518,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div>
+                            <h5><b>Dados da Unidade Federativa</b></h5>
+                            <p id="UF"></p>
+                            <p id="rankValorDividas"></p>
+                            <p id="rankQntDevedores"></p>
+                            <p id="rankQntDividas"></p>
+                            <p id="rankValorAcoes"></p>
+                            <p id="rankQntAcoes"></p>
+                        </div>
+                        <br>
                         <div id='regioes'> 
                             <h5><b>Devedores por Regiao do Brasil</b></h5>
                             <table class="table table-bordered table-sm">
@@ -532,13 +568,10 @@
                             </table>
                             <br>
                             <div style="text-align: center;">
-                                
                                 <canvas id="canvas" width="300" height="300"></canvas> 
-                                <h6>Gráfico Circular, representando o número de devedores da tabela acima</h6>
+                                <h6>Gráfico circular, representando o número de devedores em cada região do Brasil de acordo com a tabela acima</h6>
                             </div>
-                            
                         </div>
-                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

@@ -84,6 +84,9 @@ public class consulta1 extends HttpServlet {
             ArrayList<Estado> arrayEstados = edao.consultar(dtInicial, dtFinal);
             
             request.setAttribute("ArrayEstados", arrayEstados);
+            request.setAttribute("dtInicial", dtInicial);
+            request.setAttribute("dtFinal", dtFinal);
+            
             RequestDispatcher dispatcher = null;
             dispatcher = request.getRequestDispatcher("./tabelaConsultarEstados.jsp");
             dispatcher.forward(request, response);
