@@ -74,12 +74,12 @@
             });
 
             //Configurar formato da tabela que contem os resultados
-            $('#tabela').DataTable({
+            var table = $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
-                "info": false,
+                "bInfo": false,
                 "language": {
-                    "zeroRecords": "Nada encontrado, verifique os dados e tente novamente",
+                    "zeroRecords": "Nada encontrado, verifique os dados e tente novamente"
                 },
                 "bLengthChange": false,
                 "order": [[0, "asc"]],
@@ -93,21 +93,21 @@
             $('#tabela').on('click', 'tbody tr', function () {
                 var UF = $(this).find('.UF').text();
                 $('#UF').html(UF);
-                for(var i = 0; i < 27; i++){
-                    if(UF === colunaValorDivida[i].estado){
-                        $('#rankValorDividas').html(i+1 + 'ª Unidade Federativa com maior valor de dívidas');
+                for (var i = 0; i < 27; i++) {
+                    if (UF === colunaValorDivida[i].estado) {
+                        $('#rankValorDividas').html(i + 1 + 'ª Unidade Federativa com maior valor de dívidas');
                     }
-                    if(UF === colunaQntDevedores[i].estado){
-                        $('#rankQntDevedores').html(i+1 + 'ª Unidade Federativa com maior quantidade de devedores');
+                    if (UF === colunaQntDevedores[i].estado) {
+                        $('#rankQntDevedores').html(i + 1 + 'ª Unidade Federativa com maior quantidade de devedores');
                     }
-                    if(UF === colunaQntDivida[i].estado){
-                        $('#rankQntDividas').html(i+1 + 'ª Unidade Federativa com maior quantidade de dívidas');
+                    if (UF === colunaQntDivida[i].estado) {
+                        $('#rankQntDividas').html(i + 1 + 'ª Unidade Federativa com maior quantidade de dívidas');
                     }
-                    if(UF === colunaValorAcoes[i].estado){
-                        $('#rankValorAcoes').html(i+1 + 'ª Unidade Federativa com maior valor de ações judiciais');
+                    if (UF === colunaValorAcoes[i].estado) {
+                        $('#rankValorAcoes').html(i + 1 + 'ª Unidade Federativa com maior valor de ações judiciais');
                     }
-                    if(UF === colunaQntAcoes[i].estado){
-                        $('#rankQntAcoes').html(i+1 + 'ª Unidade Federativa com maior quantidade de ações judiciais');
+                    if (UF === colunaQntAcoes[i].estado) {
+                        $('#rankQntAcoes').html(i + 1 + 'ª Unidade Federativa com maior quantidade de ações judiciais');
                     }
                 }
                 $.ajax({
@@ -259,6 +259,7 @@
             var trs = '';
 
             $('#filtrar').click(function () {
+                table.destroy();
                 $('#corpoTable').append(trs);
                 trs = '';
 
@@ -356,6 +357,18 @@
                             }
                     });
                 });
+                table = $('#tabela').DataTable({
+                    "pagingType": "simple_numbers",
+                    "searching": false,
+                    "bInfo": false,
+                    "language": {
+                    "zeroRecords": "Nada encontrado, verifique os dados e tente novamente"
+                },
+                    "bLengthChange": false,
+                    "order": [[0, "asc"]],
+                    "paging": false
+                });
+                
                 swal({
                     title: "Sucesso",
                     text: "A filtragem foi realizada, consulte os resultados",
