@@ -248,7 +248,7 @@
                 table = $('#tabela').DataTable({
                     "pagingType": "simple_numbers",
                     "searching": false,
-                    "pageLength": 50,
+                    "pageLength": 20,
                     "bLengthChange": false,
                     "order": [[1, "asc"]],
                     "columns": [
