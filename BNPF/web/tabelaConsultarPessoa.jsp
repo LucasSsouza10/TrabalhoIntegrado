@@ -117,7 +117,7 @@
                 $.ajax({
                     type: 'post',
                     url: 'ConsultarDetalhes',
-                    data: {cpf: $(this).find('.cpf').text()},
+                    data: {cpf: $(this).find('.cpf').text(), anoI: $('#anoI').text(), anoF: $('#anoF').text()},
                     dataType: 'JSON',
                     success: function (dados) {
                         $('#dadosDividas').html('');
@@ -248,7 +248,7 @@
                 table = $('#tabela').DataTable({
                     "pagingType": "simple_numbers",
                     "searching": false,
-                    "pageLength": 20,
+                    "pageLength": 50,
                     "bLengthChange": false,
                     "order": [[1, "asc"]],
                     "columns": [
@@ -264,8 +264,8 @@
                     title: "Sucesso",
                     text: "A filtragem foi realizada, consulte os resultados",
                     icon: "success",
-                    button: "Entendido",
-                })
+                    button: "Entendido"
+                });
             });
 
 
@@ -291,7 +291,7 @@
         </header>
 
         <section class="row mt-5 mx-auto">
-            <div class="col-3">
+            <div class="comp">
                 <div class="container">
                     <article class="form-container">
                         <h3 id="titulo1">Realizar nova consulta</h3> 
@@ -360,7 +360,7 @@
             </div>
 
 
-            <div class="col-9">
+            <div class="tab">
                 <div class="table-responsive">
                     <%
                         String nome = (String) request.getAttribute("nome");
@@ -370,9 +370,9 @@
 
                     <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
                     <div class="mb-3">
-                        <span><strong>Nome:</strong><%= nome%></span>
-                        <span class="ml-2"><strong>Ano Inical: </strong><%= anoInicial%> </span>
-                        <span class="ml-2"><strong>Ano Final:</strong> <%= anoFinal%> </span>
+                        <span><strong>Nome:</strong><%= ' ' + nome.toUpperCase() %></span>
+                        <span class="ml-2"><strong>Ano Inical: </strong><p id='anoI'><%= anoInicial%></p> </span>
+                        <span class="ml-2"><strong>Ano Final:</strong><p id="anoF"><%= anoFinal%></p></span>
                     </div>
                     <table id="tabela" class="table table-striped table-bordered table-sm">
                         <thead class="thead-dark table table-striped">

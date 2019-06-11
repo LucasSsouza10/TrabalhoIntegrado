@@ -16,13 +16,15 @@ public class DividaDAO {
         this.connection = ConnectionFactory.getConnection();
     }
 
-    public ArrayList<Divida> consultar(String cpf) throws SQLException {
+    public ArrayList<Divida> consultar(String cpf, int anoI, int anoF) throws SQLException {
         PreparedStatement statement;
         ResultSet rs;
         ArrayList<Divida> arrayDividas = new ArrayList<>();
 
-        statement = connection.prepareStatement("SELECT * FROM consultar_dividas(?);");
+        statement = connection.prepareStatement("SELECT * FROM consultar_dividas(?, ?, ?);");
         statement.setString(1, cpf);
+        statement.setInt(2, anoI);
+        statement.setInt(3, anoF);
         rs = statement.executeQuery();
 
         while (rs.next()) {

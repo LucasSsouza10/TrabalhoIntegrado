@@ -145,7 +145,7 @@
 
         <section id="containerConsulta2" class="row flex-row-reverse container-fluid h-100">
 
-            <div class="row align-items-center  col-6">
+            <div class="row align-items-center col-6">
                 <div class="card bg-transparent">
                     <div  id="texto" class="card-body" style="color: white;">
                         <h2 class="card-title"><strong>Consultar Pessoas</strong></h2>

@@ -15,13 +15,15 @@ public class AcoesJudiciaisDAO {
         this.connection = ConnectionFactory.getConnection();
     }
 
-    public ArrayList<AcoesJudiciais> consultar(String cpf) throws SQLException {
+    public ArrayList<AcoesJudiciais> consultar(String cpf, int anoI, int anoF) throws SQLException {
         PreparedStatement statement;
         ResultSet rs;
         ArrayList<AcoesJudiciais> arrayAcoes = new ArrayList<>();
             
-        statement = connection.prepareStatement("SELECT * FROM consultar_acoes(?);");
+        statement = connection.prepareStatement("SELECT * FROM consultar_acoes(?, ?, ?);");
         statement.setString(1, cpf);
+        statement.setInt(2, anoI);
+        statement.setInt(3, anoF);
         rs = statement.executeQuery();  
 
         while (rs.next()) {

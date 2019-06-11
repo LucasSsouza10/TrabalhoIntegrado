@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -86,13 +86,15 @@ public class ConsultarDetalhes extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String cpf = request.getParameter("cpf");
+        int anoInicial = Integer.parseInt(request.getParameter("anoI"));
+        int anoFinal = Integer.parseInt(request.getParameter("anoF"));
 
         try {
             DividaDAO ddao = new DividaDAO();
-            ArrayList<Divida> arrayDividas = ddao.consultar(cpf);
+            ArrayList<Divida> arrayDividas = ddao.consultar(cpf, anoInicial, anoFinal);
 
             AcoesJudiciaisDAO adao = new AcoesJudiciaisDAO();
-            ArrayList<AcoesJudiciais> arrayAcoes = adao.consultar(cpf);
+            ArrayList<AcoesJudiciais> arrayAcoes = adao.consultar(cpf, anoInicial, anoFinal);
             
             ArrayList<Object> array= new ArrayList<>();
             array.add(arrayDividas);

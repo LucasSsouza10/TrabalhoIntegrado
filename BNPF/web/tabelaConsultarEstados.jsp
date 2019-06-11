@@ -380,7 +380,7 @@
         </header>
 
         <section class="row mt-5 mx-auto">
-            <div class="col-3">
+            <div class="comp">
                 <div class="container">
                     <article class="form-container" id="art1" >
                         <h3 id="titulo1">Realizar nova consulta</h3> 
@@ -471,7 +471,7 @@
                 </div>
             </div>
 
-            <div class="col-9">
+            <div class="tab">
                 <div class="table-responsive">
                     <%
                         String dataI = (String) request.getAttribute("dtInicial");
@@ -555,10 +555,10 @@
                         <div>
                             <h5><b>Dados da Unidade Federativa</b></h5>
                             <ul class="perfil-lista">
-                                <li class="clearfix"><strong class="titulo">Sigla do UF: </strong><span id="UF" class="cont"></span></li>
-                                <li class="clearfix"><strong class="titulo">Nome do UF: </strong><span id="nomeUF" class="cont"></span></li>
-                                <li class="clearfix"><strong class="titulo">Capital do UF: </strong><span id="capitalUF" class="cont"></span></li>     
-                                <li class="clearfix"><strong class="titulo">Região do UF: </strong><span id="regiaoUF" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo2">Sigla do UF: </strong><span id="UF" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo2">Nome do UF: </strong><span id="nomeUF" class="cont"></span></li>
+                                <li class="clearfix"><strong class="titulo2">Capital do UF: </strong><span id="capitalUF" class="cont"></span></li>     
+                                <li class="clearfix"><strong class="titulo2">Região do UF: </strong><span id="regiaoUF" class="cont"></span></li>
                             </ul> 
                         </div>
                         <br>
