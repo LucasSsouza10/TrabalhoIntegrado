@@ -1,47 +1,45 @@
 ﻿-- Function: consultar_acoes(character varying)
 
--- DROP FUNCTION consultar_acoes(character varying);
+-- DROP FUNCTION consultar_acoes(character varying, smallint, smallint);
 
-CREATE OR REPLACE FUNCTION consultar_acoes(IN cpf_aux character varying)
+CREATE OR REPLACE FUNCTION consultar_acoes(cpf_aux varchar, anoI integer, anoF integer)
   RETURNS TABLE(numero_do_processo character varying, ident_autor character varying, situacao character varying, data date, valor numeric) AS
 $BODY$
 	BEGIN
-		RETURN QUERY 
+		RETURN QUERY EXECUTE '
 		SELECT a.numero_do_processo, a.ident_autor, a.situacao_do_processo, a.data,  a.valor_acao FROM acoes_judiciais a
-		WHERE cpf_do_reu = cpf_aux;
+		WHERE cpf_do_reu = $1
+		AND extract(YEAR FROM a.data)BETWEEN $2 AND $3'
+		USING cpf_aux, anoI, anoF;
 	END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-ALTER FUNCTION consultar_acoes(character varying)
-  OWNER TO postgres;
--- Function: consultar_dividas(character varying)
+  LANGUAGE plpgsql;
 
+-- DROP FUNCTION consultar_dividas(character varying, smallint, smallint);
 
--- DROP FUNCTION consultar_dividas(character varying);
-
-CREATE OR REPLACE FUNCTION consultar_dividas(IN cpf_aux character varying)
+CREATE OR REPLACE FUNCTION consultar_dividas(cpf_aux varchar, anoI integer, anoF integer)
   RETURNS TABLE(contrato character varying, cnpj character varying, data date, valor numeric) AS
 $BODY$
 	BEGIN
-		RETURN QUERY 
-		SELECT divida.num_contrato, divida.cnpj, divida.data, divida.valor_da_divida FROM divida
-		WHERE cpf = cpf_aux;
+		RETURN QUERY EXECUTE '
+		SELECT d.num_contrato, d.cnpj, d.data, d.valor_da_divida FROM divida d
+		WHERE cpf = $1
+		AND extract(YEAR FROM d.data) BETWEEN $2 AND $3'
+		USING cpf_aux, anoI, anoF;
 	END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100
-  ROWS 1000;
-ALTER FUNCTION consultar_dividas(character varying)
-  OWNER TO postgres;
+  LANGUAGE plpgsql;
 
 
 --Funcao para busca avancada dos estados
 CREATE OR REPLACE FUNCTION consultar_uf(d1 varchar)
 RETURNS table(nome varchar, capital varchar, regiao varchar) AS $$
 	BEGIN
-		RETURN QUERY 
-		SELECT u.nome, u.capital, u.regiao FROM UFs as u WHERE nome_uf = d1;
+		RETURN QUERY EXECUTE'
+		SELECT u.nome, u.capital, u.regiao FROM UFs as u WHERE nome_uf = $1'
+		USING d1;
 	END;
 $$ language 'plpgsql';
+
+
+select * from consultar_dividas('18112991642', 1920, 2019);
