@@ -35,23 +35,25 @@
                     err_message1 = document.getElementById('err-message1'),
                     err_message2 = document.getElementById('err-message2'),
                     nome = document.getElementById('nome');
-
             //Funcao para trocar de tela quando clica no botao id=consultaP1
             $("#consultaP1").click(function () {
                 window.location.href = "consultarPessoas.jsp";
             });
-
             //Funcao para trocar de tela quando clica no botao id=consultaE1
             $("#consultaE1").click(function () {
                 window.location.href = "consultarEstados.jsp";
             });
-
             //Configurar formato da tabela que contem os resultados
             var table = $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
                 "pageLength": 20,
                 "bLengthChange": false,
+                "language": {
+                    "zeroRecords": "Nada encontrado, verifique os dados e tente novamente",
+                    "info": "Mostrando do _START_° até _END_° de _TOTAL_ entradas",
+                    "infoEmpty": "Nenhum dado encontrado"
+                },
                 "order": [[1, "asc"]],
                 "columns": [
                     {"orderable": false},
@@ -67,11 +69,9 @@
             $('#tabela').on('mouseover', 'tbody tr', function () {
                 $(this).css('background', 'gray');
             });
-
             $('#tabela').on('mouseout', 'tbody tr', function () {
                 $(this).css('background', '');
             });
-
             $("#consultar").click(function () {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
@@ -93,22 +93,18 @@
                     }
                 }
             });
-
             //Funcao para verificar quando sair do campo ano final
             $(anoF).focusout(function () {
                 verificar();
             });
-
             //Funcao para verificar quando sair do campo ano inicial
             $(anoI).focusout(function () {
                 verificar();
             });
-
             //Funcao para verificar quando sair do campo nivel
             $(nome).focusout(function () {
                 verificar();
             });
-
             $('#tabela').on('click', 'tbody tr', function () {
                 $('#pnome').html($(this).find('.nome').text());
                 $('#pcpf').html($(this).find('.cpf').text());
@@ -142,13 +138,11 @@
                     }
                 });
             });
-
             //Funcao para verificar todos os campos
             function verificar() {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçÁÀÂÃÉÈÍÏÓÔÕÖÚÇ]/;
                 var element = $(nome);
                 var flag = 0;
-
                 if (!(letter_only.test(element.val()))) {
                     $(nome).css('border', '1px solid red');
                     flag = 1;
@@ -191,21 +185,17 @@
             }
 
             var trs = '';
-
             $('#filtrar').on('click', function () {
                 table.destroy();
                 $('#corpoTable').append(trs);
                 trs = '';
-
                 var maxQntDividas = 8,
                         maxQntAcoes = 8,
                         deQntDividas = document.getElementById('deQntDividas'),
                         ateQntDividas = document.getElementById('ateQntDividas'),
                         deQntAcoes = document.getElementById('deQntAcoes'),
                         ateQntAcoes = document.getElementById('ateQntAcoes');
-
                 var minDiv = 0, maxDiv = 0, minAcs = 0, maxAcs = 0;
-
                 if ($(deQntDividas).val().length > 0) {
                     minDiv = parseInt($(deQntDividas).val());
                 }
@@ -243,13 +233,17 @@
                             }
 
                     });
-
                 });
                 table = $('#tabela').DataTable({
                     "pagingType": "simple_numbers",
                     "searching": false,
                     "pageLength": 20,
                     "bLengthChange": false,
+                    "language": {
+                        "zeroRecords": "Nada encontrado, verifique os dados e tente novamente",
+                        "info": "Mostrando do _START_° até _END_° de _TOTAL_ entradas",
+                        "infoEmpty": "Nenhum dado encontrado"
+                    },
                     "order": [[1, "asc"]],
                     "columns": [
                         {"orderable": false},
@@ -267,8 +261,6 @@
                     button: "Entendido"
                 });
             });
-
-
         });
 
 
@@ -370,7 +362,7 @@
 
                     <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
                     <div class="mb-3">
-                        <span><strong>Nome:</strong><%= ' ' + nome.toUpperCase() %></span>
+                        <span><strong>Nome:</strong><%= ' ' + nome.toUpperCase()%></span>
                         <span class=" ml-2"><strong>Ano Inical: </strong></span><span id='anoI' ><%= anoInicial%></span>
                         <span class=" ml-2"><strong>Ano Final:</strong></span><span id="anoF" class="ml-1"><%= anoFinal%></span>
                     </div>

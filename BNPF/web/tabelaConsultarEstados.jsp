@@ -77,6 +77,10 @@
             $('#tabela').DataTable({
                 "pagingType": "simple_numbers",
                 "searching": false,
+                "info": false,
+                "language": {
+                    "zeroRecords": "Nada encontrado, verifique os dados e tente novamente",
+                },
                 "bLengthChange": false,
                 "order": [[0, "asc"]],
                 "paging": false
