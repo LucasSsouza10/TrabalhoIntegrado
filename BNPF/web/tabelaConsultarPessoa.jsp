@@ -371,8 +371,8 @@
                     <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
                     <div class="mb-3">
                         <span><strong>Nome:</strong><%= ' ' + nome.toUpperCase() %></span>
-                        <span class="ml-2"><strong>Ano Inical: </strong><p id='anoI'><%= anoInicial%></p> </span>
-                        <span class="ml-2"><strong>Ano Final:</strong><p id="anoF"><%= anoFinal%></p></span>
+                        <span class=" ml-2"><strong>Ano Inical: </strong></span><span id='anoI' ><%= anoInicial%></span>
+                        <span class=" ml-2"><strong>Ano Final:</strong></span><span id="anoF" class="ml-1"><%= anoFinal%></span>
                     </div>
                     <table id="tabela" class="table table-striped table-bordered table-sm">
                         <thead class="thead-dark table table-striped">
