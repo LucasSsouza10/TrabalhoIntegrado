@@ -48,6 +48,3 @@ $$ language 'plpgsql';
 SELECT nome_UF, soma_div, qtd_devedores, qtd_div, soma_acoes, qtd_acoes FROM consultar_estados('1938-01-01', '2019-01-01');
 
 SELECT cpf, nome, data_do_nascimento, estado_civil, qtd_dividas, qtd_processo FROM consultar_pessoas('%ANA%', 1938, 2019);
-
-SELECT current_user;
-SET ROLE funcionario;

@@ -41,5 +41,3 @@ RETURNS table(nome varchar, capital varchar, regiao varchar) AS $$
 	END;
 $$ language 'plpgsql';
 
-
-select * from consultar_dividas('18112991642', 1920, 2019);
