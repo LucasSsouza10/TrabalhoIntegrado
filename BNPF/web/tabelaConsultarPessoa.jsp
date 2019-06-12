@@ -75,7 +75,7 @@
             $("#consultar").click(function () {
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
-                if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
+                if (($(anoFinal).val() >= $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
                     $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 } else {
@@ -362,7 +362,7 @@
 
                     <h5 style="margin-bottom: 8px;">Tabela com os resultados da consulta de pessoas. Quant. significa Quantidade.</h5>
                     <div class="mb-3">
-                        <span><strong>Nome:</strong><%= ' ' + nome.toUpperCase()%></span>
+                        <span><strong>Trecho de nome:</strong><%= ' ' + nome.toUpperCase()%></span>
                         <span class=" ml-2"><strong>Ano Inical: </strong></span><span id='anoI' ><%= anoInicial%></span>
                         <span class=" ml-2"><strong>Ano Final:</strong></span><span id="anoF" class="ml-1"><%= anoFinal%></span>
                     </div>

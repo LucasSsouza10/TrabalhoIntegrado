@@ -59,7 +59,7 @@
                 var letter_only = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]/;
                 var element = $(nome);
 
-                if (($(anoFinal).val() > $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
+                if (($(anoFinal).val() >= $(anoInicial).val()) && ($(nome).val().length >= 3) && (letter_only.test(element.val()))) {
                     $('#myModal').modal('show');
                     document.getElementById("form").submit();
                 } else {
